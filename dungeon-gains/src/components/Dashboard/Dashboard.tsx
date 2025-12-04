@@ -14,6 +14,24 @@ export const Dashboard = () => {
   const xpForNextLevel = player.stats.level * 100;
   const xpProgress = (player.stats.experience / xpForNextLevel) * 100;
 
+  // Calculate equipment bonuses
+  const equipmentBonus = {
+    strength: 0,
+    power: 0,
+    endurance: 0,
+    stamina: 0,
+  };
+
+  Object.values(player.equippedItems).forEach(item => {
+    if (item?.statBonus) {
+      Object.entries(item.statBonus).forEach(([stat, bonus]) => {
+        if (stat in equipmentBonus) {
+          equipmentBonus[stat as keyof typeof equipmentBonus] += bonus;
+        }
+      });
+    }
+  });
+
   return (
     <div className="dashboard">
       <div className="dashboard-header">
@@ -30,28 +48,48 @@ export const Dashboard = () => {
               <span className="stat-icon">💪</span>
               <div className="stat-details">
                 <span className="stat-name">Strength</span>
-                <span className="stat-value">{player.stats.strength}</span>
+                <span className="stat-value">
+                  {player.stats.strength + equipmentBonus.strength}
+                  {equipmentBonus.strength > 0 && (
+                    <span className="stat-bonus-text"> (+{equipmentBonus.strength})</span>
+                  )}
+                </span>
               </div>
             </div>
             <div className="stat-item">
               <span className="stat-icon">⚡</span>
               <div className="stat-details">
                 <span className="stat-name">Power</span>
-                <span className="stat-value">{player.stats.power}</span>
+                <span className="stat-value">
+                  {player.stats.power + equipmentBonus.power}
+                  {equipmentBonus.power > 0 && (
+                    <span className="stat-bonus-text"> (+{equipmentBonus.power})</span>
+                  )}
+                </span>
               </div>
             </div>
             <div className="stat-item">
               <span className="stat-icon">🛡️</span>
               <div className="stat-details">
                 <span className="stat-name">Endurance</span>
-                <span className="stat-value">{player.stats.endurance}</span>
+                <span className="stat-value">
+                  {player.stats.endurance + equipmentBonus.endurance}
+                  {equipmentBonus.endurance > 0 && (
+                    <span className="stat-bonus-text"> (+{equipmentBonus.endurance})</span>
+                  )}
+                </span>
               </div>
             </div>
             <div className="stat-item">
               <span className="stat-icon">🏃</span>
               <div className="stat-details">
                 <span className="stat-name">Stamina</span>
-                <span className="stat-value">{player.stats.stamina}</span>
+                <span className="stat-value">
+                  {player.stats.stamina + equipmentBonus.stamina}
+                  {equipmentBonus.stamina > 0 && (
+                    <span className="stat-bonus-text"> (+{equipmentBonus.stamina})</span>
+                  )}
+                </span>
               </div>
             </div>
           </div>

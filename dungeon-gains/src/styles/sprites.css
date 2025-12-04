@@ -3,7 +3,7 @@
   display: inline-block;
   width: 64px;
   height: 64px;
-  background-size: 256px 256px; /* 4x4 grid: 4 columns x 4 rows * 64px */
+  background-size: 256px 192px; /* 4x3 grid: 4 columns x 3 rows * 64px */
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
@@ -12,14 +12,30 @@
 .item-sprite-small {
   width: 32px;
   height: 32px;
-  background-size: 128px 128px;
+  background-size: 128px 96px;
 }
 
 .item-sprite-large {
   width: 96px;
   height: 96px;
-  background-size: 384px 384px;
+  background-size: 384px 288px;
 }
+
+/* Scaled positions for large sprites (1.5x scale) */
+.item-sprite-large.sprite-pos-0 { background-position: 0 0; }
+.item-sprite-large.sprite-pos-1 { background-position: -96px 0; }
+.item-sprite-large.sprite-pos-2 { background-position: -192px 0; }
+.item-sprite-large.sprite-pos-3 { background-position: -288px 0; }
+
+.item-sprite-large.sprite-pos-4 { background-position: 0 -96px; }
+.item-sprite-large.sprite-pos-5 { background-position: -96px -96px; }
+.item-sprite-large.sprite-pos-6 { background-position: -192px -96px; }
+.item-sprite-large.sprite-pos-7 { background-position: -288px -96px; }
+
+.item-sprite-large.sprite-pos-8 { background-position: 0 -192px; }
+.item-sprite-large.sprite-pos-9 { background-position: -96px -192px; }
+.item-sprite-large.sprite-pos-10 { background-position: -192px -192px; }
+.item-sprite-large.sprite-pos-11 { background-position: -288px -192px; }
 
 /* Sprite Sheet Definitions */
 .sprite-common-swords { background-image: url('/sprites/common-swords.png'); }
@@ -33,17 +49,17 @@
 .sprite-legendary-bows { background-image: url('/sprites/legendary-bows.png'); }
 
 /* Sprite positions for 4x3 grid (12 items: 4 columns, 3 rows) */
-.sword-0 { background-position: 0 0; }
-.sword-1 { background-position: -64px 0; }
-.sword-2 { background-position: -128px 0; }
-.sword-3 { background-position: -192px 0; }
+.sprite-pos-0 { background-position: 0 0; }
+.sprite-pos-1 { background-position: -64px 0; }
+.sprite-pos-2 { background-position: -128px 0; }
+.sprite-pos-3 { background-position: -192px 0; }
 
-.sword-4 { background-position: 0 -64px; }
-.sword-5 { background-position: -64px -64px; }
-.sword-6 { background-position: -128px -64px; }
-.sword-7 { background-position: -192px -64px; }
+.sprite-pos-4 { background-position: 0 -64px; }
+.sprite-pos-5 { background-position: -64px -64px; }
+.sprite-pos-6 { background-position: -128px -64px; }
+.sprite-pos-7 { background-position: -192px -64px; }
 
-.sword-8 { background-position: 0 -128px; }
-.sword-9 { background-position: -64px -128px; }
-.sword-10 { background-position: -128px -128px; }
-.sword-11 { background-position: -192px -128px; }
+.sprite-pos-8 { background-position: 0 -128px; }
+.sprite-pos-9 { background-position: -64px -128px; }
+.sprite-pos-10 { background-position: -128px -128px; }
+.sprite-pos-11 { background-position: -192px -128px; }

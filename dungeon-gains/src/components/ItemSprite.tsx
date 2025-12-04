@@ -18,7 +18,7 @@ export const ItemSprite: React.FC<ItemSpriteProps> = ({
   
   return (
     <div 
-      className={`item-sprite sprite-${spriteSheet} sword-${spriteIndex} ${sizeClass} ${className}`}
+      className={`item-sprite sprite-${spriteSheet} sprite-pos-${spriteIndex} ${sizeClass} ${className}`}
       role="img"
       aria-label="Item sprite"
     />
