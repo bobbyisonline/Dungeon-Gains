@@ -139,13 +139,9 @@ src/
 - [ ] Daily challenges
 - [ ] Backend integration for cloud saves
 
-## 📝 License
-
-MIT License - feel free to use this project for your own portfolio or fork it to add features!
-
 ## 👨‍💻 Author
 
-**Bobby**
+**Bobby Agnese**
 - GitHub: [@bobbyisonline](https://github.com/bobbyisonline)
 
 ## 🙏 Acknowledgments
