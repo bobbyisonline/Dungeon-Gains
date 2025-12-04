@@ -1,0 +1,19 @@
+.progress-chart-card {
+  grid-column: span 2;
+  min-height: 400px;
+}
+
+.chart-container {
+  height: 350px;
+  padding: 1rem 0;
+}
+
+.progress-chart-card .empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #aaa;
+}
+
+.progress-chart-card .empty-state p {
+  margin: 0.5rem 0;
+}

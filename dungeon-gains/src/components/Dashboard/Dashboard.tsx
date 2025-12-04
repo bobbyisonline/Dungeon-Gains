@@ -1,12 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useGame } from '../../context/GameContext';
 import { ItemIcon } from '../ItemSprite';
+import { LevelUpModal } from '../LevelUpModal/LevelUpModal';
+import { ProgressChart } from '../ProgressChart/ProgressChart';
 import '../../styles/runescape.css';
 import './Dashboard.css';
 
 export const Dashboard = () => {
-  const { gameState, startDungeon, equipItem, unequipItem } = useGame();
+  const { gameState, startDungeon, equipItem, unequipItem, dropItem, useHealthPotion, clearLevelUpInfo } = useGame();
   const [showInventory, setShowInventory] = useState(false);
+  const [showLevelUp, setShowLevelUp] = useState(false);
+
+  // Check for level-up modal
+  useEffect(() => {
+    if (gameState?.levelUpInfo) {
+      setShowLevelUp(true);
+    }
+  }, [gameState?.levelUpInfo]);
 
   if (!gameState) return null;
 
@@ -194,6 +204,40 @@ export const Dashboard = () => {
           </button>
         </div>
 
+        {/* Health & Potions */}
+        <div className="card health-card">
+          <h2>❤️ Health & Potions</h2>
+          <div className="health-section">
+            <div className="health-bar-container">
+              <div className="health-bar">
+                <div 
+                  className="health-fill" 
+                  style={{ width: `${(player.health / player.maxHealth) * 100}%` }}
+                ></div>
+              </div>
+              <p className="health-text">{player.health} / {player.maxHealth} HP</p>
+            </div>
+            
+            <div className="potions-section">
+              <div className="info-row">
+                <span>🧪 Health Potions:</span>
+                <strong>{player.healthPotions || 0}</strong>
+              </div>
+              <button 
+                onClick={useHealthPotion} 
+                className="rs-button"
+                disabled={!player.healthPotions || player.healthPotions <= 0 || player.health >= player.maxHealth}
+                style={{ marginTop: '0.5rem', width: '100%' }}
+              >
+                Use Potion (Restore 50% HP)
+              </button>
+              <p style={{ fontSize: '0.85rem', marginTop: '0.5rem', color: '#888' }}>
+                💡 Earn potions by setting PRs!
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Dungeon Status */}
         <div className="card dungeon-card">
           <h2>🏰 Dungeon Status</h2>
@@ -223,26 +267,8 @@ export const Dashboard = () => {
           )}
         </div>
 
-        {/* Recent Activity */}
-        <div className="card activity-card">
-          <h2>📜 Recent Activity</h2>
-          {player.workoutLogs.length === 0 ? (
-            <p className="empty-state">No workouts logged yet</p>
-          ) : (
-            <div className="activity-list">
-              {player.workoutLogs.slice(-5).reverse().map((log) => (
-                <div key={log.id} className="activity-item">
-                  <span className="activity-date">
-                    {new Date(log.date).toLocaleDateString()}
-                  </span>
-                  <span className="activity-desc">
-                    {log.exercises.length} exercises completed
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        {/* Progress Chart */}
+        <ProgressChart />
       </div>
 
       {/* Inventory Modal */}
@@ -284,22 +310,49 @@ export const Dashboard = () => {
                         ))}
                       </div>
                     )}
-                    <button 
-                      onClick={() => {
-                        equipItem(item);
-                        setShowInventory(false);
-                      }} 
-                      className="rs-button rs-button-primary"
-                      style={{ width: '100%', marginTop: '0.5rem', padding: '0.5rem', fontSize: '1.1rem' }}
-                    >
-                      ⚔️ Equip
-                    </button>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
+                      <button 
+                        onClick={() => {
+                          equipItem(item);
+                          setShowInventory(false);
+                        }} 
+                        className="rs-button rs-button-primary"
+                        style={{ flex: 1, padding: '0.5rem', fontSize: '1.1rem' }}
+                      >
+                        ⚔️ Equip
+                      </button>
+                      <button 
+                        onClick={() => {
+                          if (window.confirm(`Drop ${item.name}? This action cannot be undone!`)) {
+                            dropItem(item.id);
+                          }
+                        }} 
+                        className="rs-button"
+                        style={{ padding: '0.5rem', fontSize: '1.1rem', background: '#8B0000', borderColor: '#660000' }}
+                        title="Drop item permanently"
+                      >
+                        🗑️
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
             )}
           </div>
         </div>
+      )}
+      
+      {/* Level Up Modal */}
+      {showLevelUp && gameState?.levelUpInfo && (
+        <LevelUpModal
+          newLevel={gameState.levelUpInfo.newLevel}
+          oldStats={gameState.levelUpInfo.oldStats}
+          newStats={gameState.levelUpInfo.newStats}
+          onClose={() => {
+            setShowLevelUp(false);
+            clearLevelUpInfo();
+          }}
+        />
       )}
     </div>
   );

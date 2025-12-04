@@ -4,12 +4,9 @@ import type { GameState, WorkoutLog, Item } from '../types';
 import { saveGame, loadGame, createNewPlayer } from '../utils/storage';
 import { generateDungeon } from '../utils/dungeonGenerator';
 import { 
-  calculateExperienceGain, 
   checkLevelUp, 
   calculateMaxHealth,
-  checkForPR,
-  calculateStatBuff,
-  applyStatBuff
+  checkForPR
 } from '../utils/gameLogic';
 
 interface GameContextType {
@@ -17,10 +14,12 @@ interface GameContextType {
   createCharacter: (name: string, bench: number, squat: number, ohp: number, mileTime: number) => void;
   logWorkout: (workout: WorkoutLog) => void;
   startDungeon: () => void;
-  completeDungeon: () => void;
+  completeDungeon: (remainingHealth: number, enemiesDefeated: number) => void;
   equipItem: (item: Item) => void;
   unequipItem: (slot: 'weapon' | 'armor' | 'accessory') => void;
-  resetGame: () => void;
+  dropItem: (itemId: string) => void;
+  useHealthPotion: () => void;
+  clearLevelUpInfo: () => void;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -32,6 +31,25 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const saved = loadGame();
     if (saved) {
+      // Check for 24-hour health restoration
+      const player = saved.player;
+      const now = new Date().toISOString();
+      const lastRestore = player.lastHealthRestoreTime ? new Date(player.lastHealthRestoreTime) : null;
+      
+      if (lastRestore && (new Date(now).getTime() - lastRestore.getTime()) >= 24 * 60 * 60 * 1000) {
+        // 24 hours have passed, restore health
+        player.health = player.maxHealth;
+        player.lastHealthRestoreTime = now;
+      } else if (!lastRestore) {
+        // First time loading, set timestamp
+        player.lastHealthRestoreTime = now;
+      }
+      
+      // Initialize healthPotions if not present
+      if (player.healthPotions === undefined) {
+        player.healthPotions = 0;
+      }
+      
       setGameState(saved);
     }
   }, []);
@@ -57,7 +75,25 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
 
     const updatedPlayer = { ...gameState.player };
     
-    // Check for PRs and apply stat buffs
+    // Initialize healthPotions if not present
+    if (updatedPlayer.healthPotions === undefined) {
+      updatedPlayer.healthPotions = 0;
+    }
+    
+    // Check for 24-hour health restoration
+    const now = new Date().toISOString();
+    const lastRestore = updatedPlayer.lastHealthRestoreTime ? new Date(updatedPlayer.lastHealthRestoreTime) : null;
+    
+    if (lastRestore && (new Date(now).getTime() - lastRestore.getTime()) >= 24 * 60 * 60 * 1000) {
+      // 24 hours have passed, restore health
+      updatedPlayer.health = updatedPlayer.maxHealth;
+      updatedPlayer.lastHealthRestoreTime = now;
+    } else if (!lastRestore) {
+      updatedPlayer.lastHealthRestoreTime = now;
+    }
+    
+    // Check for PRs and award health potions
+    let earnedPotions = 0;
     workout.exercises.forEach(exercise => {
       const isPR = checkForPR(exercise, updatedPlayer.personalRecords);
       
@@ -70,27 +106,13 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
           date: workout.date,
         };
         
-        // Apply stat buff
-        const buff = calculateStatBuff(exercise);
-        updatedPlayer.stats = applyStatBuff(updatedPlayer.stats, buff);
-        updatedPlayer.baseStats = applyStatBuff(updatedPlayer.baseStats, buff);
+        // Award health potion for PR (no stat buff)
+        earnedPotions++;
       }
     });
-
-    // Add experience
-    const xpGain = calculateExperienceGain(workout.exercises);
-    updatedPlayer.stats.experience += xpGain;
-
-    // Check for level up
-    const levelCheck = checkLevelUp(updatedPlayer.stats.level, updatedPlayer.stats.experience);
-    if (levelCheck.leveledUp) {
-      updatedPlayer.stats.level = levelCheck.newLevel;
-      updatedPlayer.stats.experience -= levelCheck.xpForNextLevel;
-      
-      // Update max health on level up
-      const newMaxHealth = calculateMaxHealth(updatedPlayer.stats);
-      updatedPlayer.maxHealth = newMaxHealth;
-      updatedPlayer.health = newMaxHealth; // Heal on level up
+    
+    if (earnedPotions > 0) {
+      updatedPlayer.healthPotions = (updatedPlayer.healthPotions || 0) + earnedPotions;
     }
 
     // Add workout log
@@ -109,7 +131,8 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   const startDungeon = () => {
     if (!gameState || gameState.availableDungeons <= 0) return;
 
-    const difficulty = Math.min(gameState.player.stats.level, 10);
+    // Difficulty starts at 1 and scales slowly with level
+    const difficulty = Math.min(1 + Math.floor((gameState.player.stats.level - 1) / 3), 10);
     const dungeon = generateDungeon(difficulty);
 
     setGameState({
@@ -119,12 +142,60 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const completeDungeon = () => {
+  const completeDungeon = (remainingHealth: number, enemiesDefeated: number) => {
     if (!gameState) return;
+
+    const updatedPlayer = { ...gameState.player };
+    const oldStats = { ...updatedPlayer.stats };
+    
+    // Update player health to what they had when leaving dungeon
+    updatedPlayer.health = Math.max(0, Math.min(remainingHealth, updatedPlayer.maxHealth));
+    
+    // Award XP based on enemies defeated and health remaining
+    const baseXP = enemiesDefeated * 20;
+    const healthBonus = Math.floor((remainingHealth / updatedPlayer.maxHealth) * 30);
+    const totalXP = baseXP + healthBonus;
+    
+    updatedPlayer.stats.experience += totalXP;
+    
+    let levelUpInfo = undefined;
+    
+    // Check for level up
+    const levelCheck = checkLevelUp(updatedPlayer.stats.level, updatedPlayer.stats.experience);
+    if (levelCheck.leveledUp) {
+      updatedPlayer.stats.level = levelCheck.newLevel;
+      updatedPlayer.stats.experience = Math.max(0, updatedPlayer.stats.experience - levelCheck.xpForNextLevel);
+      
+      // Increase all stats on level up
+      updatedPlayer.stats.strength += 1;
+      updatedPlayer.stats.power += 1;
+      updatedPlayer.stats.endurance += 1;
+      updatedPlayer.stats.stamina += 1;
+      
+      // Also update base stats
+      updatedPlayer.baseStats.strength += 1;
+      updatedPlayer.baseStats.power += 1;
+      updatedPlayer.baseStats.endurance += 1;
+      updatedPlayer.baseStats.stamina += 1;
+      
+      // Update max health on level up
+      const newMaxHealth = calculateMaxHealth(updatedPlayer.stats);
+      updatedPlayer.maxHealth = newMaxHealth;
+      updatedPlayer.health = newMaxHealth; // Heal on level up
+      
+      // Store level up info for modal
+      levelUpInfo = {
+        newLevel: levelCheck.newLevel,
+        oldStats,
+        newStats: { ...updatedPlayer.stats }
+      };
+    }
 
     setGameState({
       ...gameState,
+      player: updatedPlayer,
       currentDungeon: null,
+      levelUpInfo,
     });
   };
 
@@ -166,9 +237,43 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const resetGame = () => {
-    setGameState(null);
-    localStorage.removeItem('dungeon_gains_save');
+  const useHealthPotion = () => {
+    if (!gameState || !gameState.player.healthPotions || gameState.player.healthPotions <= 0) return;
+    
+    const updatedPlayer = { ...gameState.player };
+    const healAmount = Math.floor(updatedPlayer.maxHealth * 0.5);
+    updatedPlayer.health = Math.min(updatedPlayer.maxHealth, updatedPlayer.health + healAmount);
+    updatedPlayer.healthPotions = Math.max(0, (updatedPlayer.healthPotions || 0) - 1);
+    
+    setGameState({
+      ...gameState,
+      player: updatedPlayer,
+    });
+  };
+
+  const clearLevelUpInfo = () => {
+    if (!gameState) return;
+    setGameState({
+      ...gameState,
+      levelUpInfo: undefined,
+    });
+  };
+
+  const dropItem = (itemId: string) => {
+    if (!gameState) return;
+
+    const updatedPlayer = {
+      ...gameState.player,
+      inventory: gameState.player.inventory.filter(item => item.id !== itemId)
+    };
+
+    const newState = {
+      ...gameState,
+      player: updatedPlayer
+    };
+
+    setGameState(newState);
+    saveGame(newState);
   };
 
   return (
@@ -181,7 +286,9 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
         completeDungeon,
         equipItem,
         unequipItem,
-        resetGame,
+        dropItem,
+        useHealthPotion,
+        clearLevelUpInfo,
       }}
     >
       {children}

@@ -9,7 +9,7 @@ const EXERCISE_PRESETS = [
   { id: 'bench', name: 'Bench Press', category: 'bench' as const, statType: 'strength' as const },
   { id: 'squat', name: 'Squat', category: 'squat' as const, statType: 'power' as const },
   { id: 'ohp', name: 'Overhead Press', category: 'overhead' as const, statType: 'endurance' as const },
-  { id: 'run', name: 'Mile Run', category: 'cardio' as const, statType: 'stamina' as const },
+  { id: 'deadlift', name: 'Deadlift', category: 'squat' as const, statType: 'stamina' as const },
 ];
 
 export const WorkoutLogger = () => {
@@ -49,8 +49,9 @@ export const WorkoutLogger = () => {
       name: selectedPreset.name,
       category: selectedPreset.category,
       statType: selectedPreset.statType,
-      ...(selectedPreset.category !== 'cardio' && { weight, sets, reps }),
-      ...(selectedPreset.category === 'cardio' && { time: time * 60, distance: 1 }),
+      weight,
+      sets,
+      reps,
     };
 
     setExercises([...exercises, { ...newExercise, id: `${newExercise.id}_${Date.now()}` }]);
@@ -102,7 +103,7 @@ export const WorkoutLogger = () => {
     alert('🎉 Workout logged! You unlocked a dungeon run!');
   };
 
-  const isCardio = selectedPreset.category === 'cardio';
+  const isCardio = false; // No cardio presets anymore
 
   return (
     <div className="workout-logger">

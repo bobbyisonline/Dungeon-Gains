@@ -1,4 +1,4 @@
-import type { GameState, PlayerCharacter } from '../types';
+import type { GameState, PlayerCharacter, PersonalRecord } from '../types';
 import { calculateInitialStats, calculateMaxHealth } from './gameLogic';
 
 const STORAGE_KEY = 'dungeon_gains_save';
@@ -32,9 +32,34 @@ export const createNewPlayer = (
   benchPress: number,
   squat: number,
   overheadPress: number,
-  mileTime: number
+  deadlift: number
 ): PlayerCharacter => {
-  const baseStats = calculateInitialStats(benchPress, squat, overheadPress, mileTime);
+  const baseStats = calculateInitialStats(benchPress, squat, overheadPress, deadlift);
+  
+  // Initialize personal records with starting lifts
+  // Future workouts must exceed these to count as PRs
+  const initialPRs: Record<string, PersonalRecord> = {
+    'bench': {
+      exerciseId: 'bench',
+      value: benchPress,
+      date: new Date().toISOString(),
+    },
+    'squat': {
+      exerciseId: 'squat',
+      value: squat,
+      date: new Date().toISOString(),
+    },
+    'ohp': {
+      exerciseId: 'ohp',
+      value: overheadPress,
+      date: new Date().toISOString(),
+    },
+    'deadlift': {
+      exerciseId: 'deadlift',
+      value: deadlift,
+      date: new Date().toISOString(),
+    },
+  };
   
   return {
     name,
@@ -45,6 +70,6 @@ export const createNewPlayer = (
     inventory: [],
     equippedItems: {},
     workoutLogs: [],
-    personalRecords: {},
+    personalRecords: initialPRs,
   };
 };

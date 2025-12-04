@@ -44,17 +44,35 @@ const COMMON_WEAPONS: Omit<Item, 'id'>[] = [
 ];
 
 const COMMON_ARMOR: Omit<Item, 'id'>[] = [
-  { name: 'Cloth Armor', type: 'armor', rarity: 'common', statBonus: { endurance: 2 }, description: 'Simple protective gear', icon: '👕' },
+  // Helmets
+  { name: 'Rusty Iron Full Helm', type: 'armor', rarity: 'common', statBonus: { endurance: 1 }, description: 'Worn but functional', icon: '🪖', spriteSheet: 'common-armor', spriteIndex: 0 },
+  { name: "Squire's Steel Med Helm", type: 'armor', rarity: 'common', statBonus: { strength: 1 }, description: 'Training helmet', icon: '🪖', spriteSheet: 'common-armor', spriteIndex: 1 },
+  { name: 'Leather Coif', type: 'armor', rarity: 'common', statBonus: { stamina: 1 }, description: 'Light head protection', icon: '🪖', spriteSheet: 'common-armor', spriteIndex: 2 },
+  { name: 'Bronze Barbute', type: 'armor', rarity: 'common', statBonus: { endurance: 1 }, description: 'Classic design', icon: '🪖', spriteSheet: 'common-armor', spriteIndex: 3 },
+  { name: 'Town Guard Kettle Hat', type: 'armor', rarity: 'common', statBonus: { strength: 1 }, description: 'Militia standard issue', icon: '🪖', spriteSheet: 'common-armor', spriteIndex: 4 },
+  { name: 'Studded Leather Cap', type: 'armor', rarity: 'common', statBonus: { stamina: 1 }, description: 'Reinforced headwear', icon: '🪖', spriteSheet: 'common-armor', spriteIndex: 5 },
+  // Body Armor
+  { name: 'Infantry Chainmail', type: 'armor', rarity: 'common', statBonus: { endurance: 2 }, description: 'Basic chain protection', icon: '🛡️', spriteSheet: 'common-armor', spriteIndex: 6 },
+  { name: 'Hardened Leather Cuirass', type: 'armor', rarity: 'common', statBonus: { stamina: 2 }, description: 'Boiled leather armor', icon: '🛡️', spriteSheet: 'common-armor', spriteIndex: 7 },
+  { name: 'Militia Platebody', type: 'armor', rarity: 'common', statBonus: { endurance: 3 }, description: 'Heavy protection', icon: '🛡️', spriteSheet: 'common-armor', spriteIndex: 8 },
+  { name: 'Padded Gambeson', type: 'armor', rarity: 'common', statBonus: { stamina: 2 }, description: 'Quilted defense', icon: '🛡️', spriteSheet: 'common-armor', spriteIndex: 9 },
+  { name: 'Bronze Scale Mail', type: 'armor', rarity: 'common', statBonus: { strength: 2 }, description: 'Ancient armor style', icon: '🛡️', spriteSheet: 'common-armor', spriteIndex: 10 },
+  { name: "Miner's Tunic", type: 'armor', rarity: 'common', statBonus: { strength: 1, stamina: 1 }, description: 'Tough work clothes', icon: '🛡️', spriteSheet: 'common-armor', spriteIndex: 11 },
 ];
 
 const COMMON_ACCESSORIES: Omit<Item, 'id'>[] = [
-  { name: 'Leather Gloves', type: 'accessory', rarity: 'common', statBonus: { power: 1 }, description: 'Workout gloves', icon: '🧤' },
-];
-
-const UNCOMMON_ITEMS: Omit<Item, 'id'>[] = [
-  { name: 'Iron Sword', type: 'weapon', rarity: 'uncommon', statBonus: { strength: 4 }, description: 'A reliable blade', icon: '⚔️' },
-  { name: 'Leather Armor', type: 'armor', rarity: 'uncommon', statBonus: { endurance: 4 }, description: 'Sturdy protection', icon: '🦺' },
-  { name: 'Running Shoes', type: 'accessory', rarity: 'uncommon', statBonus: { stamina: 3 }, description: 'Light and fast', icon: '👟' },
+  { name: 'Red Gem Amulet', type: 'accessory', rarity: 'common', statBonus: { power: 1 }, description: 'Simple ruby pendant', icon: '📿', spriteSheet: 'common-accessories', spriteIndex: 0 },
+  { name: 'Iron Ring', type: 'accessory', rarity: 'common', statBonus: { strength: 1 }, description: 'Simple iron band', icon: '💍', spriteSheet: 'common-accessories', spriteIndex: 1 },
+  { name: 'Simple Leather Boots', type: 'accessory', rarity: 'common', statBonus: { stamina: 1 }, description: 'Basic footwear', icon: '👢', spriteSheet: 'common-accessories', spriteIndex: 2 },
+  { name: 'Leather Tunic', type: 'accessory', rarity: 'common', statBonus: { endurance: 1 }, description: 'Simple protection', icon: '👔', spriteSheet: 'common-accessories', spriteIndex: 3 },
+  { name: 'Leather Pouch', type: 'accessory', rarity: 'common', statBonus: { stamina: 1 }, description: 'Holds supplies', icon: '👝', spriteSheet: 'common-accessories', spriteIndex: 4 },
+  { name: 'Plain Scroll', type: 'accessory', rarity: 'common', statBonus: { power: 1 }, description: 'Basic incantation', icon: '📜', spriteSheet: 'common-accessories', spriteIndex: 5 },
+  { name: 'Copper Brooch', type: 'accessory', rarity: 'common', statBonus: { endurance: 1 }, description: 'Tarnished pin', icon: '📎', spriteSheet: 'common-accessories', spriteIndex: 6 },
+  { name: 'Leather Gloves', type: 'accessory', rarity: 'common', statBonus: { strength: 1 }, description: 'Worn work gloves', icon: '🧤', spriteSheet: 'common-accessories', spriteIndex: 7 },
+  { name: 'Bone Necklace', type: 'accessory', rarity: 'common', statBonus: { power: 1 }, description: 'Tribal charm', icon: '🦴', spriteSheet: 'common-accessories', spriteIndex: 8 },
+  { name: 'Red Potion Vial', type: 'accessory', rarity: 'common', statBonus: { strength: 1 }, description: 'Weak tonic', icon: '🧪', spriteSheet: 'common-accessories', spriteIndex: 9 },
+  { name: 'Brown Feather', type: 'accessory', rarity: 'common', statBonus: { stamina: 1 }, description: 'Light as air', icon: '🪶', spriteSheet: 'common-accessories', spriteIndex: 10 },
+  { name: 'Leather Belt', type: 'accessory', rarity: 'common', statBonus: { endurance: 1 }, description: 'Sturdy waistband', icon: '🔗', spriteSheet: 'common-accessories', spriteIndex: 11 },
 ];
 
 const RARE_WEAPONS: Omit<Item, 'id'>[] = [
@@ -100,17 +118,35 @@ const RARE_WEAPONS: Omit<Item, 'id'>[] = [
 ];
 
 const RARE_ARMOR: Omit<Item, 'id'>[] = [
-  { name: 'Chainmail', type: 'armor', rarity: 'rare', statBonus: { endurance: 6, stamina: 2 }, description: 'Heavy but protective', icon: '🛡️' },
+  // Helmets
+  { name: 'Drake-scale Greathelm', type: 'armor', rarity: 'rare', statBonus: { strength: 4, endurance: 2 }, description: 'Forged from dragon scales', icon: '🪖', spriteSheet: 'rare-armor', spriteIndex: 0 },
+  { name: 'Crystalline Visor', type: 'armor', rarity: 'rare', statBonus: { power: 4 }, description: 'Magically infused', icon: '🪖', spriteSheet: 'rare-armor', spriteIndex: 1 },
+  { name: 'Runed Knight Helm', type: 'armor', rarity: 'rare', statBonus: { power: 3, endurance: 3 }, description: 'Enchanted protection', icon: '🪖', spriteSheet: 'rare-armor', spriteIndex: 2 },
+  { name: 'Obsidian Sentinel Helm', type: 'armor', rarity: 'rare', statBonus: { endurance: 6 }, description: 'Volcanic hardness', icon: '🪖', spriteSheet: 'rare-armor', spriteIndex: 3 },
+  { name: 'Verdant Cowl', type: 'armor', rarity: 'rare', statBonus: { stamina: 5 }, description: 'Nature\'s blessing', icon: '🪖', spriteSheet: 'rare-armor', spriteIndex: 4 },
+  { name: "Executioner's Iron Hood", type: 'armor', rarity: 'rare', statBonus: { strength: 5 }, description: 'Intimidating presence', icon: '🪖', spriteSheet: 'rare-armor', spriteIndex: 5 },
+  // Body Armor
+  { name: "Gilded Champion's Plate", type: 'armor', rarity: 'rare', statBonus: { strength: 4, endurance: 4 }, description: 'For true heroes', icon: '🛡️', spriteSheet: 'rare-armor', spriteIndex: 6 },
+  { name: "Bone-Lord's Ribcage", type: 'armor', rarity: 'rare', statBonus: { power: 5, stamina: 2 }, description: 'Necromantic power', icon: '🛡️', spriteSheet: 'rare-armor', spriteIndex: 7 },
+  { name: 'Crimson Ronin Do-maru', type: 'armor', rarity: 'rare', statBonus: { stamina: 4, strength: 3 }, description: 'Eastern warrior armor', icon: '🛡️', spriteSheet: 'rare-armor', spriteIndex: 8 },
+  { name: 'Frostburn Mail', type: 'armor', rarity: 'rare', statBonus: { power: 4, endurance: 3 }, description: 'Ice and fire combined', icon: '🛡️', spriteSheet: 'rare-armor', spriteIndex: 9 },
+  { name: 'Abyssal Cultist Robe-Top', type: 'armor', rarity: 'rare', statBonus: { power: 7 }, description: 'Dark rituals enhance power', icon: '🛡️', spriteSheet: 'rare-armor', spriteIndex: 10 },
+  { name: 'Griffin-Hide Tunic', type: 'armor', rarity: 'rare', statBonus: { stamina: 6, endurance: 2 }, description: 'Mythical beast leather', icon: '🛡️', spriteSheet: 'rare-armor', spriteIndex: 11 },
 ];
 
 const RARE_ACCESSORIES: Omit<Item, 'id'>[] = [
-  { name: 'Power Belt', type: 'accessory', rarity: 'rare', statBonus: { power: 5 }, description: 'Weightlifting belt of champions', icon: '🔗' },
-];
-
-const EPIC_ITEMS: Omit<Item, 'id'>[] = [
-  { name: 'Dragon Slayer', type: 'weapon', rarity: 'epic', statBonus: { strength: 10, power: 5 }, description: 'Legendary weapon of heroes', icon: '⚔️' },
-  { name: 'Plate Mail', type: 'armor', rarity: 'epic', statBonus: { endurance: 10, strength: 3 }, description: 'Armor of the ancients', icon: '🛡️' },
-  { name: 'Phoenix Feather', type: 'accessory', rarity: 'epic', statBonus: { stamina: 8, endurance: 4 }, description: 'Never tire again', icon: '🪶' },
+  { name: 'Silver Sapphire Amulet', type: 'accessory', rarity: 'rare', statBonus: { power: 3 }, description: 'Elegant blue pendant', icon: '💎', spriteSheet: 'rare-accessories', spriteIndex: 0 },
+  { name: 'Gold Sapphire Ring', type: 'accessory', rarity: 'rare', statBonus: { power: 2, stamina: 1 }, description: 'Ornate gemstone ring', icon: '💍', spriteSheet: 'rare-accessories', spriteIndex: 1 },
+  { name: 'Reinforced Leather Boots', type: 'accessory', rarity: 'rare', statBonus: { stamina: 3 }, description: 'Sturdy footwear', icon: '👢', spriteSheet: 'rare-accessories', spriteIndex: 2 },
+  { name: 'Ornate Tome', type: 'accessory', rarity: 'rare', statBonus: { power: 4 }, description: 'Ancient knowledge', icon: '📖', spriteSheet: 'rare-accessories', spriteIndex: 3 },
+  { name: 'Gilded Blue Pouch', type: 'accessory', rarity: 'rare', statBonus: { stamina: 2, strength: 1 }, description: 'Enchanted bag', icon: '👝', spriteSheet: 'rare-accessories', spriteIndex: 4 },
+  { name: 'Runic Scroll', type: 'accessory', rarity: 'rare', statBonus: { power: 3, endurance: 1 }, description: 'Powerful incantation', icon: '📜', spriteSheet: 'rare-accessories', spriteIndex: 5 },
+  { name: 'Ornate Silver Brooch', type: 'accessory', rarity: 'rare', statBonus: { endurance: 3 }, description: 'Protective clasp', icon: '📎', spriteSheet: 'rare-accessories', spriteIndex: 6 },
+  { name: 'Chainmail Gloves', type: 'accessory', rarity: 'rare', statBonus: { strength: 2, endurance: 1 }, description: 'Metal gauntlets', icon: '🧤', spriteSheet: 'rare-accessories', spriteIndex: 7 },
+  { name: 'Wooden Totem Mask', type: 'accessory', rarity: 'rare', statBonus: { strength: 3 }, description: 'Tribal power', icon: '🗿', spriteSheet: 'rare-accessories', spriteIndex: 8 },
+  { name: 'Blue Potion Vial', type: 'accessory', rarity: 'rare', statBonus: { power: 3 }, description: 'Magical elixir', icon: '🧪', spriteSheet: 'rare-accessories', spriteIndex: 9 },
+  { name: 'Striped Feather', type: 'accessory', rarity: 'rare', statBonus: { stamina: 3 }, description: 'Swift movement', icon: '🪶', spriteSheet: 'rare-accessories', spriteIndex: 10 },
+  { name: 'Gilded Belt', type: 'accessory', rarity: 'rare', statBonus: { endurance: 3 }, description: 'Golden waistband', icon: '🔗', spriteSheet: 'rare-accessories', spriteIndex: 11 },
 ];
 
 const LEGENDARY_WEAPONS: Omit<Item, 'id'>[] = [
@@ -156,48 +192,102 @@ const LEGENDARY_WEAPONS: Omit<Item, 'id'>[] = [
 ];
 
 const LEGENDARY_ARMOR: Omit<Item, 'id'>[] = [
-  { name: 'Divine Armor', type: 'armor', rarity: 'legendary', statBonus: { endurance: 15, stamina: 10 }, description: 'Blessed by the gods', icon: '✨' },
+  // Helmets
+  { name: 'Crown of the Sun-Emperor', type: 'armor', rarity: 'legendary', statBonus: { power: 10, stamina: 5 }, description: 'Solar majesty', icon: '👑', spriteSheet: 'legendary-armor', spriteIndex: 0 },
+  { name: 'Skull of Eternal Torment', type: 'armor', rarity: 'legendary', statBonus: { power: 8, strength: 8 }, description: 'Cursed with dark power', icon: '💀', spriteSheet: 'legendary-armor', spriteIndex: 1 },
+  { name: "Seraphim's Halo-Helm", type: 'armor', rarity: 'legendary', statBonus: { power: 12 }, description: 'Divine radiance', icon: '😇', spriteSheet: 'legendary-armor', spriteIndex: 2 },
+  { name: "Tempest Caller's Gale-Hood", type: 'armor', rarity: 'legendary', statBonus: { power: 8, stamina: 8 }, description: 'Commands storms', icon: '🌪️', spriteSheet: 'legendary-armor', spriteIndex: 3 },
+  { name: 'Event Horizon Greathelm', type: 'armor', rarity: 'legendary', statBonus: { power: 10, endurance: 5 }, description: 'Void incarnate', icon: '🕳️', spriteSheet: 'legendary-armor', spriteIndex: 4 },
+  { name: "Arcanist's Floating Crown", type: 'armor', rarity: 'legendary', statBonus: { power: 15 }, description: 'Ultimate magical power', icon: '🔮', spriteSheet: 'legendary-armor', spriteIndex: 5 },
+  // Body Armor
+  { name: 'Titan-Core Magma Mail', type: 'armor', rarity: 'legendary', statBonus: { strength: 12, endurance: 8 }, description: 'Molten core armor', icon: '🌋', spriteSheet: 'legendary-armor', spriteIndex: 6 },
+  { name: "Voidwalker's Astral Plate", type: 'armor', rarity: 'legendary', statBonus: { endurance: 10, power: 8 }, description: 'Cosmic protection', icon: '✨', spriteSheet: 'legendary-armor', spriteIndex: 7 },
+  { name: "Demonlord's Maw-Plate", type: 'armor', rarity: 'legendary', statBonus: { strength: 15 }, description: 'Infernal might', icon: '😈', spriteSheet: 'legendary-armor', spriteIndex: 8 },
+  { name: 'Glacial Behemoth Armor', type: 'armor', rarity: 'legendary', statBonus: { endurance: 20 }, description: 'Absolute defense', icon: '🧊', spriteSheet: 'legendary-armor', spriteIndex: 9 },
+  { name: 'Soul-Prison Wraithcage', type: 'armor', rarity: 'legendary', statBonus: { stamina: 10, power: 8 }, description: 'Binds spirits', icon: '👻', spriteSheet: 'legendary-armor', spriteIndex: 10 },
+  { name: 'Aegis of Pure Radiance', type: 'armor', rarity: 'legendary', statBonus: { endurance: 12, power: 8 }, description: 'Holy barrier', icon: '🛡️', spriteSheet: 'legendary-armor', spriteIndex: 11 },
 ];
 
 const LEGENDARY_ACCESSORIES: Omit<Item, 'id'>[] = [
-  { name: 'Crown of Victory', type: 'accessory', rarity: 'legendary', statBonus: { strength: 8, power: 8, endurance: 8, stamina: 8 }, description: 'For true champions', icon: '👑' },
+  { name: 'Spiked Ruby Amulet', type: 'accessory', rarity: 'legendary', statBonus: { strength: 8 }, description: 'Raw power incarnate', icon: '💎', spriteSheet: 'legendary-accessories', spriteIndex: 0 },
+  { name: 'Halo Ring', type: 'accessory', rarity: 'legendary', statBonus: { power: 8 }, description: 'Divine blessing', icon: '💍', spriteSheet: 'legendary-accessories', spriteIndex: 1 },
+  { name: 'Cosmic Boots', type: 'accessory', rarity: 'legendary', statBonus: { stamina: 10 }, description: 'Walk among stars', icon: '👢', spriteSheet: 'legendary-accessories', spriteIndex: 2 },
+  { name: 'Ancient Runic Tome', type: 'accessory', rarity: 'legendary', statBonus: { power: 12 }, description: 'Ultimate arcane knowledge', icon: '📖', spriteSheet: 'legendary-accessories', spriteIndex: 3 },
+  { name: 'Magma Pouch', type: 'accessory', rarity: 'legendary', statBonus: { strength: 5, power: 5 }, description: 'Molten core energy', icon: '🌋', spriteSheet: 'legendary-accessories', spriteIndex: 4 },
+  { name: 'Radiant Scroll', type: 'accessory', rarity: 'legendary', statBonus: { power: 8, endurance: 4 }, description: 'Blessed incantation', icon: '📜', spriteSheet: 'legendary-accessories', spriteIndex: 5 },
+  { name: 'Phoenix Feather', type: 'accessory', rarity: 'legendary', statBonus: { stamina: 6, power: 6 }, description: 'Eternal rebirth', icon: '🔥', spriteSheet: 'legendary-accessories', spriteIndex: 6 },
+  { name: 'Lightning Gloves', type: 'accessory', rarity: 'legendary', statBonus: { power: 8, strength: 4 }, description: 'Storm-wielder gauntlets', icon: '⚡', spriteSheet: 'legendary-accessories', spriteIndex: 7 },
+  { name: 'Celestial Shield Ward', type: 'accessory', rarity: 'legendary', statBonus: { endurance: 12 }, description: 'Impenetrable barrier', icon: '🛡️', spriteSheet: 'legendary-accessories', spriteIndex: 8 },
+  { name: 'Golden Elixir Vial', type: 'accessory', rarity: 'legendary', statBonus: { endurance: 10 }, description: 'Immortality essence', icon: '🧪', spriteSheet: 'legendary-accessories', spriteIndex: 9 },
+  { name: 'Magma Belt', type: 'accessory', rarity: 'legendary', statBonus: { endurance: 8, strength: 4 }, description: 'Volcanic fortitude', icon: '🔥', spriteSheet: 'legendary-accessories', spriteIndex: 10 },
+  { name: 'Demon Head Icon', type: 'accessory', rarity: 'legendary', statBonus: { power: 10, strength: 5 }, description: 'Infernal dominion', icon: '😈', spriteSheet: 'legendary-accessories', spriteIndex: 11 },
 ];
 
-// Enemy templates
-const ENEMY_TEMPLATES = [
-  { name: 'Goblin', baseHealth: 30, baseAttack: 8, baseDefense: 2, icon: '👺' },
-  { name: 'Skeleton', baseHealth: 40, baseAttack: 10, baseDefense: 3, icon: '💀' },
-  { name: 'Orc', baseHealth: 60, baseAttack: 15, baseDefense: 5, icon: '👹' },
-  { name: 'Dark Knight', baseHealth: 80, baseAttack: 20, baseDefense: 8, icon: '🗡️' },
-  { name: 'Dragon', baseHealth: 150, baseAttack: 30, baseDefense: 15, icon: '🐉' },
+// Enemy templates with level ranges and sprites
+interface EnemyTemplate {
+  name: string;
+  baseHealth: number;
+  baseAttack: number;
+  baseDefense: number;
+  icon: string;
+  minLevel: number;  // Minimum player level to encounter
+  maxLevel: number;  // Maximum player level before too weak
+  spriteIndex: number;
+}
+
+const ENEMY_TEMPLATES: EnemyTemplate[] = [
+  // Early game (Levels 1-5) - Very weak, beatable by level 1
+  { name: 'Sewer Slime', baseHealth: 15, baseAttack: 1, baseDefense: 0, icon: '🟢', minLevel: 1, maxLevel: 5, spriteIndex: 0 },
+  { name: 'Cellar Rat', baseHealth: 20, baseAttack: 2, baseDefense: 0, icon: '🐀', minLevel: 1, maxLevel: 6, spriteIndex: 1 },
+  { name: 'Goblin Scout', baseHealth: 30, baseAttack: 3, baseDefense: 1, icon: '👺', minLevel: 2, maxLevel: 8, spriteIndex: 2 },
+  
+  // Mid-early game (Levels 4-10)
+  { name: 'Restless Skeleton', baseHealth: 40, baseAttack: 4, baseDefense: 1, icon: '💀', minLevel: 4, maxLevel: 11, spriteIndex: 3 },
+  { name: 'Shambling Zombie', baseHealth: 50, baseAttack: 5, baseDefense: 2, icon: '🧟', minLevel: 5, maxLevel: 12, spriteIndex: 4 },
+  { name: 'Orc Warrior', baseHealth: 65, baseAttack: 6, baseDefense: 3, icon: '👹', minLevel: 7, maxLevel: 15, spriteIndex: 5 },
+  
+  // Mid game (Levels 10-18)
+  { name: 'Crypt Ghoul', baseHealth: 85, baseAttack: 8, baseDefense: 5, icon: '👻', minLevel: 10, maxLevel: 18, spriteIndex: 6 },
+  { name: 'Rock Golem', baseHealth: 100, baseAttack: 9, baseDefense: 8, icon: '🗿', minLevel: 12, maxLevel: 20, spriteIndex: 7 },
+  { name: 'Lesser Demon', baseHealth: 120, baseAttack: 11, baseDefense: 6, icon: '😈', minLevel: 15, maxLevel: 23, spriteIndex: 8 },
+  
+  // Late game (Levels 18+)
+  { name: 'Black Knight', baseHealth: 140, baseAttack: 13, baseDefense: 10, icon: '⚔️', minLevel: 18, maxLevel: 28, spriteIndex: 9 },
+  { name: 'Necromancer', baseHealth: 130, baseAttack: 15, baseDefense: 8, icon: '🧙', minLevel: 20, maxLevel: 30, spriteIndex: 10 },
+  { name: 'Red Dragon', baseHealth: 200, baseAttack: 20, baseDefense: 15, icon: '🐉', minLevel: 25, maxLevel: 99, spriteIndex: 11 },
 ];
 
-// Generate random item with ID
-export const generateItem = (difficulty: number): Item => {
+// Generate random item with level-based rarity scaling
+export const generateItem = (playerLevel: number): Item => {
   const roll = Math.random() * 100;
   let itemPool: Omit<Item, 'id'>[];
   
-  // Higher difficulty = better loot chances
-  const rarityBonus = difficulty * 5;
+  // Level-based rarity chances (RPG-style loot system)
+  // Legendary: Only drops after level 10, max 2% at level 30+
+  const legendaryChance = playerLevel >= 10 ? Math.min(2, (playerLevel - 10) * 0.1) : 0;
   
-  if (roll < 5 + rarityBonus * 0.5) {
-    // Legendary
+  // Rare: Starts at 5% (level 1), increases to 25% at level 15+
+  const rareChance = Math.min(25, 5 + (playerLevel * 1.3));
+  
+  // Common: Makes up the rest (95% at level 1, 73% at level 30)
+  // Level 1: 0% legendary, 5% rare, 95% common
+  // Level 5: 0% legendary, 11.5% rare, 88.5% common
+  // Level 10: 0% legendary, 18% rare, 82% common
+  // Level 15: 0.5% legendary, 25% rare, 74.5% common
+  // Level 30+: 2% legendary, 25% rare, 73% common
+  
+  if (roll < legendaryChance) {
+    // Legendary - ultra rare
     const legendaryPools = [LEGENDARY_WEAPONS, LEGENDARY_ARMOR, LEGENDARY_ACCESSORIES];
     const pool = legendaryPools[Math.floor(Math.random() * legendaryPools.length)];
     itemPool = pool;
-  } else if (roll < 15 + rarityBonus) {
-    // Epic
-    itemPool = EPIC_ITEMS;
-  } else if (roll < 35 + rarityBonus * 1.5) {
-    // Rare
+  } else if (roll < legendaryChance + rareChance) {
+    // Rare - uncommon
     const rarePools = [RARE_WEAPONS, RARE_ARMOR, RARE_ACCESSORIES];
     const pool = rarePools[Math.floor(Math.random() * rarePools.length)];
     itemPool = pool;
-  } else if (roll < 65) {
-    // Uncommon
-    itemPool = UNCOMMON_ITEMS;
   } else {
-    // Common
+    // Common - most frequent
     const commonPools = [COMMON_WEAPONS, COMMON_ARMOR, COMMON_ACCESSORIES];
     const pool = commonPools[Math.floor(Math.random() * commonPools.length)];
     itemPool = pool;
@@ -211,21 +301,36 @@ export const generateItem = (difficulty: number): Item => {
   };
 };
 
-// Generate enemy based on difficulty
+// Generate enemy based on difficulty (now uses player level)
 export const generateEnemy = (difficulty: number, isBoss: boolean = false): Enemy => {
-  const template = ENEMY_TEMPLATES[Math.min(difficulty, ENEMY_TEMPLATES.length - 1)];
-  const multiplier = isBoss ? 2.5 : 1;
+  // Filter enemies that are appropriate for this level
+  const validEnemies = ENEMY_TEMPLATES.filter(
+    e => difficulty >= e.minLevel && difficulty <= e.maxLevel
+  );
   
-  const health = Math.floor(template.baseHealth * difficulty * multiplier * (Math.random() * 0.2 + 0.9));
+  // If no valid enemies (shouldn't happen), fall back to first enemy
+  const enemyPool = validEnemies.length > 0 ? validEnemies : [ENEMY_TEMPLATES[0]];
+  
+  // Select random enemy from valid pool
+  const template = enemyPool[Math.floor(Math.random() * enemyPool.length)];
+  
+  // Boss multiplier - scales with difficulty (weaker at low levels)
+  // Level 1-5: 1.5x, Level 10: 2x, Level 20+: 2.5x
+  const bossMultiplier = isBoss ? Math.min(2.5, 1.5 + (difficulty * 0.05)) : 1;
+  
+  // Scale health with some randomness
+  const health = Math.floor(template.baseHealth * bossMultiplier * (Math.random() * 0.2 + 0.9));
   
   return {
     id: `enemy_${Date.now()}_${Math.random()}`,
     name: isBoss ? `${template.name} Boss` : template.name,
     health,
     maxHealth: health,
-    attack: Math.floor(template.baseAttack * difficulty * multiplier),
-    defense: Math.floor(template.baseDefense * difficulty * multiplier),
+    attack: Math.floor(template.baseAttack * bossMultiplier),
+    defense: Math.floor(template.baseDefense * bossMultiplier),
     icon: template.icon,
+    spriteSheet: 'enemy-sprites',
+    spriteIndex: template.spriteIndex,
   };
 };
 

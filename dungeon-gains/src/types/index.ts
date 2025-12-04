@@ -55,6 +55,8 @@ export interface Enemy {
   attack: number;
   defense: number;
   icon: string;
+  spriteSheet?: string;
+  spriteIndex?: number;
 }
 
 export interface DungeonRoom {
@@ -87,10 +89,17 @@ export interface PlayerCharacter {
   };
   workoutLogs: WorkoutLog[];
   personalRecords: Record<string, PersonalRecord>;
+  lastHealthRestoreTime?: string; // ISO timestamp for 24-hour health restoration
+  healthPotions?: number; // Number of health potions (50% restore)
 }
 
 export interface GameState {
   player: PlayerCharacter;
   currentDungeon: Dungeon | null;
   availableDungeons: number; // Dungeons unlocked by completed workouts
+  levelUpInfo?: {
+    newLevel: number;
+    oldStats: CharacterStats;
+    newStats: CharacterStats;
+  };
 }

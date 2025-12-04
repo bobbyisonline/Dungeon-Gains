@@ -41,12 +41,19 @@
 .sprite-common-swords { background-image: url('/sprites/common-swords.png'); }
 .sprite-common-axes { background-image: url('/sprites/common-axes.png'); }
 .sprite-common-bows { background-image: url('/sprites/common-bows.png'); }
+.sprite-common-armor { background-image: url('/sprites/common-armor.png'); }
+.sprite-common-accessories { background-image: url('/sprites/common-accessories.png'); }
 .sprite-rare-swords { background-image: url('/sprites/rare-swords.png'); }
 .sprite-rare-axes { background-image: url('/sprites/rare-axes.png'); }
 .sprite-rare-bows { background-image: url('/sprites/rare-bows.png'); }
+.sprite-rare-armor { background-image: url('/sprites/rare-armor.png'); }
+.sprite-rare-accessories { background-image: url('/sprites/rare-accessories.png'); }
 .sprite-legendary-swords { background-image: url('/sprites/legendary-swords.png'); }
 .sprite-legendary-axes { background-image: url('/sprites/legendary-axes.png'); }
 .sprite-legendary-bows { background-image: url('/sprites/legendary-bows.png'); }
+.sprite-legendary-armor { background-image: url('/sprites/legendary-armor.png'); }
+.sprite-legendary-accessories { background-image: url('/sprites/legendary-accessories.png'); }
+.sprite-enemy-sprites { background-image: url('/sprites/enemy-sprites.png'); }
 
 /* Sprite positions for 4x3 grid (12 items: 4 columns, 3 rows) */
 .sprite-pos-0 { background-position: 0 0; }

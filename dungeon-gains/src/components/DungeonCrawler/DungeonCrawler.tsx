@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import type { Enemy, DungeonRoom, Item } from '../../types';
 import { useGame } from '../../context/GameContext';
-import { calculatePlayerDamage, calculateDamageReduction } from '../../utils/gameLogic';
+import { calculatePlayerDamage, calculatePlayerDefense } from '../../utils/gameLogic';
 import { collectLoot } from '../../utils/dungeonGenerator';
 import { ItemIcon } from '../ItemSprite';
+import { ItemLootModal } from '../ItemLootModal/ItemLootModal';
+import { DeathModal } from '../DeathModal/DeathModal';
 import './DungeonCrawler.css';
 
 export const DungeonCrawler = () => {
@@ -18,6 +20,12 @@ export const DungeonCrawler = () => {
   const [totalDamageDealt, setTotalDamageDealt] = useState(0);
   const [lootCollected, setLootCollected] = useState<Item[]>([]);
   const [initialized, setInitialized] = useState(false);
+  
+  // Modal state
+  const [showLootModal, setShowLootModal] = useState(false);
+  const [currentLootItem, setCurrentLootItem] = useState<Item | null>(null);
+  const [lootQueue, setLootQueue] = useState<Item[]>([]);
+  const [isDead, setIsDead] = useState(false);
 
   if (!gameState?.currentDungeon) return null;
 
@@ -42,11 +50,19 @@ export const DungeonCrawler = () => {
     }
   }, [initialized, currentRoom]);
 
-  const attackEnemy = () => {
-    if (!currentEnemy) return;
+  // Handle loot queue - show items one at a time
+  useEffect(() => {
+    if (!showLootModal && lootQueue.length > 0) {
+      setCurrentLootItem(lootQueue[0]);
+      setShowLootModal(true);
+    }
+  }, [showLootModal, lootQueue]);
 
-    // Player attacks
-    const playerDmg = calculatePlayerDamage(player);
+  const attackEnemy = () => {
+    if (!currentEnemy || isDead) return;
+
+    // Player attacks - enemy defense reduces damage
+    const playerDmg = calculatePlayerDamage(player, currentEnemy.defense);
     const newEnemyHealth = Math.max(0, currentEnemy.health - playerDmg);
     
     let log = [`You deal ${playerDmg} damage!`];
@@ -62,6 +78,11 @@ export const DungeonCrawler = () => {
         player.inventory.push(...items);
         setLootCollected(prev => [...prev, ...items]);
         log.push(`✨ Found loot: ${items.map(i => i.icon + ' ' + i.name).join(', ')}`);
+        
+        // Add all items to queue to show one at a time
+        if (items.length > 0) {
+          setLootQueue(items);
+        }
       }
       
       setCurrentEnemy(null);
@@ -71,23 +92,29 @@ export const DungeonCrawler = () => {
 
     setCurrentEnemy({ ...currentEnemy, health: newEnemyHealth });
 
-    // Enemy attacks back
-    const damageReduction = calculateDamageReduction(player);
-    const enemyDmg = Math.max(1, Math.floor(currentEnemy.attack * (1 - damageReduction / 100)));
+    // Enemy attacks back - player defense reduces damage
+    const playerDefense = calculatePlayerDefense(player);
+    const enemyDmg = Math.max(1, currentEnemy.attack - playerDefense);
     const newPlayerHealth = Math.max(0, playerHealth - enemyDmg);
     
     log.push(`${currentEnemy.name} deals ${enemyDmg} damage!`);
     
     if (newPlayerHealth <= 0) {
-      log.push('💀 You were defeated... Better luck next time!');
-      // TODO: Handle game over
+      log.push('💀 You have been defeated!');
+      setIsDead(true);
     }
 
     setPlayerHealth(newPlayerHealth);
     setBattleLog([...battleLog, ...log]);
   };
 
+  const handleDeath = () => {
+    // Return home with no rewards on death
+    completeDungeon(0, 0);
+  };
+
   const nextRoom = () => {
+    if (isDead) return;
     if (dungeon.currentRoomIndex < dungeon.rooms.length - 1) {
       dungeon.currentRoomIndex++;
       setBattleLog([]);
@@ -107,7 +134,13 @@ export const DungeonCrawler = () => {
       return (
         <div className="battle-screen">
           <div className="enemy-display">
-            <div className="enemy-icon">{currentEnemy.icon}</div>
+            {currentEnemy.spriteSheet && currentEnemy.spriteIndex !== undefined ? (
+              <div 
+                className={`item-sprite item-sprite-large sprite-${currentEnemy.spriteSheet} sprite-pos-${currentEnemy.spriteIndex}`}
+              />
+            ) : (
+              <div className="enemy-icon">{currentEnemy.icon}</div>
+            )}
             <h3>{currentEnemy.name}</h3>
             <div className="health-bar">
               <div 
@@ -119,7 +152,7 @@ export const DungeonCrawler = () => {
           </div>
 
           <div className="battle-actions">
-            <button onClick={attackEnemy} className="btn-attack">
+            <button onClick={attackEnemy} className="btn-attack" disabled={isDead}>
               ⚔️ Attack
             </button>
           </div>
@@ -152,11 +185,16 @@ export const DungeonCrawler = () => {
               const items = collectLoot(currentRoom);
               player.inventory.push(...items);
               setLootCollected(prev => [...prev, ...items]);
-              alert(`Found: ${items.map(i => i.icon + ' ' + i.name).join(', ')}`);
               currentRoom.cleared = true;
+              
+              // Add all items to queue to show one at a time
+              if (items.length > 0) {
+                setLootQueue(items);
+              }
+              
               forceUpdate({}); // Force re-render to show Continue button
             }
-          }} className="btn-primary">
+          }} className="btn-primary" disabled={isDead}>
             Open Chest
           </button>
         </div>
@@ -211,13 +249,13 @@ export const DungeonCrawler = () => {
         {renderRoom()}
       </div>
 
-      {currentRoom.cleared && !dungeon.completed && (
+      {currentRoom.cleared && !dungeon.completed && !isDead && (
         <button onClick={nextRoom} className="btn-primary">
           Continue to Next Room →
         </button>
       )}
 
-      {dungeon.completed && (
+      {dungeon.completed && !isDead && (
         <div className="dungeon-results rs-panel">
           <div className="results-header">
             <h2 className="rs-text-gold">🎉 Dungeon Cleared! 🎉</h2>
@@ -282,18 +320,36 @@ export const DungeonCrawler = () => {
               </div>
               <div className="reward-item">
                 <span className="reward-icon">💎</span>
-                <span>Experience Gained from Workout</span>
+                <span>{enemiesDefeated * 20 + Math.floor((playerHealth / player.maxHealth) * 30)} XP (Enemies: {enemiesDefeated * 20}, Health Bonus: {Math.floor((playerHealth / player.maxHealth) * 30)})</span>
               </div>
             </div>
           </div>
 
           <button 
-            onClick={completeDungeon} 
+            onClick={() => completeDungeon(playerHealth, enemiesDefeated)} 
             className="rs-button rs-button-primary results-btn"
           >
             🏠 Return to Town
           </button>
         </div>
+      )}
+      
+      {/* Item Loot Modal */}
+      {showLootModal && currentLootItem && (
+        <ItemLootModal 
+          item={currentLootItem}
+          onClose={() => {
+            setShowLootModal(false);
+            setCurrentLootItem(null);
+            // Remove first item from queue, next will show automatically via useEffect
+            setLootQueue(prev => prev.slice(1));
+          }}
+        />
+      )}
+      
+      {/* Death Modal */}
+      {isDead && (
+        <DeathModal onReturnHome={handleDeath} />
       )}
     </div>
   );

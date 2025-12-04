@@ -2,22 +2,19 @@ import type { CharacterStats, Exercise, PersonalRecord, PlayerCharacter } from '
 
 // Calculate initial stats based on starting lifts
 export const calculateInitialStats = (
-  benchPress: number,
-  squat: number,
-  overheadPress: number,
-  mileTime: number // in minutes
+  _benchPress: number,
+  _squat: number,
+  _overheadPress: number,
+  _mileTime: number // in minutes
 ): CharacterStats => {
-  // Normalize lifts to stats (adjustable formulas)
-  const strength = Math.floor(benchPress / 10) + 10; // Bench press
-  const power = Math.floor(squat / 15) + 10;         // Squat (typically higher weight)
-  const endurance = Math.floor(overheadPress / 5) + 10; // Overhead press
-  const stamina = Math.floor((20 - mileTime) * 2) + 10; // Mile time (lower is better)
-
+  // Everyone starts with the same stats - progression is purely from leveling up
+  // Starting lifts are still tracked for PR comparisons, but don't affect initial stats
+  // Starting at 3 gives new players a fighting chance in first dungeon
   return {
-    strength: Math.max(strength, 10),
-    power: Math.max(power, 10),
-    endurance: Math.max(endurance, 10),
-    stamina: Math.max(stamina, 10),
+    strength: 3,
+    power: 3,
+    endurance: 3,
+    stamina: 3,
     level: 1,
     experience: 0,
   };
@@ -30,7 +27,8 @@ export const checkForPR = (
 ): boolean => {
   const previousPR = previousRecords[exercise.id];
   
-  if (!previousPR) return true; // First time is always a PR
+  // If no previous record exists (shouldn't happen with initialized PRs), don't count as PR
+  if (!previousPR) return false;
 
   if (exercise.category === 'cardio' && exercise.time) {
     return exercise.time < previousPR.value; // Lower time is better
@@ -118,20 +116,26 @@ export const calculateMaxHealth = (stats: CharacterStats): number => {
   return 100 + (stats.level * 10) + stats.endurance * 2;
 };
 
-// Calculate damage dealt by player
-export const calculatePlayerDamage = (player: PlayerCharacter): number => {
+// Calculate damage dealt by player against enemy
+export const calculatePlayerDamage = (player: PlayerCharacter, enemyDefense: number = 0): number => {
   const baseDamage = player.stats.strength + player.stats.power;
   const weaponBonus = player.equippedItems.weapon?.statBonus?.strength || 0;
+  const totalAttack = baseDamage + weaponBonus;
+  
+  // Defense reduces damage - each point of defense reduces 1 damage
+  // Minimum 1 damage to prevent 0-damage attacks
+  const damageAfterDefense = Math.max(1, totalAttack - enemyDefense);
+  
   const variance = Math.random() * 0.2 + 0.9; // 90-110% damage variance
   
-  return Math.floor((baseDamage + weaponBonus) * variance);
+  return Math.floor(damageAfterDefense * variance);
 };
 
-// Calculate damage reduction from armor
-export const calculateDamageReduction = (player: PlayerCharacter): number => {
+// Calculate player's defense value
+export const calculatePlayerDefense = (player: PlayerCharacter): number => {
   const armorBonus = player.equippedItems.armor?.statBonus?.endurance || 0;
   const defenseStat = player.stats.endurance + armorBonus;
   
-  // Each point of endurance reduces damage by 1%
-  return Math.min(defenseStat, 75); // Cap at 75% reduction
+  // Defense directly reduces incoming damage
+  return defenseStat;
 };

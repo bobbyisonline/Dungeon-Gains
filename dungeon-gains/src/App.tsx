@@ -4,13 +4,14 @@ import { CharacterCreation } from './components/CharacterCreation/CharacterCreat
 import { Dashboard } from './components/Dashboard/Dashboard';
 import { WorkoutLogger } from './components/WorkoutLogger/WorkoutLogger';
 import { DungeonCrawler } from './components/DungeonCrawler/DungeonCrawler';
+import { WorkoutHistory } from './components/WorkoutHistory/WorkoutHistory';
 import './styles/sprites.css';
 import './App.css';
 
-type View = 'dashboard' | 'workout' | 'dungeon' | 'inventory';
+type View = 'dashboard' | 'workout' | 'history';
 
 function GameContent() {
-  const { gameState, resetGame } = useGame();
+  const { gameState } = useGame();
   const [currentView, setCurrentView] = useState<View>('dashboard');
 
   if (!gameState) {
@@ -25,6 +26,8 @@ function GameContent() {
     switch (currentView) {
       case 'workout':
         return <WorkoutLogger />;
+      case 'history':
+        return <WorkoutHistory />;
       case 'dashboard':
       default:
         return <Dashboard />;
@@ -51,8 +54,11 @@ function GameContent() {
             >
               💪 Log Workout
             </button>
-            <button onClick={resetGame} className="btn-reset">
-              🔄 Reset
+            <button 
+              className={currentView === 'history' ? 'active' : ''}
+              onClick={() => setCurrentView('history')}
+            >
+              📅 History
             </button>
           </div>
         )}

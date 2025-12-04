@@ -9,7 +9,7 @@ export const CharacterCreation = () => {
   const [benchPress, setBenchPress] = useState(135);
   const [squat, setSquat] = useState(185);
   const [overheadPress, setOverheadPress] = useState(95);
-  const [mileTime, setMileTime] = useState(8.5);
+  const [mileTime, setMileTime] = useState(225); // Deadlift default
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ export const CharacterCreation = () => {
     <div className="character-creation">
       <div className="creation-container rs-panel">
         <h1 className="rs-text-gold">⚔️ Create Your Hero ⚔️</h1>
-        <p className="subtitle">Enter your current fitness stats to generate your character</p>
+        <p className="subtitle">Enter your max lifts for the big 4 to generate your character</p>
         
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -75,15 +75,15 @@ export const CharacterCreation = () => {
             </div>
 
             <div className="form-group">
-              <label>🏃 Mile Time (minutes)</label>
+              <label>🏋️ Deadlift (lbs)</label>
               <input
                 className="rs-input"
                 type="number"
-                step="0.1"
+                step="5"
                 value={mileTime}
                 onChange={(e) => setMileTime(Number(e.target.value))}
-                min="4"
-                max="20"
+                min="0"
+                max="1000"
               />
               <span className="stat-hint">→ Stamina</span>
             </div>
