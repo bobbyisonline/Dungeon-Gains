@@ -43,6 +43,8 @@ export interface Item {
   statBonus?: Partial<CharacterStats>;
   description: string;
   icon: string;
+  spriteSheet?: string;  // e.g., 'common-swords'
+  spriteIndex?: number;  // Position in the sprite sheet
 }
 
 export interface Enemy {

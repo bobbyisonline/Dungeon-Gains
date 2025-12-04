@@ -4,6 +4,7 @@ import { CharacterCreation } from './components/CharacterCreation/CharacterCreat
 import { Dashboard } from './components/Dashboard/Dashboard';
 import { WorkoutLogger } from './components/WorkoutLogger/WorkoutLogger';
 import { DungeonCrawler } from './components/DungeonCrawler/DungeonCrawler';
+import './styles/sprites.css';
 import './App.css';
 
 type View = 'dashboard' | 'workout' | 'dungeon' | 'inventory';

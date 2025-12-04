@@ -3,6 +3,7 @@ import type { Enemy, DungeonRoom, Item } from '../../types';
 import { useGame } from '../../context/GameContext';
 import { calculatePlayerDamage, calculateDamageReduction } from '../../utils/gameLogic';
 import { collectLoot } from '../../utils/dungeonGenerator';
+import { ItemIcon } from '../ItemSprite';
 import './DungeonCrawler.css';
 
 export const DungeonCrawler = () => {
@@ -252,7 +253,13 @@ export const DungeonCrawler = () => {
                 <div className="loot-grid">
                   {lootCollected.map((item, idx) => (
                     <div key={idx} className={`loot-item rarity-${item.rarity}`}>
-                      <span className="loot-icon">{item.icon}</span>
+                      <ItemIcon 
+                        icon={item.icon}
+                        spriteSheet={item.spriteSheet}
+                        spriteIndex={item.spriteIndex}
+                        size="normal"
+                        className="loot-icon"
+                      />
                       <div className="loot-info">
                         <span className="loot-name">{item.name}</span>
                         <span className="loot-rarity">{item.rarity}</span>

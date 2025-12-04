@@ -1,0 +1,49 @@
+/* Sprite System */
+.item-sprite {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  background-size: 256px 256px; /* 4x4 grid: 4 columns x 4 rows * 64px */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.item-sprite-small {
+  width: 32px;
+  height: 32px;
+  background-size: 128px 128px;
+}
+
+.item-sprite-large {
+  width: 96px;
+  height: 96px;
+  background-size: 384px 384px;
+}
+
+/* Sprite Sheet Definitions */
+.sprite-common-swords { background-image: url('/sprites/common-swords.png'); }
+.sprite-common-axes { background-image: url('/sprites/common-axes.png'); }
+.sprite-common-bows { background-image: url('/sprites/common-bows.png'); }
+.sprite-rare-swords { background-image: url('/sprites/rare-swords.png'); }
+.sprite-rare-axes { background-image: url('/sprites/rare-axes.png'); }
+.sprite-rare-bows { background-image: url('/sprites/rare-bows.png'); }
+.sprite-legendary-swords { background-image: url('/sprites/legendary-swords.png'); }
+.sprite-legendary-axes { background-image: url('/sprites/legendary-axes.png'); }
+.sprite-legendary-bows { background-image: url('/sprites/legendary-bows.png'); }
+
+/* Sprite positions for 4x3 grid (12 items: 4 columns, 3 rows) */
+.sword-0 { background-position: 0 0; }
+.sword-1 { background-position: -64px 0; }
+.sword-2 { background-position: -128px 0; }
+.sword-3 { background-position: -192px 0; }
+
+.sword-4 { background-position: 0 -64px; }
+.sword-5 { background-position: -64px -64px; }
+.sword-6 { background-position: -128px -64px; }
+.sword-7 { background-position: -192px -64px; }
+
+.sword-8 { background-position: 0 -128px; }
+.sword-9 { background-position: -64px -128px; }
+.sword-10 { background-position: -128px -128px; }
+.sword-11 { background-position: -192px -128px; }

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useGame } from '../../context/GameContext';
+import { ItemIcon } from '../ItemSprite';
 import '../../styles/runescape.css';
 import './Dashboard.css';
 
@@ -71,7 +72,13 @@ export const Dashboard = () => {
               <span className="slot-label">Weapon</span>
               {player.equippedItems.weapon ? (
                 <div className="equipped-item">
-                  <span className="item-icon">{player.equippedItems.weapon.icon}</span>
+                  <ItemIcon 
+                    icon={player.equippedItems.weapon.icon}
+                    spriteSheet={player.equippedItems.weapon.spriteSheet}
+                    spriteIndex={player.equippedItems.weapon.spriteIndex}
+                    size="small"
+                    className="item-icon"
+                  />
                   <div className="item-details">
                     <span className="item-name">{player.equippedItems.weapon.name}</span>
                     <button 
@@ -91,7 +98,13 @@ export const Dashboard = () => {
               <span className="slot-label">Armor</span>
               {player.equippedItems.armor ? (
                 <div className="equipped-item">
-                  <span className="item-icon">{player.equippedItems.armor.icon}</span>
+                  <ItemIcon 
+                    icon={player.equippedItems.armor.icon}
+                    spriteSheet={player.equippedItems.armor.spriteSheet}
+                    spriteIndex={player.equippedItems.armor.spriteIndex}
+                    size="small"
+                    className="item-icon"
+                  />
                   <div className="item-details">
                     <span className="item-name">{player.equippedItems.armor.name}</span>
                     <button 
@@ -111,7 +124,13 @@ export const Dashboard = () => {
               <span className="slot-label">Accessory</span>
               {player.equippedItems.accessory ? (
                 <div className="equipped-item">
-                  <span className="item-icon">{player.equippedItems.accessory.icon}</span>
+                  <ItemIcon 
+                    icon={player.equippedItems.accessory.icon}
+                    spriteSheet={player.equippedItems.accessory.spriteSheet}
+                    spriteIndex={player.equippedItems.accessory.spriteIndex}
+                    size="small"
+                    className="item-icon"
+                  />
                   <div className="item-details">
                     <span className="item-name">{player.equippedItems.accessory.name}</span>
                     <button 
@@ -204,7 +223,13 @@ export const Dashboard = () => {
                 {player.inventory.map((item, idx) => (
                   <div key={idx} className={`inventory-item rarity-${item.rarity}`}>
                     <div className="item-header">
-                      <span className="item-icon-large">{item.icon}</span>
+                      <ItemIcon 
+                        icon={item.icon}
+                        spriteSheet={item.spriteSheet}
+                        spriteIndex={item.spriteIndex}
+                        size="large"
+                        className="item-icon-large"
+                      />
                       <div className="item-info-block">
                         <span className="item-name-large">{item.name}</span>
                         <span className={`item-rarity rarity-${item.rarity}`}>{item.rarity}</span>
