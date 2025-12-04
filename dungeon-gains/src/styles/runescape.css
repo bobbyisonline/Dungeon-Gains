@@ -1,0 +1,118 @@
+/* Shared Runescape-style UI components */
+
+.rs-panel {
+  background: linear-gradient(180deg, var(--rs-brown-light) 0%, var(--rs-brown) 100%);
+  border: 4px solid var(--rs-border);
+  border-top: 4px solid #a1887f;
+  border-left: 4px solid #a1887f;
+  border-right: 4px solid #4e342e;
+  border-bottom: 4px solid #4e342e;
+  box-shadow: 
+    inset 0 2px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.4),
+    4px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.rs-button {
+  background: linear-gradient(180deg, #6d4c41 0%, var(--rs-brown) 100%);
+  border: 3px solid var(--rs-border);
+  border-top: 3px solid #a1887f;
+  border-left: 3px solid #a1887f;
+  border-right: 3px solid #4e342e;
+  border-bottom: 3px solid #4e342e;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    2px 2px 0 rgba(0, 0, 0, 0.4);
+  padding: 0.75rem 1.5rem;
+  color: var(--rs-gold);
+  font-family: 'VT323', monospace;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.1s;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+}
+
+.rs-button:hover {
+  background: linear-gradient(180deg, #8d6e63 0%, #6d4c41 100%);
+  transform: translate(1px, 1px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    1px 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.rs-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.rs-button-primary {
+  background: linear-gradient(180deg, var(--rs-green) 0%, #1b5e20 100%);
+  border-top-color: #4caf50;
+  border-left-color: #4caf50;
+  color: #e8f5e9;
+}
+
+.rs-button-primary:hover {
+  background: linear-gradient(180deg, #388e3c 0%, var(--rs-green) 100%);
+}
+
+.rs-button-danger {
+  background: linear-gradient(180deg, #d32f2f 0%, var(--rs-red) 100%);
+  border-top-color: #ef5350;
+  border-left-color: #ef5350;
+  color: #ffebee;
+}
+
+.rs-button-danger:hover {
+  background: linear-gradient(180deg, #ef5350 0%, #d32f2f 100%);
+}
+
+.rs-input {
+  background: linear-gradient(180deg, #3e2723 0%, #2c1810 100%);
+  border: 3px solid #4e342e;
+  border-top: 3px solid #3e2723;
+  border-left: 3px solid #3e2723;
+  border-right: 3px solid var(--rs-border);
+  border-bottom: 3px solid var(--rs-border);
+  box-shadow: 
+    inset 2px 2px 4px rgba(0, 0, 0, 0.5),
+    inset -1px -1px 0 rgba(255, 255, 255, 0.05);
+  padding: 0.75rem;
+  color: var(--rs-gold);
+  font-family: 'VT323', monospace;
+  font-size: 1.3rem;
+}
+
+.rs-input:focus {
+  outline: none;
+  border-color: var(--rs-gold);
+  box-shadow: 
+    inset 2px 2px 4px rgba(0, 0, 0, 0.5),
+    0 0 0 2px rgba(255, 213, 79, 0.3);
+}
+
+.rs-text-gold {
+  color: var(--rs-gold-bright);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+
+.rs-text-white {
+  color: #e0e0e0;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+
+.rs-divider {
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--rs-border) 20%, 
+    var(--rs-border) 80%, 
+    transparent 100%
+  );
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+  margin: 1rem 0;
+}

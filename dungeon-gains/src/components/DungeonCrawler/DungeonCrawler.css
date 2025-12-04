@@ -1,0 +1,372 @@
+.dungeon-crawler {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.dungeon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #4a5568;
+}
+
+.dungeon-header h2 {
+  color: #ffd700;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.progress {
+  color: #a0aec0;
+  font-size: 1.125rem;
+}
+
+.player-status {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #4a5568;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.player-info {
+  margin-bottom: 1rem;
+}
+
+.player-info h3 {
+  color: #e2e8f0;
+  margin-bottom: 0.5rem;
+}
+
+.health-bar {
+  height: 24px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  border: 1px solid #4a5568;
+}
+
+.health-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+  border-radius: 12px;
+}
+
+.health-fill.player {
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.health-fill.enemy {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+.player-stats {
+  display: flex;
+  gap: 1.5rem;
+  color: #cbd5e0;
+  font-weight: 600;
+}
+
+.room-container {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #4a5568;
+  border-radius: 12px;
+  padding: 2rem;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.battle-screen {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.enemy-display {
+  text-align: center;
+}
+
+.enemy-icon {
+  font-size: 6rem;
+  margin-bottom: 1rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.enemy-display h3 {
+  color: #fca5a5;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.battle-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn-attack {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-attack:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.5);
+}
+
+.btn-attack:active {
+  transform: scale(0.98);
+}
+
+.battle-log {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid #4a5568;
+  border-radius: 8px;
+  padding: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.log-entry {
+  color: #e2e8f0;
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 0.3s;
+}
+
+.log-entry:last-child {
+  border-bottom: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.treasure-room,
+.empty-room {
+  text-align: center;
+}
+
+.treasure-icon {
+  font-size: 6rem;
+  margin-bottom: 1rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
+
+.treasure-room h3 {
+  color: #ffd700;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.empty-room p {
+  color: #718096;
+  font-size: 1.25rem;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 2rem;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.5);
+}
+
+.dungeon-results {
+  margin-top: 2rem;
+  padding: 2rem;
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid var(--rs-border);
+}
+
+.results-header h2 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 2px;
+}
+
+.results-subtitle {
+  color: var(--rs-grey);
+  font-size: 1.2rem;
+  font-family: 'VT323', monospace;
+}
+
+.results-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.results-section {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--rs-border);
+  padding: 1.5rem;
+}
+
+.results-section h3 {
+  color: var(--rs-gold);
+  font-family: 'VT323', monospace;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 0.5rem;
+  border-left: 3px solid var(--rs-gold);
+}
+
+.stat-row span {
+  color: #e0e0e0;
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem;
+}
+
+.stat-row strong {
+  color: var(--rs-gold-bright);
+  font-family: 'VT323', monospace;
+  font-size: 1.3rem;
+}
+
+.no-loot {
+  color: var(--rs-grey);
+  font-style: italic;
+  text-align: center;
+  padding: 1rem;
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem;
+}
+
+.loot-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.loot-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 4px solid;
+}
+
+.loot-item.rarity-common { border-left-color: #9e9e9e; }
+.loot-item.rarity-uncommon { border-left-color: #4caf50; }
+.loot-item.rarity-rare { border-left-color: #2196f3; }
+.loot-item.rarity-epic { border-left-color: #9c27b0; }
+.loot-item.rarity-legendary { border-left-color: #ff9800; }
+
+.loot-icon {
+  font-size: 2rem;
+}
+
+.loot-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.loot-name {
+  color: #e0e0e0;
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.loot-rarity {
+  font-family: 'VT323', monospace;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.rarity-common .loot-rarity { color: #9e9e9e; }
+.rarity-uncommon .loot-rarity { color: #4caf50; }
+.rarity-rare .loot-rarity { color: #2196f3; }
+.rarity-epic .loot-rarity { color: #9c27b0; }
+.rarity-legendary .loot-rarity { color: #ff9800; }
+
+.results-section.rewards {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: var(--rs-gold);
+}
+
+.reward-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  color: #e0e0e0;
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem;
+}
+
+.reward-icon {
+  font-size: 1.5rem;
+}
+
+.results-btn {
+  width: 100%;
+  padding: 1.25rem;
+  font-size: 1.4rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .results-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .results-section.rewards {
+    grid-column: 1 / -1;
+  }
+}
