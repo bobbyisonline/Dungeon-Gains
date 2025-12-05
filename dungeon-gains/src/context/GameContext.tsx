@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
+import { useUser } from '@clerk/clerk-react';
 import type { GameState, WorkoutLog, Item } from '../types';
 import { saveGame, loadGame, createNewPlayer } from '../utils/storage';
 import { generateDungeon } from '../utils/dungeonGenerator';
@@ -25,11 +26,14 @@ interface GameContextType {
 const GameContext = createContext<GameContextType | undefined>(undefined);
 
 export const GameProvider = ({ children }: { children: ReactNode }) => {
+  const { user, isLoaded } = useUser();
   const [gameState, setGameState] = useState<GameState | null>(null);
 
-  // Load game on mount
+  // Load game when user is loaded
   useEffect(() => {
-    const saved = loadGame();
+    if (!isLoaded || !user) return;
+    
+    const saved = loadGame(user.id);
     if (saved) {
       // Check for 24-hour health restoration
       const player = saved.player;
@@ -52,14 +56,14 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
       
       setGameState(saved);
     }
-  }, []);
+  }, [isLoaded, user]);
 
   // Save game whenever state changes
   useEffect(() => {
-    if (gameState) {
-      saveGame(gameState);
+    if (gameState && user) {
+      saveGame(gameState, user.id);
     }
-  }, [gameState]);
+  }, [gameState, user]);
 
   const createCharacter = (name: string, bench: number, squat: number, ohp: number, mileTime: number) => {
     const player = createNewPlayer(name, bench, squat, ohp, mileTime);
@@ -131,9 +135,11 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   const startDungeon = () => {
     if (!gameState || gameState.availableDungeons <= 0) return;
 
-    // Difficulty starts at 1 and scales slowly with level
-    const difficulty = Math.min(1 + Math.floor((gameState.player.stats.level - 1) / 3), 10);
-    const dungeon = generateDungeon(difficulty);
+    // Scale difficulty based on player level (difficulty = 1-9), capped at level 25
+    // At level 25, difficulty = 9 (keeps final content challenging but beatable)
+    const difficulty = Math.min(1 + Math.floor((Math.min(gameState.player.stats.level, 25) - 1) / 3), 9);
+    const playerStamina = gameState.player.stats.stamina + (gameState.player.equippedItems.accessory?.statBonus?.stamina || 0);
+    const dungeon = generateDungeon(difficulty, playerStamina);
 
     setGameState({
       ...gameState,
@@ -273,7 +279,9 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
     };
 
     setGameState(newState);
-    saveGame(newState);
+    if (user) {
+      saveGame(newState, user.id);
+    }
   };
 
   return (

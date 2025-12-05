@@ -94,13 +94,32 @@ export const checkLevelUp = (
   currentLevel: number,
   currentXP: number
 ): { leveledUp: boolean; newLevel: number; xpForNextLevel: number } => {
-  const xpForNextLevel = currentLevel * 100;
+  const MAX_LEVEL = 25;
+  
+  // Exponential curve: designed so level 25 requires ~180 days (max 360 workouts at 2/day)
+  // Average 115 XP per dungeon × 360 workouts = ~41,400 total XP needed
+  // Formula: baseXP * (level^1.5) where baseXP = 150
+  // This creates: L2=300, L3=550, L4=900... L25=~41,400 total XP
+  const calculateXPForLevel = (level: number): number => {
+    return Math.floor(150 * Math.pow(level, 1.5));
+  };
+  
+  // If at max level, no more leveling up
+  if (currentLevel >= MAX_LEVEL) {
+    return {
+      leveledUp: false,
+      newLevel: MAX_LEVEL,
+      xpForNextLevel: calculateXPForLevel(MAX_LEVEL),
+    };
+  }
+  
+  const xpForNextLevel = calculateXPForLevel(currentLevel);
   
   if (currentXP >= xpForNextLevel) {
     return {
       leveledUp: true,
-      newLevel: currentLevel + 1,
-      xpForNextLevel: (currentLevel + 1) * 100,
+      newLevel: Math.min(currentLevel + 1, MAX_LEVEL),
+      xpForNextLevel: calculateXPForLevel(Math.min(currentLevel + 1, MAX_LEVEL)),
     };
   }
 
@@ -113,29 +132,39 @@ export const checkLevelUp = (
 
 // Calculate max health based on stats
 export const calculateMaxHealth = (stats: CharacterStats): number => {
-  return 100 + (stats.level * 10) + stats.endurance * 2;
+  // Base 100 + 10 per level + 5 per endurance point
+  return 100 + (stats.level * 10) + (stats.endurance * 5);
 };
 
 // Calculate damage dealt by player against enemy
 export const calculatePlayerDamage = (player: PlayerCharacter, enemyDefense: number = 0): number => {
-  const baseDamage = player.stats.strength + player.stats.power;
-  const weaponBonus = player.equippedItems.weapon?.statBonus?.strength || 0;
-  const totalAttack = baseDamage + weaponBonus;
+  // Strength = base damage, Power = crit chance
+  const weaponStrBonus = player.equippedItems.weapon?.statBonus?.strength || 0;
+  const weaponPwrBonus = player.equippedItems.weapon?.statBonus?.power || 0;
+  const baseDamage = player.stats.strength + weaponStrBonus;
+  
+  // Power gives crit chance: 5% per point, max 50% at 10 power
+  const critChance = Math.min((player.stats.power + weaponPwrBonus) * 0.05, 0.5);
+  const isCrit = Math.random() < critChance;
+  const critMultiplier = isCrit ? 1.75 : 1.0; // Crits deal 75% more damage
   
   // Defense reduces damage - each point of defense reduces 1 damage
   // Minimum 1 damage to prevent 0-damage attacks
-  const damageAfterDefense = Math.max(1, totalAttack - enemyDefense);
+  const damageAfterDefense = Math.max(1, baseDamage - enemyDefense);
   
   const variance = Math.random() * 0.2 + 0.9; // 90-110% damage variance
   
-  return Math.floor(damageAfterDefense * variance);
+  return Math.floor(damageAfterDefense * critMultiplier * variance);
 };
 
 // Calculate player's defense value
 export const calculatePlayerDefense = (player: PlayerCharacter): number => {
-  const armorBonus = player.equippedItems.armor?.statBonus?.endurance || 0;
-  const defenseStat = player.stats.endurance + armorBonus;
+  // Endurance from armor + half of Stamina (stamina = agility/evasion)
+  const armorEndBonus = player.equippedItems.armor?.statBonus?.endurance || 0;
+  const accessoryStaBonus = player.equippedItems.accessory?.statBonus?.stamina || 0;
+  const enduranceDefense = player.stats.endurance + armorEndBonus;
+  const staminaDefense = Math.floor((player.stats.stamina + accessoryStaBonus) / 2);
   
   // Defense directly reduces incoming damage
-  return defenseStat;
+  return enduranceDefense + staminaDefense;
 };

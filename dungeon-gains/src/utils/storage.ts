@@ -1,19 +1,25 @@
 import type { GameState, PlayerCharacter, PersonalRecord } from '../types';
 import { calculateInitialStats, calculateMaxHealth } from './gameLogic';
 
-const STORAGE_KEY = 'dungeon_gains_save';
+const STORAGE_KEY_PREFIX = 'dungeon_gains_save';
 
-export const saveGame = (gameState: GameState): void => {
+const getStorageKey = (userId: string): string => {
+  return `${STORAGE_KEY_PREFIX}_${userId}`;
+};
+
+export const saveGame = (gameState: GameState, userId: string): void => {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
+    const storageKey = getStorageKey(userId);
+    localStorage.setItem(storageKey, JSON.stringify(gameState));
   } catch (error) {
     console.error('Failed to save game:', error);
   }
 };
 
-export const loadGame = (): GameState | null => {
+export const loadGame = (userId: string): GameState | null => {
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const storageKey = getStorageKey(userId);
+    const saved = localStorage.getItem(storageKey);
     if (saved) {
       return JSON.parse(saved);
     }
@@ -23,8 +29,9 @@ export const loadGame = (): GameState | null => {
   return null;
 };
 
-export const clearSave = (): void => {
-  localStorage.removeItem(STORAGE_KEY);
+export const clearSave = (userId: string): void => {
+  const storageKey = getStorageKey(userId);
+  localStorage.removeItem(storageKey);
 };
 
 export const createNewPlayer = (

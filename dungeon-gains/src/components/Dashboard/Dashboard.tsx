@@ -21,7 +21,7 @@ export const Dashboard = () => {
   if (!gameState) return null;
 
   const { player, availableDungeons } = gameState;
-  const xpForNextLevel = player.stats.level * 100;
+  const xpForNextLevel = Math.floor(150 * Math.pow(player.stats.level, 1.5));
   const xpProgress = (player.stats.experience / xpForNextLevel) * 100;
 
   // Calculate equipment bonuses
@@ -57,7 +57,7 @@ export const Dashboard = () => {
             <div className="stat-item">
               <span className="stat-icon">💪</span>
               <div className="stat-details">
-                <span className="stat-name">Strength</span>
+                <span className="stat-name" title="Direct attack damage - each point adds 1 damage">Strength ℹ️</span>
                 <span className="stat-value">
                   {player.stats.strength + equipmentBonus.strength}
                   {equipmentBonus.strength > 0 && (
@@ -69,7 +69,7 @@ export const Dashboard = () => {
             <div className="stat-item">
               <span className="stat-icon">⚡</span>
               <div className="stat-details">
-                <span className="stat-name">Power</span>
+                <span className="stat-name" title="Critical hit chance - 5% per point (crits deal 75% more damage)">Power ℹ️</span>
                 <span className="stat-value">
                   {player.stats.power + equipmentBonus.power}
                   {equipmentBonus.power > 0 && (
@@ -81,7 +81,7 @@ export const Dashboard = () => {
             <div className="stat-item">
               <span className="stat-icon">🛡️</span>
               <div className="stat-details">
-                <span className="stat-name">Endurance</span>
+                <span className="stat-name" title="Max health and defense - adds 5 HP and 1 defense per point">Endurance ℹ️</span>
                 <span className="stat-value">
                   {player.stats.endurance + equipmentBonus.endurance}
                   {equipmentBonus.endurance > 0 && (
@@ -93,7 +93,7 @@ export const Dashboard = () => {
             <div className="stat-item">
               <span className="stat-icon">🏃</span>
               <div className="stat-details">
-                <span className="stat-name">Stamina</span>
+                <span className="stat-name" title="Defense and dungeon efficiency - reduces empty rooms, increases treasure chance">Stamina ℹ️</span>
                 <span className="stat-value">
                   {player.stats.stamina + equipmentBonus.stamina}
                   {equipmentBonus.stamina > 0 && (
@@ -252,7 +252,30 @@ export const Dashboard = () => {
             </div>
             <div className="info-row">
               <span>Total PRs:</span>
-              <strong>{Object.keys(player.personalRecords).length}</strong>
+              <strong>
+                {(() => {
+                  // Count PRs that have been earned (exist in workout logs)
+                  if (player.workoutLogs.length === 0) return 0;
+                  
+                  const prExerciseIds = new Set<string>();
+                  player.workoutLogs.forEach(log => {
+                    log.exercises.forEach(exercise => {
+                      const pr = player.personalRecords[exercise.id];
+                      if (pr) {
+                        // Check if this workout matches or beats the current PR
+                        const isCurrentPR = exercise.category === 'cardio'
+                          ? exercise.time === pr.value
+                          : exercise.weight === pr.value;
+                        if (isCurrentPR) {
+                          prExerciseIds.add(exercise.id);
+                        }
+                      }
+                    });
+                  });
+                  
+                  return prExerciseIds.size;
+                })()}
+              </strong>
             </div>
           </div>
           

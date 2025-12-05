@@ -57,6 +57,12 @@
   align-items: center;
 }
 
+.nav-auth {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .nav-links button {
   background: linear-gradient(180deg, #6d4c41 0%, var(--rs-brown) 100%);
   border: 3px solid var(--rs-border);

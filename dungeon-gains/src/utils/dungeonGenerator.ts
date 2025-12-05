@@ -254,7 +254,7 @@ const ENEMY_TEMPLATES: EnemyTemplate[] = [
   // Late game (Levels 18+)
   { name: 'Black Knight', baseHealth: 140, baseAttack: 13, baseDefense: 10, icon: '⚔️', minLevel: 18, maxLevel: 28, spriteIndex: 9 },
   { name: 'Necromancer', baseHealth: 130, baseAttack: 15, baseDefense: 8, icon: '🧙', minLevel: 20, maxLevel: 30, spriteIndex: 10 },
-  { name: 'Red Dragon', baseHealth: 200, baseAttack: 20, baseDefense: 15, icon: '🐉', minLevel: 25, maxLevel: 99, spriteIndex: 11 },
+  { name: 'Red Dragon', baseHealth: 200, baseAttack: 20, baseDefense: 15, icon: '🐉', minLevel: 22, maxLevel: 30, spriteIndex: 11 },
 ];
 
 // Generate random item with level-based rarity scaling
@@ -335,9 +335,16 @@ export const generateEnemy = (difficulty: number, isBoss: boolean = false): Enem
 };
 
 // Generate a complete dungeon
-export const generateDungeon = (difficulty: number): Dungeon => {
+export const generateDungeon = (difficulty: number, playerStamina: number = 0): Dungeon => {
   const numRooms = 5 + Math.floor(difficulty / 2); // More rooms at higher difficulty
   const rooms: DungeonRoom[] = [];
+  
+  // Stamina improves dungeon efficiency:
+  // - Reduces empty room chance (base 20% down to 5% at high stamina)
+  // - Increases treasure room chance slightly
+  const staminaBonus = Math.min(playerStamina * 0.01, 0.15); // Max 15% bonus at 15+ stamina
+  const emptyRoomChance = Math.max(0.05, 0.2 - staminaBonus); // 20% -> 5%
+  const treasureChance = 0.2 + (staminaBonus * 0.5); // 20% -> 27.5%
   
   for (let i = 0; i < numRooms; i++) {
     const isBossRoom = i === numRooms - 1;
@@ -355,11 +362,15 @@ export const generateDungeon = (difficulty: number): Dungeon => {
       roomType = 'enemy';
       enemy = generateEnemy(difficulty);
       // Regular enemies don't drop loot - only treasure chests and bosses
-    } else if (roll < 0.8) {
+    } else if (roll < 0.6 + treasureChance) {
       roomType = 'treasure';
       loot = [generateItem(difficulty)];
-    } else {
+    } else if (roll >= 1 - emptyRoomChance) {
       roomType = 'empty';
+    } else {
+      // Fill remaining probability with enemy rooms
+      roomType = 'enemy';
+      enemy = generateEnemy(difficulty);
     }
     
     rooms.push({

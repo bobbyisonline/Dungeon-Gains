@@ -14,7 +14,7 @@
 
 .history-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 2rem;
   align-items: start;
 }
@@ -26,6 +26,7 @@
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  height: 100%;
 }
 
 .calendar-header {
@@ -36,9 +37,10 @@
 }
 
 .calendar-nav {
-  padding: 0.4rem 0.8rem !important;
-  font-size: 1rem !important;
-  min-width: 40px;
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.85rem !important;
+  min-width: auto !important;
+  width: auto !important;
 }
 
 .month-title {

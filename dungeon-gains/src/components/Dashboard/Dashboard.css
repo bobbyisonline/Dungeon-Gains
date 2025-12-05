@@ -75,11 +75,16 @@
   justify-content: space-between;
   flex: 1;
   align-items: center;
+  gap: 1rem;
 }
 
 .stat-name {
   color: #cbd5e0;
   font-weight: 600;
+  cursor: help;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .stat-value {

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 import { GameProvider, useGame } from './context/GameContext';
 import { CharacterCreation } from './components/CharacterCreation/CharacterCreation';
 import { Dashboard } from './components/Dashboard/Dashboard';
@@ -35,12 +36,9 @@ function GameContent() {
   };
 
   return (
-    <div className="app-container">
-      <nav className="main-nav">
-        <div className="nav-brand">
-          <h1>⚔️ Dungeon Gains</h1>
-        </div>
-        {!gameState.currentDungeon && (
+    <>
+      {!gameState.currentDungeon && (
+        <nav className="main-nav" style={{ borderTop: 'none' }}>
           <div className="nav-links">
             <button 
               className={currentView === 'dashboard' ? 'active' : ''}
@@ -61,21 +59,59 @@ function GameContent() {
               📅 History
             </button>
           </div>
-        )}
-      </nav>
+        </nav>
+      )}
       
       <main className="main-content">
         {renderView()}
       </main>
-    </div>
+    </>
   );
 }
 
 function App() {
   return (
-    <GameProvider>
-      <GameContent />
-    </GameProvider>
+    <div className="app-container">
+      <nav className="main-nav">
+        <div className="nav-brand">
+          <h1>⚔️ Dungeon Gains</h1>
+        </div>
+        <div className="nav-auth">
+          <SignedOut>
+            <SignInButton mode="modal" />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
+      </nav>
+      
+      <SignedOut>
+        <main className="main-content">
+          <div className="rs-panel" style={{ maxWidth: '600px', margin: '2rem auto', textAlign: 'center' }}>
+            <h2>🎮 Welcome to Dungeon Gains!</h2>
+            <p style={{ marginBottom: '2rem', fontSize: '1.2rem' }}>
+              Transform your workouts into epic RPG adventures. Track your lifts, battle monsters, 
+              and watch your character grow stronger as you do!
+            </p>
+            <p style={{ marginBottom: '2rem', color: 'var(--rs-gold)' }}>
+              Please sign in to create your hero and start your journey.
+            </p>
+            <SignInButton mode="modal">
+              <button className="rs-button" style={{ fontSize: '1.2rem', padding: '1rem 2rem' }}>
+                🗡️ Sign In to Start
+              </button>
+            </SignInButton>
+          </div>
+        </main>
+      </SignedOut>
+
+      <SignedIn>
+        <GameProvider>
+          <GameContent />
+        </GameProvider>
+      </SignedIn>
+    </div>
   );
 }
 
