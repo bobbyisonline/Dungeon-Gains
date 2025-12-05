@@ -341,6 +341,41 @@
   font-size: 1.2rem;
 }
 
+.inventory-sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 2px solid #654321;
+}
+
+.sort-btn {
+  padding: 0.5rem 1rem;
+  background: #5d4037;
+  border: 2px solid #654321;
+  color: #cbd5e0;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+}
+
+.sort-btn:hover {
+  background: #6d4c41;
+  border-color: #8d6e63;
+}
+
+.sort-btn.active {
+  background: #ffd54f;
+  color: #2d1f1a;
+  border-color: #ffb300;
+  box-shadow: 0 0 10px rgba(255, 213, 79, 0.5);
+}
+
 .inventory-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -399,6 +434,15 @@
   font-size: 1.3rem;
   font-weight: 700;
   font-family: 'Press Start 2P', monospace;
+  line-height: 1.4;
+  min-height: 3.6rem;
+}
+
+.item-count {
+  color: #10b981;
+  font-size: 1rem;
+  margin-left: 0.3rem;
+  font-weight: 800;
 }
 
 .item-rarity {

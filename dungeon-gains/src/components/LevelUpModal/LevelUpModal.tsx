@@ -24,6 +24,12 @@ export const LevelUpModal = ({ newLevel, oldStats, newStats, onClose }: LevelUpM
     { name: 'Stamina', old: oldStats.stamina, new: newStats.stamina, icon: '🏃' },
   ];
 
+  // Check if a new dungeon level was unlocked (every 3 levels starting at 4)
+  const oldLevel = newLevel - 1;
+  const oldDungeonLevel = Math.min(1 + Math.floor((oldLevel - 1) / 3), 9);
+  const newDungeonLevel = Math.min(1 + Math.floor((newLevel - 1) / 3), 9);
+  const dungeonLevelUnlocked = newDungeonLevel > oldDungeonLevel;
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="level-up-modal" onClick={(e) => e.stopPropagation()}>
@@ -69,6 +75,16 @@ export const LevelUpModal = ({ newLevel, oldStats, newStats, onClose }: LevelUpM
         <div className="health-restore-notice">
           ❤️ Health Fully Restored!
         </div>
+
+        {dungeonLevelUnlocked && (
+          <div className="dungeon-unlock-notice">
+            <div className="dungeon-unlock-icon">🏰</div>
+            <div className="dungeon-unlock-text">
+              <strong>New Dungeon Level Unlocked!</strong>
+              <p>Dungeon Level {newDungeonLevel} is now available. Tougher enemies and better loot await!</p>
+            </div>
+          </div>
+        )}
 
         <button onClick={onClose} className="rs-button level-up-continue-btn">
           Continue Your Journey ⚔️

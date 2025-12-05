@@ -1,5 +1,6 @@
 import type { GameState, PlayerCharacter, PersonalRecord } from '../types';
 import { calculateInitialStats, calculateMaxHealth } from './gameLogic';
+import { supabase } from '../lib/supabase';
 
 const STORAGE_KEY_PREFIX = 'dungeon_gains_save';
 
@@ -7,29 +8,79 @@ const getStorageKey = (userId: string): string => {
   return `${STORAGE_KEY_PREFIX}_${userId}`;
 };
 
-export const saveGame = (gameState: GameState, userId: string): void => {
+// Save game to Supabase (with localStorage fallback)
+export const saveGame = async (gameState: GameState, userId: string): Promise<void> => {
   try {
-    const storageKey = getStorageKey(userId);
-    localStorage.setItem(storageKey, JSON.stringify(gameState));
-  } catch (error) {
-    console.error('Failed to save game:', error);
-  }
-};
+    // Save to Supabase with explicit conflict resolution on user_id
+    const { error } = await supabase
+      .from('game_saves')
+      .upsert({
+        user_id: userId,
+        game_data: gameState,
+        updated_at: new Date().toISOString(),
+      }, {
+        onConflict: 'user_id'
+      });
 
-export const loadGame = (userId: string): GameState | null => {
-  try {
-    const storageKey = getStorageKey(userId);
-    const saved = localStorage.getItem(storageKey);
-    if (saved) {
-      return JSON.parse(saved);
+    if (error) {
+      console.error('Supabase save error:', error);
+      // Fallback to localStorage
+      const storageKey = getStorageKey(userId);
+      localStorage.setItem(storageKey, JSON.stringify(gameState));
+    } else {
+      console.log('Game saved successfully to Supabase');
     }
   } catch (error) {
-    console.error('Failed to load game:', error);
+    console.error('Failed to save game:', error);
+    // Fallback to localStorage
+    const storageKey = getStorageKey(userId);
+    localStorage.setItem(storageKey, JSON.stringify(gameState));
   }
-  return null;
 };
 
-export const clearSave = (userId: string): void => {
+// Load game from Supabase (with localStorage fallback)
+export const loadGame = async (userId: string): Promise<GameState | null> => {
+  try {
+    console.log('Loading game for user:', userId);
+    // Try loading from Supabase
+    const { data, error } = await supabase
+      .from('game_saves')
+      .select('game_data')
+      .eq('user_id', userId)
+      .single();
+
+    if (error) {
+      console.error('Supabase load error:', error);
+      // Fallback to localStorage
+      const storageKey = getStorageKey(userId);
+      const saved = localStorage.getItem(storageKey);
+      console.log('Loaded from localStorage fallback');
+      return saved ? JSON.parse(saved) : null;
+    }
+
+    console.log('Loaded from Supabase successfully');
+    return data?.game_data || null;
+  } catch (error) {
+    console.error('Failed to load game:', error);
+    // Fallback to localStorage
+    const storageKey = getStorageKey(userId);
+    const saved = localStorage.getItem(storageKey);
+    console.log('Loaded from localStorage fallback (catch)');
+    return saved ? JSON.parse(saved) : null;
+  }
+};
+
+// Clear save from both Supabase and localStorage
+export const clearSave = async (userId: string): Promise<void> => {
+  try {
+    await supabase
+      .from('game_saves')
+      .delete()
+      .eq('user_id', userId);
+  } catch (error) {
+    console.error('Failed to clear Supabase save:', error);
+  }
+  
   const storageKey = getStorageKey(userId);
   localStorage.removeItem(storageKey);
 };

@@ -26,6 +26,12 @@ export const DungeonCrawler = () => {
   const [currentLootItem, setCurrentLootItem] = useState<Item | null>(null);
   const [lootQueue, setLootQueue] = useState<Item[]>([]);
   const [isDead, setIsDead] = useState(false);
+  
+  // Auto-attack state
+  const [autoAttack, setAutoAttack] = useState(false);
+  
+  // Victory state
+  const [defeatedEnemy, setDefeatedEnemy] = useState<Enemy | null>(null);
 
   if (!gameState?.currentDungeon) return null;
 
@@ -58,6 +64,17 @@ export const DungeonCrawler = () => {
     }
   }, [showLootModal, lootQueue]);
 
+  // Auto-attack effect
+  useEffect(() => {
+    if (autoAttack && currentEnemy && !isDead) {
+      const attackTimer = setTimeout(() => {
+        attackEnemy();
+      }, 800); // 800ms delay between auto-attacks
+      
+      return () => clearTimeout(attackTimer);
+    }
+  }, [autoAttack, currentEnemy, isDead, battleLog]); // Re-trigger after each attack (battleLog change)
+
   const attackEnemy = () => {
     if (!currentEnemy || isDead) return;
 
@@ -85,6 +102,8 @@ export const DungeonCrawler = () => {
         }
       }
       
+      // Store defeated enemy for victory screen
+      setDefeatedEnemy({ ...currentEnemy, health: 0 });
       setCurrentEnemy(null);
       setBattleLog([...battleLog, ...log]);
       return;
@@ -130,6 +149,37 @@ export const DungeonCrawler = () => {
   };
 
   const renderRoom = () => {
+    // Show defeated enemy screen
+    if (defeatedEnemy && !currentEnemy && currentRoom.cleared) {
+      return (
+        <div className="battle-screen">
+          <div className="enemy-display defeated">
+            {defeatedEnemy.spriteSheet && defeatedEnemy.spriteIndex !== undefined ? (
+              <div 
+                className={`item-sprite item-sprite-large sprite-${defeatedEnemy.spriteSheet} sprite-pos-${defeatedEnemy.spriteIndex} defeated-sprite`}
+              />
+            ) : (
+              <div className="enemy-icon defeated-icon">{defeatedEnemy.icon}</div>
+            )}
+            <h3 className="defeated-text">ENEMY DEFEATED</h3>
+            <p className="defeated-name">{defeatedEnemy.name}</p>
+          </div>
+
+          <div className="battle-actions">
+            <button onClick={() => { setDefeatedEnemy(null); nextRoom(); }} className="btn-continue">
+              Continue →
+            </button>
+          </div>
+
+          <div className="battle-log">
+            {battleLog.map((log, idx) => (
+              <div key={idx} className="log-entry">{log}</div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+    
     if (currentEnemy) {
       return (
         <div className="battle-screen">
@@ -152,8 +202,16 @@ export const DungeonCrawler = () => {
           </div>
 
           <div className="battle-actions">
-            <button onClick={attackEnemy} className="btn-attack" disabled={isDead}>
+            <button onClick={attackEnemy} className="btn-attack" disabled={isDead || autoAttack}>
               ⚔️ Attack
+            </button>
+            <button 
+              onClick={() => setAutoAttack(!autoAttack)} 
+              className={`btn-auto-attack ${autoAttack ? 'active' : ''}`}
+              disabled={isDead}
+              title={autoAttack ? 'Disable Auto-Attack' : 'Enable Auto-Attack'}
+            >
+              {autoAttack ? '⏸️ Stop Auto' : '▶️ Auto Attack'}
             </button>
           </div>
 

@@ -70,3 +70,50 @@
 .sprite-pos-9 { background-position: -64px -128px; }
 .sprite-pos-10 { background-position: -128px -128px; }
 .sprite-pos-11 { background-position: -192px -128px; }
+
+/* Common bow sprites use 3x4 grid (3 columns, 4 rows) - different layout */
+.sprite-common-bows.item-sprite {
+  background-size: 192px 256px; /* 3 columns x 4 rows * 64px */
+}
+
+.sprite-common-bows.item-sprite-small {
+  background-size: 96px 128px;
+}
+
+.sprite-common-bows.item-sprite-large {
+  background-size: 288px 384px;
+}
+
+/* Common bow sprite positions for 3x4 grid */
+.sprite-common-bows.sprite-pos-0 { background-position: 0 0; }
+.sprite-common-bows.sprite-pos-1 { background-position: -64px 0; }
+.sprite-common-bows.sprite-pos-2 { background-position: -128px 0; }
+
+.sprite-common-bows.sprite-pos-3 { background-position: 0 -64px; }
+.sprite-common-bows.sprite-pos-4 { background-position: -64px -64px; }
+.sprite-common-bows.sprite-pos-5 { background-position: -128px -64px; }
+
+.sprite-common-bows.sprite-pos-6 { background-position: 0 -128px; }
+.sprite-common-bows.sprite-pos-7 { background-position: -64px -128px; }
+.sprite-common-bows.sprite-pos-8 { background-position: -128px -128px; }
+
+.sprite-common-bows.sprite-pos-9 { background-position: 0 -192px; }
+.sprite-common-bows.sprite-pos-10 { background-position: -64px -192px; }
+.sprite-common-bows.sprite-pos-11 { background-position: -128px -192px; }
+
+/* Large common bow sprite positions */
+.sprite-common-bows.item-sprite-large.sprite-pos-0 { background-position: 0 0; }
+.sprite-common-bows.item-sprite-large.sprite-pos-1 { background-position: -96px 0; }
+.sprite-common-bows.item-sprite-large.sprite-pos-2 { background-position: -192px 0; }
+
+.sprite-common-bows.item-sprite-large.sprite-pos-3 { background-position: 0 -96px; }
+.sprite-common-bows.item-sprite-large.sprite-pos-4 { background-position: -96px -96px; }
+.sprite-common-bows.item-sprite-large.sprite-pos-5 { background-position: -192px -96px; }
+
+.sprite-common-bows.item-sprite-large.sprite-pos-6 { background-position: 0 -192px; }
+.sprite-common-bows.item-sprite-large.sprite-pos-7 { background-position: -96px -192px; }
+.sprite-common-bows.item-sprite-large.sprite-pos-8 { background-position: -192px -192px; }
+
+.sprite-common-bows.item-sprite-large.sprite-pos-9 { background-position: 0 -288px; }
+.sprite-common-bows.item-sprite-large.sprite-pos-10 { background-position: -96px -288px; }
+.sprite-common-bows.item-sprite-large.sprite-pos-11 { background-position: -192px -288px; }

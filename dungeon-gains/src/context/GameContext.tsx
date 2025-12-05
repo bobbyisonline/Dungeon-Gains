@@ -12,6 +12,7 @@ import {
 
 interface GameContextType {
   gameState: GameState | null;
+  isLoadingGame: boolean;
   createCharacter: (name: string, bench: number, squat: number, ohp: number, mileTime: number) => void;
   logWorkout: (workout: WorkoutLog) => void;
   startDungeon: () => void;
@@ -28,40 +29,58 @@ const GameContext = createContext<GameContextType | undefined>(undefined);
 export const GameProvider = ({ children }: { children: ReactNode }) => {
   const { user, isLoaded } = useUser();
   const [gameState, setGameState] = useState<GameState | null>(null);
+  const [isLoadingGame, setIsLoadingGame] = useState(true);
 
   // Load game when user is loaded
   useEffect(() => {
-    if (!isLoaded || !user) return;
-    
-    const saved = loadGame(user.id);
-    if (saved) {
-      // Check for 24-hour health restoration
-      const player = saved.player;
-      const now = new Date().toISOString();
-      const lastRestore = player.lastHealthRestoreTime ? new Date(player.lastHealthRestoreTime) : null;
-      
-      if (lastRestore && (new Date(now).getTime() - lastRestore.getTime()) >= 24 * 60 * 60 * 1000) {
-        // 24 hours have passed, restore health
-        player.health = player.maxHealth;
-        player.lastHealthRestoreTime = now;
-      } else if (!lastRestore) {
-        // First time loading, set timestamp
-        player.lastHealthRestoreTime = now;
-      }
-      
-      // Initialize healthPotions if not present
-      if (player.healthPotions === undefined) {
-        player.healthPotions = 0;
-      }
-      
-      setGameState(saved);
+    if (!isLoaded || !user) {
+      setIsLoadingGame(false);
+      return;
     }
+    
+    setIsLoadingGame(true);
+    
+    const loadUserGame = async () => {
+      const saved = await loadGame(user.id);
+      if (saved) {
+        // Check for 24-hour health restoration
+        const player = saved.player;
+        const now = new Date().toISOString();
+        const lastRestore = player.lastHealthRestoreTime ? new Date(player.lastHealthRestoreTime) : null;
+        
+        if (lastRestore && (new Date(now).getTime() - lastRestore.getTime()) >= 24 * 60 * 60 * 1000) {
+          // 24 hours have passed, restore health
+          player.health = player.maxHealth;
+          player.lastHealthRestoreTime = now;
+        } else if (!lastRestore) {
+          // First time loading, set timestamp
+          player.lastHealthRestoreTime = now;
+        }
+        
+        // Initialize healthPotions if not present
+        if (player.healthPotions === undefined) {
+          player.healthPotions = 0;
+        }
+        
+        setGameState(saved);
+      }
+      setIsLoadingGame(false);
+    };
+    
+    loadUserGame();
   }, [isLoaded, user]);
 
-  // Save game whenever state changes
+  // Save game whenever state changes (with debounce to avoid too many saves)
   useEffect(() => {
     if (gameState && user) {
-      saveGame(gameState, user.id);
+      const saveTimeout = setTimeout(() => {
+        console.log('Saving game state...', { level: gameState.player.stats.level, inventory: gameState.player.inventory.length });
+        saveGame(gameState, user.id).catch(err => 
+          console.error('Failed to save game:', err)
+        );
+      }, 500); // Debounce saves by 500ms
+
+      return () => clearTimeout(saveTimeout);
     }
   }, [gameState, user]);
 
@@ -280,7 +299,9 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
 
     setGameState(newState);
     if (user) {
-      saveGame(newState, user.id);
+      saveGame(newState, user.id).catch(err => 
+        console.error('Failed to save game:', err)
+      );
     }
   };
 
@@ -288,6 +309,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
     <GameContext.Provider
       value={{
         gameState,
+        isLoadingGame,
         createCharacter,
         logWorkout,
         startDungeon,

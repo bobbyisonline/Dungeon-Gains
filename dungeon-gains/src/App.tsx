@@ -12,8 +12,19 @@ import './App.css';
 type View = 'dashboard' | 'workout' | 'history';
 
 function GameContent() {
-  const { gameState } = useGame();
+  const { gameState, isLoadingGame } = useGame();
   const [currentView, setCurrentView] = useState<View>('dashboard');
+
+  if (isLoadingGame) {
+    return (
+      <div className="rs-panel" style={{ maxWidth: '600px', margin: '2rem auto', textAlign: 'center' }}>
+        <h2>⚔️ Loading Your Adventure...</h2>
+        <p style={{ fontSize: '1.2rem', margin: '2rem 0' }}>
+          Retrieving your character data...
+        </p>
+      </div>
+    );
+  }
 
   if (!gameState) {
     return <CharacterCreation />;

@@ -318,16 +318,19 @@ export const generateEnemy = (difficulty: number, isBoss: boolean = false): Enem
   // Level 1-5: 1.5x, Level 10: 2x, Level 20+: 2.5x
   const bossMultiplier = isBoss ? Math.min(2.5, 1.5 + (difficulty * 0.05)) : 1;
   
+  // Difficulty multiplier - 1.2x boost to all enemies (20% increase)
+  const difficultyMultiplier = 1.2;
+  
   // Scale health with some randomness
-  const health = Math.floor(template.baseHealth * bossMultiplier * (Math.random() * 0.2 + 0.9));
+  const health = Math.floor(template.baseHealth * bossMultiplier * difficultyMultiplier * (Math.random() * 0.2 + 0.9));
   
   return {
     id: `enemy_${Date.now()}_${Math.random()}`,
     name: isBoss ? `${template.name} Boss` : template.name,
     health,
     maxHealth: health,
-    attack: Math.floor(template.baseAttack * bossMultiplier),
-    defense: Math.floor(template.baseDefense * bossMultiplier),
+    attack: Math.floor(template.baseAttack * bossMultiplier * difficultyMultiplier),
+    defense: Math.floor(template.baseDefense * bossMultiplier * difficultyMultiplier),
     icon: template.icon,
     spriteSheet: 'enemy-sprites',
     spriteIndex: template.spriteIndex,
