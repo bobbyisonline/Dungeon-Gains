@@ -318,9 +318,17 @@ export const generateEnemy = (difficulty: number, isBoss: boolean = false): Enem
   // Level 1-5: 2.0x, Level 10: 2.8x, Level 20+: 3.5x
   const bossMultiplier = isBoss ? Math.min(3.5, 2.0 + (difficulty * 0.08)) : 1;
   
-  // Global difficulty multiplier - 1.8x boost to all enemies (80% increase from original)
-  // Plus additional scaling based on dungeon level (0.1x per level)
-  const difficultyMultiplier = 1.8 + (difficulty * 0.1);
+  // Progressive difficulty scaling that's gentler at low levels but brutal at high levels
+  // Level 1: 1.0x (base difficulty for new players)
+  // Level 2: 1.15x
+  // Level 3: 1.3x
+  // Level 5: 1.6x
+  // Level 10: 2.6x
+  // Level 15: 3.6x
+  // Level 20+: 4.6x+
+  const difficultyMultiplier = difficulty <= 1 
+    ? 1.0  // First dungeon at base difficulty
+    : 1.0 + Math.pow(difficulty - 1, 1.3) * 0.15;  // Exponential scaling after level 1
   
   // Scale health with some randomness (increased variance for tougher encounters)
   const health = Math.floor(template.baseHealth * bossMultiplier * difficultyMultiplier * (Math.random() * 0.3 + 0.85));
