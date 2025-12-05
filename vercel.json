@@ -1,0 +1,12 @@
+{
+  "buildCommand": "cd dungeon-gains && npm install && npm run build",
+  "outputDirectory": "dungeon-gains/dist",
+  "installCommand": "cd dungeon-gains && npm install",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
