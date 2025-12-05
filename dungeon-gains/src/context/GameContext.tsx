@@ -31,6 +31,20 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [isLoadingGame, setIsLoadingGame] = useState(true);
 
+  // Generate or retrieve unique guest ID for this browser
+  const getGuestId = (): string => {
+    const GUEST_ID_KEY = 'dungeon_gains_guest_id';
+    let guestId = localStorage.getItem(GUEST_ID_KEY);
+    
+    if (!guestId) {
+      // Generate a unique guest ID (simple UUID-like string)
+      guestId = `guest_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+      localStorage.setItem(GUEST_ID_KEY, guestId);
+    }
+    
+    return guestId;
+  };
+
   // Load game when user is loaded (or immediately for guest mode)
   useEffect(() => {
     if (!isLoaded) {
@@ -40,8 +54,8 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
     setIsLoadingGame(true);
     
     const loadUserGame = async () => {
-      // Use 'guest' as ID if no user is signed in
-      const userId = user?.id || 'guest';
+      // Use unique guest ID if no user is signed in
+      const userId = user?.id || getGuestId();
       const saved = await loadGame(userId);
       if (saved) {
         // Check for 24-hour health restoration
@@ -75,8 +89,8 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (gameState) {
       const saveTimeout = setTimeout(() => {
-        // Use 'guest' as ID if no user is signed in
-        const userId = user?.id || 'guest';
+        // Use unique guest ID if no user is signed in
+        const userId = user?.id || getGuestId();
         saveGame(gameState, userId).catch(err => 
           console.error('Failed to save game:', err)
         );
