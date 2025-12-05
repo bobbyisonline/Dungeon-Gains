@@ -8,6 +8,7 @@ import { WorkoutLogger } from './components/WorkoutLogger/WorkoutLogger';
 import { DungeonCrawler } from './components/DungeonCrawler/DungeonCrawler';
 import { WorkoutHistory } from './components/WorkoutHistory/WorkoutHistory';
 import { FeedbackModal } from './components/FeedbackModal/FeedbackModal';
+import { WipModal } from './components/WipModal/WipModal';
 import './styles/sprites.css';
 import './App.css';
 
@@ -93,9 +94,11 @@ function GameContent() {
 
 function App() {
   const [guestMode, setGuestMode] = useState(false);
+  const [showWip, setShowWip] = useState(true);
 
   return (
     <div className="app-container">
+      <WipModal open={showWip} onClose={() => setShowWip(false)} />
       <nav className="main-nav">
         <div className="nav-brand">
           <h1>⚔️ Dungeon Gains</h1>
