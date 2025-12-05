@@ -98,6 +98,16 @@
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
+.nav-links button.feedback-btn {
+  background: linear-gradient(180deg, #667eea 0%, #5568d3 100%);
+  border-color: #7c8cf0;
+  color: white;
+}
+
+.nav-links button.feedback-btn:hover {
+  background: linear-gradient(180deg, #7c8cf0 0%, #667eea 100%);
+}
+
 .btn-reset {
   background: linear-gradient(180deg, #d32f2f 0%, var(--rs-red) 100%) !important;
   border-color: #b71c1c !important;

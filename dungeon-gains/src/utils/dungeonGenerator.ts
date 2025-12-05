@@ -315,14 +315,15 @@ export const generateEnemy = (difficulty: number, isBoss: boolean = false): Enem
   const template = enemyPool[Math.floor(Math.random() * enemyPool.length)];
   
   // Boss multiplier - scales with difficulty (weaker at low levels)
-  // Level 1-5: 1.5x, Level 10: 2x, Level 20+: 2.5x
-  const bossMultiplier = isBoss ? Math.min(2.5, 1.5 + (difficulty * 0.05)) : 1;
+  // Level 1-5: 2.0x, Level 10: 2.8x, Level 20+: 3.5x
+  const bossMultiplier = isBoss ? Math.min(3.5, 2.0 + (difficulty * 0.08)) : 1;
   
-  // Difficulty multiplier - 1.2x boost to all enemies (20% increase)
-  const difficultyMultiplier = 1.2;
+  // Global difficulty multiplier - 1.8x boost to all enemies (80% increase from original)
+  // Plus additional scaling based on dungeon level (0.1x per level)
+  const difficultyMultiplier = 1.8 + (difficulty * 0.1);
   
-  // Scale health with some randomness
-  const health = Math.floor(template.baseHealth * bossMultiplier * difficultyMultiplier * (Math.random() * 0.2 + 0.9));
+  // Scale health with some randomness (increased variance for tougher encounters)
+  const health = Math.floor(template.baseHealth * bossMultiplier * difficultyMultiplier * (Math.random() * 0.3 + 0.85));
   
   return {
     id: `enemy_${Date.now()}_${Math.random()}`,

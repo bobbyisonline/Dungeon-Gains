@@ -6,6 +6,7 @@ import { Dashboard } from './components/Dashboard/Dashboard';
 import { WorkoutLogger } from './components/WorkoutLogger/WorkoutLogger';
 import { DungeonCrawler } from './components/DungeonCrawler/DungeonCrawler';
 import { WorkoutHistory } from './components/WorkoutHistory/WorkoutHistory';
+import { FeedbackModal } from './components/FeedbackModal/FeedbackModal';
 import './styles/sprites.css';
 import './App.css';
 
@@ -14,6 +15,7 @@ type View = 'dashboard' | 'workout' | 'history';
 function GameContent() {
   const { gameState, isLoadingGame } = useGame();
   const [currentView, setCurrentView] = useState<View>('dashboard');
+  const [showFeedback, setShowFeedback] = useState(false);
 
   if (isLoadingGame) {
     return (
@@ -69,6 +71,12 @@ function GameContent() {
             >
               📅 History
             </button>
+            <button 
+              onClick={() => setShowFeedback(true)}
+              className="feedback-btn"
+            >
+              📝 Feedback
+            </button>
           </div>
         </nav>
       )}
@@ -76,6 +84,8 @@ function GameContent() {
       <main className="main-content">
         {renderView()}
       </main>
+
+      {showFeedback && <FeedbackModal onClose={() => setShowFeedback(false)} />}
     </>
   );
 }

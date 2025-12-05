@@ -26,6 +26,7 @@ export const WorkoutLogger = () => {
   const [apiExercises, setApiExercises] = useState<APIExercise[]>([]);
   const [selectedMuscle, setSelectedMuscle] = useState('biceps');
   const [loading, setLoading] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   
   // Exercise editing
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
@@ -278,27 +279,33 @@ export const WorkoutLogger = () => {
             
             <div className="browser-controls">
               <label>Target Muscle:</label>
-              <select 
-                className="rs-input"
-                value={selectedMuscle} 
-                onChange={(e) => setSelectedMuscle(e.target.value)}
-              >
-                <option value="biceps">Biceps</option>
-                <option value="triceps">Triceps</option>
-                <option value="chest">Chest</option>
-                <option value="forearms">Forearms</option>
-                <option value="lats">Lats</option>
-                <option value="middle_back">Middle Back</option>
-                <option value="lower_back">Lower Back</option>
-                <option value="neck">Neck</option>
-                <option value="quadriceps">Quadriceps</option>
-                <option value="hamstrings">Hamstrings</option>
-                <option value="calves">Calves</option>
-                <option value="glutes">Glutes</option>
-                <option value="abdominals">Abdominals</option>
-                <option value="shoulders">Shoulders</option>
-                <option value="traps">Traps</option>
-              </select>
+              <div className="custom-select-wrapper">
+                <div 
+                  className="custom-select rs-input" 
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  tabIndex={0}
+                  onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
+                >
+                  <span className="selected-value">{selectedMuscle.charAt(0).toUpperCase() + selectedMuscle.slice(1).replace('_', ' ')}</span>
+                  <span className="dropdown-arrow">{dropdownOpen ? '▲' : '▼'}</span>
+                </div>
+                {dropdownOpen && (
+                  <div className="custom-options">
+                    {['biceps', 'triceps', 'chest', 'forearms', 'lats', 'middle_back', 'lower_back', 'neck', 'quadriceps', 'hamstrings', 'calves', 'glutes', 'abdominals', 'shoulders', 'traps'].map(muscle => (
+                      <div 
+                        key={muscle}
+                        className={`custom-option ${selectedMuscle === muscle ? 'selected' : ''}`}
+                        onClick={() => {
+                          setSelectedMuscle(muscle);
+                          setDropdownOpen(false);
+                        }}
+                      >
+                        {muscle.charAt(0).toUpperCase() + muscle.slice(1).replace('_', ' ')}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
               <button onClick={loadExercises} className="rs-button" style={{ marginTop: '0.5rem' }}>
                 🔍 Search
               </button>
@@ -321,8 +328,7 @@ export const WorkoutLogger = () => {
                       </div>
                       <button 
                         onClick={() => addApiExercise(ex)} 
-                        className="rs-button rs-button-primary"
-                        style={{ padding: '0.5rem 1rem', fontSize: '1.1rem' }}
+                        className="rs-button rs-button-primary btn-add-exercise-compact"
                       >
                         +
                       </button>

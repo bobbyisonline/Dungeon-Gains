@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { Enemy, DungeonRoom, Item } from '../../types';
 import { useGame } from '../../context/GameContext';
 import { calculatePlayerDamage, calculatePlayerDefense } from '../../utils/gameLogic';
@@ -14,6 +14,7 @@ export const DungeonCrawler = () => {
   const [currentEnemy, setCurrentEnemy] = useState<Enemy | null>(null);
   const [playerHealth, setPlayerHealth] = useState(gameState?.player.health || 100);
   const [, forceUpdate] = useState({});
+  const battleLogRef = useRef<HTMLDivElement>(null);
   
   // Dungeon stats tracking
   const [enemiesDefeated, setEnemiesDefeated] = useState(0);
@@ -64,6 +65,13 @@ export const DungeonCrawler = () => {
     }
   }, [showLootModal, lootQueue]);
 
+  // Auto-scroll battle log to bottom when it updates
+  useEffect(() => {
+    if (battleLogRef.current) {
+      battleLogRef.current.scrollTop = battleLogRef.current.scrollHeight;
+    }
+  }, [battleLog]);
+
   // Auto-attack effect
   useEffect(() => {
     if (autoAttack && currentEnemy && !isDead) {
@@ -74,6 +82,8 @@ export const DungeonCrawler = () => {
       return () => clearTimeout(attackTimer);
     }
   }, [autoAttack, currentEnemy, isDead, battleLog]); // Re-trigger after each attack (battleLog change)
+
+
 
   const attackEnemy = () => {
     if (!currentEnemy || isDead) return;
@@ -151,6 +161,9 @@ export const DungeonCrawler = () => {
   const renderRoom = () => {
     // Show defeated enemy screen
     if (defeatedEnemy && !currentEnemy && currentRoom.cleared) {
+      const isBoss = currentRoom.type === 'boss';
+      const isLastRoom = dungeon.currentRoomIndex >= dungeon.rooms.length - 1;
+      
       return (
         <div className="battle-screen">
           <div className="enemy-display defeated">
@@ -161,17 +174,26 @@ export const DungeonCrawler = () => {
             ) : (
               <div className="enemy-icon defeated-icon">{defeatedEnemy.icon}</div>
             )}
-            <h3 className="defeated-text">ENEMY DEFEATED</h3>
+            <h3 className="defeated-text">{isBoss ? '👑 BOSS DEFEATED! 👑' : 'ENEMY DEFEATED'}</h3>
             <p className="defeated-name">{defeatedEnemy.name}</p>
           </div>
 
           <div className="battle-actions">
-            <button onClick={() => { setDefeatedEnemy(null); nextRoom(); }} className="btn-continue">
-              Continue →
-            </button>
+            {isLastRoom || isBoss ? (
+              <button onClick={() => { 
+                setDefeatedEnemy(null);
+                dungeon.completed = true;
+              }} className="btn-continue btn-complete-dungeon">
+                🎉 Complete Dungeon
+              </button>
+            ) : (
+              <button onClick={() => { setDefeatedEnemy(null); nextRoom(); }} className="btn-continue">
+                Continue →
+              </button>
+            )}
           </div>
 
-          <div className="battle-log">
+          <div className="battle-log" ref={battleLogRef}>
             {battleLog.map((log, idx) => (
               <div key={idx} className="log-entry">{log}</div>
             ))}
@@ -215,7 +237,7 @@ export const DungeonCrawler = () => {
             </button>
           </div>
 
-          <div className="battle-log">
+          <div className="battle-log" ref={battleLogRef}>
             {battleLog.map((log, idx) => (
               <div key={idx} className="log-entry">{log}</div>
             ))}
@@ -303,17 +325,19 @@ export const DungeonCrawler = () => {
         </div>
       </div>
 
-      <div className="room-container">
-        {renderRoom()}
-      </div>
+      {!dungeon.completed ? (
+        <>
+          <div className="room-container">
+            {renderRoom()}
+          </div>
 
-      {currentRoom.cleared && !dungeon.completed && !isDead && (
-        <button onClick={nextRoom} className="btn-primary">
-          Continue to Next Room →
-        </button>
-      )}
-
-      {dungeon.completed && !isDead && (
+          {currentRoom.cleared && !dungeon.completed && !isDead && !defeatedEnemy && (
+            <button onClick={nextRoom} className="btn-primary">
+              Continue to Next Room →
+            </button>
+          )}
+        </>
+      ) : (
         <div className="dungeon-results rs-panel">
           <div className="results-header">
             <h2 className="rs-text-gold">🎉 Dungeon Cleared! 🎉</h2>

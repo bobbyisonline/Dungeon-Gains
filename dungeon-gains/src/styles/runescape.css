@@ -114,6 +114,20 @@
     0 0 0 2px rgba(255, 213, 79, 0.3);
 }
 
+select.rs-input {
+  color-scheme: dark;
+  accent-color: #3e2723;
+}
+
+select.rs-input option {
+  background-color: #2c1810 !important;
+  color: var(--rs-gold) !important;
+}
+
+select.rs-input option:checked {
+  background: linear-gradient(180deg, #4e342e 0%, #3e2723 100%) !important;
+}
+
 .rs-text-gold {
   color: var(--rs-gold-bright);
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
