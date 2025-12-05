@@ -486,6 +486,111 @@
   margin-top: 1rem;
 }
 
+@media (max-width: 768px) {
+  .dungeon-crawler {
+    padding: 1rem;
+  }
+  
+  .dungeon-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+  
+  .dungeon-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .progress {
+    font-size: 1rem;
+  }
+  
+  .player-status {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .player-stats {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  .room-container {
+    padding: 1rem;
+    min-height: 300px;
+  }
+  
+  .enemy-icon {
+    font-size: 4rem;
+  }
+  
+  .enemy-display h3 {
+    font-size: 1.5rem;
+  }
+  
+  .battle-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  
+  .btn-attack,
+  .btn-auto-attack {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.125rem;
+    min-height: 56px; /* Touch-friendly */
+  }
+  
+  .battle-log {
+    max-height: 150px;
+    font-size: 0.875rem;
+    padding: 0.75rem;
+  }
+  
+  .room-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .room-actions button {
+    width: 100%;
+    min-height: 56px;
+  }
+  
+  .defeated-text {
+    font-size: 2rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .dungeon-crawler {
+    padding: 0.5rem;
+  }
+  
+  .dungeon-header h2 {
+    font-size: 1.25rem;
+  }
+  
+  .player-status {
+    padding: 0.75rem;
+  }
+  
+  .room-container {
+    padding: 0.75rem;
+  }
+  
+  .enemy-icon {
+    font-size: 3rem;
+  }
+  
+  .enemy-display h3 {
+    font-size: 1.25rem;
+  }
+}
+
 @media (min-width: 768px) {
   .results-grid {
     grid-template-columns: repeat(2, 1fr);

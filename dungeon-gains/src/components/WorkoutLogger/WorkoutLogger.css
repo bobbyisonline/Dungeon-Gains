@@ -431,19 +431,75 @@
 }
 
 @media (max-width: 768px) {
+  .workout-logger {
+    padding: 1rem;
+  }
+  
+  .workout-logger h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
   .logger-container {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
   
   .form-row {
     grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .add-exercise-section,
+  .exercises-list {
+    padding: 1rem;
+  }
+  
+  .form-group input,
+  .form-group select {
+    padding: 0.75rem;
+    font-size: 1rem;
+    min-height: 44px; /* Touch-friendly */
+  }
+  
+  .btn-secondary,
+  button {
+    padding: 0.875rem;
+    min-height: 48px;
+    font-size: 1rem;
   }
 
   .exercise-browser-modal {
     padding: 1rem;
+    width: 95%;
   }
 
   .modal-content {
-    padding: 1.5rem;
+    padding: 1rem;
+    max-height: 80vh;
+  }
+  
+  .exercise-item {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .workout-logger {
+    padding: 0.5rem;
+  }
+  
+  .workout-logger h2 {
+    font-size: 1.25rem;
+  }
+  
+  .add-exercise-section,
+  .exercises-list {
+    padding: 0.75rem;
+  }
+  
+  .add-exercise-section h3,
+  .exercises-list h3 {
+    font-size: 1.125rem;
   }
 }

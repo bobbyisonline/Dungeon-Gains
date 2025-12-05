@@ -40,10 +40,29 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 #root {
   min-height: 100vh;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  button, .btn {
+    min-height: 44px; /* iOS touch target recommendation */
+    padding: 0.625rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -64,6 +83,13 @@ button:focus-visible {
 
 input, select, textarea {
   font-family: inherit;
+}
+
+/* Prevent iOS zoom on input focus by ensuring minimum 16px font size */
+@media (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important; /* Prevents iOS auto-zoom */
+  }
 }
 
 /* Scrollbar Styling */

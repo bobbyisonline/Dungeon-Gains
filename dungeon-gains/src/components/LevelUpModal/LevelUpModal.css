@@ -279,3 +279,117 @@
 .level-up-continue-btn:hover {
   transform: scale(1.05);
 }
+
+@media (max-width: 768px) {
+  .level-up-modal {
+    padding: 1rem;
+    width: 95%;
+    max-height: 90vh;
+  }
+  
+  .level-up-title {
+    font-size: 1.75rem;
+  }
+  
+  .new-level-badge {
+    padding: 0.5rem 1.25rem;
+    font-size: 1.25rem;
+  }
+  
+  .level-up-message {
+    font-size: 1rem;
+  }
+  
+  .stats-changes {
+    padding: 1rem;
+  }
+  
+  .stats-grid {
+    gap: 0.75rem;
+  }
+  
+  .stat-change {
+    padding: 0.75rem;
+  }
+  
+  .stat-change-name {
+    font-size: 0.9rem;
+  }
+  
+  .stat-change-value {
+    font-size: 1.5rem;
+  }
+  
+  .level-up-continue-btn {
+    padding: 0.875rem;
+    font-size: 1.125rem;
+    min-height: 56px;
+  }
+}
+
+@media (max-width: 480px) {
+  .level-up-modal {
+    padding: 0.75rem;
+  }
+  
+  .level-up-title {
+    font-size: 1.5rem;
+  }
+  
+  .new-level-badge {
+    padding: 0.4rem 1rem;
+    font-size: 1.125rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .dungeon-unlocks {
+    gap: 0.5rem;
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-height: 600px) and (orientation: landscape) {
+  .level-up-modal {
+    max-height: 95vh;
+    padding: 0.75rem;
+  }
+  
+  .level-up-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .new-level-badge {
+    padding: 0.4rem 1rem;
+    font-size: 1rem;
+  }
+  
+  .level-up-message {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .stats-changes {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .stat-change {
+    padding: 0.5rem;
+  }
+  
+  .level-up-continue-btn {
+    padding: 0.625rem;
+    font-size: 1rem;
+    min-height: 44px;
+  }
+}

@@ -276,22 +276,80 @@
   .workout-history {
     padding: 1rem;
   }
+  
+  .workout-history h2 {
+    font-size: 1.5rem;
+  }
 
   .month-title {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    padding: 0.75rem;
   }
 
   .calendar-grid {
-    gap: 4px;
+    gap: 3px;
+  }
+  
+  .calendar-day {
+    min-height: 60px;
+    padding: 0.25rem;
+  }
+  
+  .day-number {
+    font-size: 0.875rem;
+  }
+  
+  .workout-indicator {
+    font-size: 0.875rem;
   }
 
   .exercise-row {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+    padding: 0.75rem;
   }
 
   .workout-stats {
     grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .workout-detail-modal {
+    padding: 1rem;
+    width: 95%;
+    max-height: 85vh;
+  }
+  
+  button {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .workout-history {
+    padding: 0.5rem;
+  }
+  
+  .workout-history h2 {
+    font-size: 1.25rem;
+  }
+  
+  .month-title {
+    font-size: 1.1rem;
+    padding: 0.5rem;
+  }
+  
+  .calendar-day {
+    min-height: 50px;
+    padding: 0.125rem;
+  }
+  
+  .day-number {
+    font-size: 0.75rem;
+  }
+  
+  .workout-indicator {
+    font-size: 0.75rem;
   }
 }

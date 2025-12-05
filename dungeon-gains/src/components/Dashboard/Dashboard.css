@@ -545,25 +545,90 @@
 }
 
 @media (max-width: 768px) {
+  .dashboard {
+    padding: 1rem;
+  }
+  
   .dashboard-header {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
     text-align: center;
   }
   
   .dashboard-header h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
-
+  
+  .level-badge {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+  
+  .card h2 {
+    font-size: 1.25rem;
+  }
+  
+  .stat-item {
+    padding: 0.75rem;
+  }
+  
+  .stat-icon {
+    font-size: 1.5rem;
+  }
+  
+  .stat-value {
+    font-size: 1.25rem;
+  }
+  
   .inventory-modal {
     padding: 1rem;
   }
 
   .modal-content {
     padding: 1rem;
+    max-height: 80vh;
   }
 
   .inventory-grid {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .item-slot {
+    min-height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    padding: 0.5rem;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .card {
+    padding: 0.75rem;
+  }
+  
+  .stat-item {
+    flex-direction: column;
+    text-align: center;
+    padding: 0.5rem;
+  }
+  
+  .stat-details {
+    flex-direction: column;
+    gap: 0.25rem;
   }
 }
