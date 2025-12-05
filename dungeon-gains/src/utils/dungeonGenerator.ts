@@ -236,25 +236,25 @@ interface EnemyTemplate {
 }
 
 const ENEMY_TEMPLATES: EnemyTemplate[] = [
-  // Early game (Levels 1-5) - Very weak, beatable by level 1
-  { name: 'Sewer Slime', baseHealth: 15, baseAttack: 1, baseDefense: 0, icon: '🟢', minLevel: 1, maxLevel: 5, spriteIndex: 0 },
-  { name: 'Cellar Rat', baseHealth: 20, baseAttack: 2, baseDefense: 0, icon: '🐀', minLevel: 1, maxLevel: 6, spriteIndex: 1 },
-  { name: 'Goblin Scout', baseHealth: 30, baseAttack: 3, baseDefense: 1, icon: '👺', minLevel: 2, maxLevel: 8, spriteIndex: 2 },
+  // Early game (Levels 1-5) - Should still challenge level 1-3 characters
+  { name: 'Sewer Slime', baseHealth: 15, baseAttack: 5, baseDefense: 0, icon: '🟢', minLevel: 1, maxLevel: 5, spriteIndex: 0 },
+  { name: 'Cellar Rat', baseHealth: 20, baseAttack: 7, baseDefense: 0, icon: '🐀', minLevel: 1, maxLevel: 6, spriteIndex: 1 },
+  { name: 'Goblin Scout', baseHealth: 30, baseAttack: 10, baseDefense: 1, icon: '👺', minLevel: 2, maxLevel: 8, spriteIndex: 2 },
   
-  // Mid-early game (Levels 4-10)
-  { name: 'Restless Skeleton', baseHealth: 40, baseAttack: 4, baseDefense: 1, icon: '💀', minLevel: 4, maxLevel: 11, spriteIndex: 3 },
-  { name: 'Shambling Zombie', baseHealth: 50, baseAttack: 5, baseDefense: 2, icon: '🧟', minLevel: 5, maxLevel: 12, spriteIndex: 4 },
-  { name: 'Orc Warrior', baseHealth: 65, baseAttack: 6, baseDefense: 3, icon: '👹', minLevel: 7, maxLevel: 15, spriteIndex: 5 },
+  // Mid-early game (Levels 4-10) - Should threaten mid-level characters
+  { name: 'Restless Skeleton', baseHealth: 40, baseAttack: 13, baseDefense: 1, icon: '💀', minLevel: 4, maxLevel: 11, spriteIndex: 3 },
+  { name: 'Shambling Zombie', baseHealth: 50, baseAttack: 16, baseDefense: 2, icon: '🧟', minLevel: 5, maxLevel: 12, spriteIndex: 4 },
+  { name: 'Orc Warrior', baseHealth: 65, baseAttack: 20, baseDefense: 3, icon: '👹', minLevel: 7, maxLevel: 15, spriteIndex: 5 },
   
-  // Mid game (Levels 10-18)
-  { name: 'Crypt Ghoul', baseHealth: 85, baseAttack: 8, baseDefense: 5, icon: '👻', minLevel: 10, maxLevel: 18, spriteIndex: 6 },
-  { name: 'Rock Golem', baseHealth: 100, baseAttack: 9, baseDefense: 8, icon: '🗿', minLevel: 12, maxLevel: 20, spriteIndex: 7 },
-  { name: 'Lesser Demon', baseHealth: 120, baseAttack: 11, baseDefense: 6, icon: '😈', minLevel: 15, maxLevel: 23, spriteIndex: 8 },
+  // Mid game (Levels 10-18) - Dangerous encounters
+  { name: 'Crypt Ghoul', baseHealth: 85, baseAttack: 25, baseDefense: 5, icon: '👻', minLevel: 10, maxLevel: 18, spriteIndex: 6 },
+  { name: 'Rock Golem', baseHealth: 100, baseAttack: 28, baseDefense: 8, icon: '🗿', minLevel: 12, maxLevel: 20, spriteIndex: 7 },
+  { name: 'Lesser Demon', baseHealth: 120, baseAttack: 33, baseDefense: 6, icon: '😈', minLevel: 15, maxLevel: 23, spriteIndex: 8 },
   
-  // Late game (Levels 18+)
-  { name: 'Black Knight', baseHealth: 140, baseAttack: 13, baseDefense: 10, icon: '⚔️', minLevel: 18, maxLevel: 28, spriteIndex: 9 },
-  { name: 'Necromancer', baseHealth: 130, baseAttack: 15, baseDefense: 8, icon: '🧙', minLevel: 20, maxLevel: 30, spriteIndex: 10 },
-  { name: 'Red Dragon', baseHealth: 200, baseAttack: 20, baseDefense: 15, icon: '🐉', minLevel: 22, maxLevel: 30, spriteIndex: 11 },
+  // Late game (Levels 18+) - Deadly threats
+  { name: 'Black Knight', baseHealth: 140, baseAttack: 40, baseDefense: 10, icon: '⚔️', minLevel: 18, maxLevel: 28, spriteIndex: 9 },
+  { name: 'Necromancer', baseHealth: 130, baseAttack: 45, baseDefense: 8, icon: '🧙', minLevel: 20, maxLevel: 30, spriteIndex: 10 },
+  { name: 'Red Dragon', baseHealth: 200, baseAttack: 55, baseDefense: 15, icon: '🐉', minLevel: 22, maxLevel: 30, spriteIndex: 11 },
 ];
 
 // Generate random item with level-based rarity scaling

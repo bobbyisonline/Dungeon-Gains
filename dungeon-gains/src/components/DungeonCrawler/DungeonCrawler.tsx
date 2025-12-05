@@ -123,10 +123,25 @@ export const DungeonCrawler = () => {
 
     // Enemy attacks back - player defense reduces damage
     const playerDefense = calculatePlayerDefense(player);
-    const enemyDmg = Math.max(1, currentEnemy.attack - playerDefense);
+    
+    // Enemy damage calculation with variance (like player attacks)
+    // Base damage after defense reduction
+    const baseDamage = currentEnemy.attack - playerDefense;
+    
+    // Add variance (80-120% of base damage) to make combat less predictable
+    const variance = Math.random() * 0.4 + 0.8; // 80-120%
+    
+    // Calculate final damage - defense can reduce to 0 if high enough!
+    // No minimum 1 damage - defense should matter!
+    const enemyDmg = Math.max(0, Math.floor(baseDamage * variance));
+    
     const newPlayerHealth = Math.max(0, playerHealth - enemyDmg);
     
-    log.push(`${currentEnemy.name} deals ${enemyDmg} damage!`);
+    if (enemyDmg > 0) {
+      log.push(`${currentEnemy.name} deals ${enemyDmg} damage!`);
+    } else {
+      log.push(`${currentEnemy.name} attacks but your defense blocks it!`);
+    }
     
     if (newPlayerHealth <= 0) {
       log.push('💀 You have been defeated!');
