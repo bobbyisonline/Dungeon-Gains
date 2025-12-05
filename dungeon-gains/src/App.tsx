@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 import { Analytics } from '@vercel/analytics/react';
 import { GameProvider, useGame } from './context/GameContext';
@@ -9,6 +9,7 @@ import { DungeonCrawler } from './components/DungeonCrawler/DungeonCrawler';
 import { WorkoutHistory } from './components/WorkoutHistory/WorkoutHistory';
 import { FeedbackModal } from './components/FeedbackModal/FeedbackModal';
 import { WipModal } from './components/WipModal/WipModal';
+import { TutorialModal } from './components/TutorialModal/TutorialModal';
 import './styles/sprites.css';
 import './App.css';
 
@@ -18,6 +19,26 @@ function GameContent() {
   const { gameState, isLoadingGame } = useGame();
   const [currentView, setCurrentView] = useState<View>('dashboard');
   const [showFeedback, setShowFeedback] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  // Show tutorial only after character creation, on dashboard, and not in dungeon
+  useEffect(() => {
+    if (
+      gameState &&
+      !gameState.currentDungeon &&
+      currentView === 'dashboard'
+    ) {
+      const hasSeenTutorial = localStorage.getItem('dungeon_gains_tutorial_seen');
+      if (!hasSeenTutorial) {
+        setShowTutorial(true);
+      }
+    }
+  }, [gameState, currentView]);
+
+  const handleTutorialClose = () => {
+    setShowTutorial(false);
+    localStorage.setItem('dungeon_gains_tutorial_seen', 'true');
+  };
 
   if (isLoadingGame) {
     return (
@@ -52,6 +73,7 @@ function GameContent() {
 
   return (
     <>
+      <TutorialModal open={showTutorial} onClose={handleTutorialClose} />
       {!gameState.currentDungeon && (
         <nav className="main-nav" style={{ borderTop: 'none' }}>
           <div className="nav-links">

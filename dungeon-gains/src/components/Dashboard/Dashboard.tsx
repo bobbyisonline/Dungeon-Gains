@@ -237,8 +237,12 @@ export const Dashboard = () => {
               >
                 Use Potion (Restore 50% HP)
               </button>
-              <p style={{ fontSize: '0.85rem', marginTop: '0.5rem', color: '#888' }}>
+              <p style={{ fontSize: '1.15rem', marginTop: '0.75rem', color: '#10b981', fontWeight: 700 }}>
                 💡 Earn potions by setting PRs!
+              </p>
+              <p style={{ fontSize: '1rem', marginTop: '0.5rem', color: '#ffd700', fontWeight: 600 }}>
+                Ran out of health in the dastardly dungeons?<br />
+                Good news – your health will automatically restore at the beginning of each day. Get back out there!
               </p>
             </div>
           </div>

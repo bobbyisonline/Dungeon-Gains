@@ -1,0 +1,52 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.workout-limit-modal {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 3px solid #ffd700;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  color: #ffd700;
+}
+
+.workout-limit-modal h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #ffd700;
+}
+
+.workout-limit-modal p {
+  color: #e2e8f0;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.workout-limit-close-btn {
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, #ffd700 0%, #f59e0b 100%);
+  border: none;
+  border-radius: 8px;
+  color: #222;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.workout-limit-close-btn:hover {
+  background: linear-gradient(135deg, #f59e0b 0%, #ffd700 100%);
+}
