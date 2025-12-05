@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
+import { Analytics } from '@vercel/analytics/react';
 import { GameProvider, useGame } from './context/GameContext';
 import { CharacterCreation } from './components/CharacterCreation/CharacterCreation';
 import { Dashboard } from './components/Dashboard/Dashboard';
@@ -132,6 +133,8 @@ function App() {
           <GameContent />
         </GameProvider>
       </SignedIn>
+      
+      <Analytics />
     </div>
   );
 }
