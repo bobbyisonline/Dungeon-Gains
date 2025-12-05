@@ -144,16 +144,6 @@ src/
 **Bobby Agnese**
 - GitHub: [@bobbyisonline](https://github.com/bobbyisonline)
 
-## 🙏 Acknowledgments
-
-This project was created as a portfolio piece to demonstrate:
-- React & TypeScript proficiency
-- State management patterns
-- Game mechanics implementation
-- UI/UX design skills
-- Clean code architecture
-
----
 
 **Made with 💪 and ⚔️**
 Dungeon Gains is a React + TypeScript workout tracker fused with a retro dungeon crawler. Log lifts and runs, earn loot, and boost your character’s stats. PRs grant permanent buffs, and each workout unlocks a randomized dungeon run powered by your real-world progress.
