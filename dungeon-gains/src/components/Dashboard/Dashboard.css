@@ -577,16 +577,55 @@
     font-size: 1.25rem;
   }
   
+  /* Make stat items stack vertically */
   .stat-item {
+    flex-direction: column;
+    align-items: flex-start;
     padding: 0.75rem;
+    gap: 0.5rem;
   }
   
   .stat-icon {
     font-size: 1.5rem;
   }
   
+  .stat-details {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 0.25rem;
+  }
+  
   .stat-value {
     font-size: 1.25rem;
+  }
+  
+  /* Make equipped items stack vertically */
+  .equipped-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .item-details {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Make info rows stack vertically */
+  .info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  /* Make activity items stack vertically */
+  .activity-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
   
   .inventory-modal {
