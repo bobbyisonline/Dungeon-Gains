@@ -27,8 +27,6 @@ export const saveGame = async (gameState: GameState, userId: string): Promise<vo
       // Fallback to localStorage
       const storageKey = getStorageKey(userId);
       localStorage.setItem(storageKey, JSON.stringify(gameState));
-    } else {
-      console.log('Game saved successfully to Supabase');
     }
   } catch (error) {
     console.error('Failed to save game:', error);
@@ -41,7 +39,6 @@ export const saveGame = async (gameState: GameState, userId: string): Promise<vo
 // Load game from Supabase (with localStorage fallback)
 export const loadGame = async (userId: string): Promise<GameState | null> => {
   try {
-    console.log('Loading game for user:', userId);
     // Try loading from Supabase
     const { data, error } = await supabase
       .from('game_saves')
@@ -54,18 +51,15 @@ export const loadGame = async (userId: string): Promise<GameState | null> => {
       // Fallback to localStorage
       const storageKey = getStorageKey(userId);
       const saved = localStorage.getItem(storageKey);
-      console.log('Loaded from localStorage fallback');
       return saved ? JSON.parse(saved) : null;
     }
 
-    console.log('Loaded from Supabase successfully');
     return data?.game_data || null;
   } catch (error) {
     console.error('Failed to load game:', error);
     // Fallback to localStorage
     const storageKey = getStorageKey(userId);
     const saved = localStorage.getItem(storageKey);
-    console.log('Loaded from localStorage fallback (catch)');
     return saved ? JSON.parse(saved) : null;
   }
 };

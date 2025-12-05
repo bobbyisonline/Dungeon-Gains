@@ -74,7 +74,6 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (gameState && user) {
       const saveTimeout = setTimeout(() => {
-        console.log('Saving game state...', { level: gameState.player.stats.level, inventory: gameState.player.inventory.length });
         saveGame(gameState, user.id).catch(err => 
           console.error('Failed to save game:', err)
         );
