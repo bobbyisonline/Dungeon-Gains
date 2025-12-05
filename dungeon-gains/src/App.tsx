@@ -92,6 +92,8 @@ function GameContent() {
 }
 
 function App() {
+  const [guestMode, setGuestMode] = useState(false);
+
   return (
     <div className="app-container">
       <nav className="main-nav">
@@ -100,7 +102,8 @@ function App() {
         </div>
         <div className="nav-auth">
           <SignedOut>
-            <SignInButton mode="modal" />
+            {!guestMode && <SignInButton mode="modal" />}
+            {guestMode && <button onClick={() => setGuestMode(false)} className="rs-button" style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}>🔐 Sign In</button>}
           </SignedOut>
           <SignedIn>
             <UserButton />
@@ -109,23 +112,45 @@ function App() {
       </nav>
       
       <SignedOut>
-        <main className="main-content">
-          <div className="rs-panel" style={{ maxWidth: '600px', margin: '2rem auto', textAlign: 'center' }}>
-            <h2>🎮 Welcome to Dungeon Gains!</h2>
-            <p style={{ marginBottom: '2rem', fontSize: '1.2rem' }}>
-              Transform your workouts into epic RPG adventures. Track your lifts, battle monsters, 
-              and watch your character grow stronger as you do!
-            </p>
-            <p style={{ marginBottom: '2rem', color: 'var(--rs-gold)' }}>
-              Please sign in to create your hero and start your journey.
-            </p>
-            <SignInButton mode="modal">
-              <button className="rs-button" style={{ fontSize: '1.2rem', padding: '1rem 2rem' }}>
-                🗡️ Sign In to Start
-              </button>
-            </SignInButton>
-          </div>
-        </main>
+        {!guestMode ? (
+          <main className="main-content">
+            <div className="rs-panel" style={{ maxWidth: '600px', margin: '2rem auto', textAlign: 'center' }}>
+              <h2>🎮 Welcome to Dungeon Gains!</h2>
+              <p style={{ marginBottom: '2rem', fontSize: '1.2rem' }}>
+                Transform your workouts into epic RPG adventures. Track your lifts, battle monsters, 
+                and watch your character grow stronger as you do!
+              </p>
+              <p style={{ marginBottom: '2rem', color: 'var(--rs-gold)' }}>
+                Please sign in to create your hero and start your journey.
+              </p>
+              <SignInButton mode="modal">
+                <button className="rs-button" style={{ fontSize: '1.2rem', padding: '1rem 2rem', marginBottom: '1rem' }}>
+                  🗡️ Sign In to Start
+                </button>
+              </SignInButton>
+              
+              <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'rgba(102, 126, 234, 0.1)', border: '2px solid rgba(102, 126, 234, 0.3)', borderRadius: '8px' }}>
+                <p style={{ color: '#cbd5e0', marginBottom: '1rem', fontSize: '1rem' }}>
+                  🎯 Just testing? Want to try it out first?
+                </p>
+                <button 
+                  onClick={() => setGuestMode(true)} 
+                  className="rs-button"
+                  style={{ fontSize: '1rem', padding: '0.75rem 1.5rem', background: 'rgba(102, 126, 234, 0.2)', border: '2px solid #667eea' }}
+                >
+                  👤 Play as Guest
+                </button>
+                <p style={{ color: '#9ca3af', marginTop: '0.75rem', fontSize: '0.9rem' }}>
+                  Progress saved locally only. Sign in anytime to sync to cloud!
+                </p>
+              </div>
+            </div>
+          </main>
+        ) : (
+          <GameProvider>
+            <GameContent />
+          </GameProvider>
+        )}
       </SignedOut>
 
       <SignedIn>

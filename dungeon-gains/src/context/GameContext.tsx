@@ -31,17 +31,18 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [isLoadingGame, setIsLoadingGame] = useState(true);
 
-  // Load game when user is loaded
+  // Load game when user is loaded (or immediately for guest mode)
   useEffect(() => {
-    if (!isLoaded || !user) {
-      setIsLoadingGame(false);
+    if (!isLoaded) {
       return;
     }
     
     setIsLoadingGame(true);
     
     const loadUserGame = async () => {
-      const saved = await loadGame(user.id);
+      // Use 'guest' as ID if no user is signed in
+      const userId = user?.id || 'guest';
+      const saved = await loadGame(userId);
       if (saved) {
         // Check for 24-hour health restoration
         const player = saved.player;
@@ -72,9 +73,11 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
 
   // Save game whenever state changes (with debounce to avoid too many saves)
   useEffect(() => {
-    if (gameState && user) {
+    if (gameState) {
       const saveTimeout = setTimeout(() => {
-        saveGame(gameState, user.id).catch(err => 
+        // Use 'guest' as ID if no user is signed in
+        const userId = user?.id || 'guest';
+        saveGame(gameState, userId).catch(err => 
           console.error('Failed to save game:', err)
         );
       }, 500); // Debounce saves by 500ms
