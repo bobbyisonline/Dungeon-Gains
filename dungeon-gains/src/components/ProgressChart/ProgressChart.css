@@ -17,3 +17,42 @@
 .progress-chart-card .empty-state p {
   margin: 0.5rem 0;
 }
+
+/* Mobile - Compact Progress Chart */
+@media (max-width: 768px) {
+  .progress-chart-card {
+    grid-column: span 1;
+    min-height: auto;
+    padding: 0.75rem !important;
+  }
+  
+  .progress-chart-card h2 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
+  }
+  
+  .chart-container {
+    height: 180px;
+    padding: 0.5rem 0;
+  }
+  
+  .progress-chart-card .empty-state {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .progress-chart-card .empty-state p {
+    font-size: 0.85rem;
+    margin: 0.25rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-container {
+    height: 150px;
+  }
+  
+  .progress-chart-card .empty-state {
+    padding: 1rem 0.5rem;
+  }
+}
