@@ -249,7 +249,7 @@ export const Dashboard = () => {
         </div>
 
         {/* Dungeon Status */}
-        <div className="card dungeon-card">
+        <div className={`card dungeon-card ${availableDungeons > 0 ? 'has-runs' : ''}`}>
           <h2>🏰 Dungeon Status</h2>
           <div className="dungeon-info">
             <div className="info-row">
