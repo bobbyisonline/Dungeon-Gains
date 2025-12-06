@@ -123,5 +123,6 @@ export const createNewPlayer = (
     equippedItems: {},
     workoutLogs: [],
     personalRecords: initialPRs,
+    healthPotions: 3, // Start with 3 potions to help new players
   };
 };

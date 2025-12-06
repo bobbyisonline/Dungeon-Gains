@@ -25,10 +25,12 @@ export const checkForPR = (
   exercise: Exercise,
   previousRecords: Record<string, PersonalRecord>
 ): boolean => {
-  const previousPR = previousRecords[exercise.id];
+  // Extract base exercise ID (remove timestamp suffix like _1234567890)
+  const baseId = exercise.id.replace(/_\d+$/, '');
+  const previousPR = previousRecords[baseId];
   
-  // If no previous record exists (shouldn't happen with initialized PRs), don't count as PR
-  if (!previousPR) return false;
+  // If no previous record exists, this is the first time - count as PR!
+  if (!previousPR) return true;
 
   if (exercise.category === 'cardio' && exercise.time) {
     return exercise.time < previousPR.value; // Lower time is better
@@ -37,6 +39,11 @@ export const checkForPR = (
   }
 
   return false;
+};
+
+// Get the base exercise ID for PR tracking
+export const getBaseExerciseId = (exerciseId: string): string => {
+  return exerciseId.replace(/_\d+$/, '');
 };
 
 // Calculate stat buff from PR

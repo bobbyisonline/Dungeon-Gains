@@ -663,13 +663,14 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 0;
+    gap: 0.1rem;
   }
   
   .stat-name {
     font-size: 0.6rem;
     color: #a0aec0;
     white-space: nowrap;
+    order: 2; /* Move label below the number */
   }
   
   .stat-name::after {
@@ -677,12 +678,13 @@
   }
   
   .stat-value {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     line-height: 1.2;
+    order: 1; /* Move number above the label */
   }
   
   .stat-bonus-text {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
   
   .xp-section {
@@ -1112,7 +1114,7 @@
   }
   
   .stat-value {
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
   
   .health-bar-container {

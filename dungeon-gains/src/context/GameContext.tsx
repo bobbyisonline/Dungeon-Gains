@@ -4,13 +4,12 @@ import { useUser } from '@clerk/clerk-react';
 import type { GameState, WorkoutLog, Item } from '../types';
 import { saveGame, loadGame, createNewPlayer } from '../utils/storage';
 import { generateDungeon } from '../utils/dungeonGenerator';
-import { 
-  checkLevelUp, 
+import {
+  checkLevelUp,
   calculateMaxHealth,
-  checkForPR
-} from '../utils/gameLogic';
-
-interface GameContextType {
+  checkForPR,
+  getBaseExerciseId
+} from '../utils/gameLogic';interface GameContextType {
   gameState: GameState | null;
   isLoadingGame: boolean;
   createCharacter: (name: string, bench: number, squat: number, ohp: number, mileTime: number) => void;
@@ -137,10 +136,11 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
       const isPR = checkForPR(exercise, updatedPlayer.personalRecords);
       
       if (isPR) {
-        // Record the PR
+        // Record the PR using base exercise ID
+        const baseId = getBaseExerciseId(exercise.id);
         const prValue = exercise.category === 'cardio' ? exercise.time! : exercise.weight!;
-        updatedPlayer.personalRecords[exercise.id] = {
-          exerciseId: exercise.id,
+        updatedPlayer.personalRecords[baseId] = {
+          exerciseId: baseId,
           value: prValue,
           date: workout.date,
         };
