@@ -6,6 +6,14 @@ import { ProgressChart } from '../ProgressChart/ProgressChart';
 import '../../styles/runescape.css';
 import './Dashboard.css';
 
+// Stat tooltip descriptions
+const STAT_TOOLTIPS: Record<string, { title: string; description: string }> = {
+  strength: { title: '💪 Strength', description: 'Direct attack damage - each point adds 1 damage' },
+  power: { title: '⚡ Power', description: 'Critical hit chance - 5% per point (crits deal 75% more damage)' },
+  endurance: { title: '🛡️ Endurance', description: 'Max health and defense - adds 5 HP and 1 defense per point' },
+  stamina: { title: '🏃 Stamina', description: 'Defense and dungeon efficiency - reduces empty rooms, increases treasure chance' },
+};
+
 export const Dashboard = () => {
   const { gameState, startDungeon, equipItem, unequipItem, dropItem, useHealthPotion, clearLevelUpInfo } = useGame();
   const [showInventory, setShowInventory] = useState(false);
@@ -13,6 +21,7 @@ export const Dashboard = () => {
   const [selectedEquippedItem, setSelectedEquippedItem] = useState<any>(null);
   const [compareItem, setCompareItem] = useState<any>(null);
   const [inventorySortBy, setInventorySortBy] = useState<'name' | 'rarity' | 'type'>('name');
+  const [activeStatTooltip, setActiveStatTooltip] = useState<string | null>(null);
 
   // Check for level-up modal
   useEffect(() => {
@@ -60,7 +69,13 @@ export const Dashboard = () => {
             <div className="stat-item">
               <span className="stat-icon">💪</span>
               <div className="stat-details">
-                <span className="stat-name" title="Direct attack damage - each point adds 1 damage">Strength ℹ️</span>
+                <button 
+                  className="stat-name stat-name-btn" 
+                  title="Direct attack damage - each point adds 1 damage"
+                  onClick={() => setActiveStatTooltip(activeStatTooltip === 'strength' ? null : 'strength')}
+                >
+                  Strength ℹ️
+                </button>
                 <span className="stat-value">
                   {player.stats.strength + equipmentBonus.strength}
                   {equipmentBonus.strength > 0 && (
@@ -72,7 +87,13 @@ export const Dashboard = () => {
             <div className="stat-item">
               <span className="stat-icon">⚡</span>
               <div className="stat-details">
-                <span className="stat-name" title="Critical hit chance - 5% per point (crits deal 75% more damage)">Power ℹ️</span>
+                <button 
+                  className="stat-name stat-name-btn" 
+                  title="Critical hit chance - 5% per point (crits deal 75% more damage)"
+                  onClick={() => setActiveStatTooltip(activeStatTooltip === 'power' ? null : 'power')}
+                >
+                  Power ℹ️
+                </button>
                 <span className="stat-value">
                   {player.stats.power + equipmentBonus.power}
                   {equipmentBonus.power > 0 && (
@@ -84,7 +105,13 @@ export const Dashboard = () => {
             <div className="stat-item">
               <span className="stat-icon">🛡️</span>
               <div className="stat-details">
-                <span className="stat-name" title="Max health and defense - adds 5 HP and 1 defense per point">Endurance ℹ️</span>
+                <button 
+                  className="stat-name stat-name-btn" 
+                  title="Max health and defense - adds 5 HP and 1 defense per point"
+                  onClick={() => setActiveStatTooltip(activeStatTooltip === 'endurance' ? null : 'endurance')}
+                >
+                  Endurance ℹ️
+                </button>
                 <span className="stat-value">
                   {player.stats.endurance + equipmentBonus.endurance}
                   {equipmentBonus.endurance > 0 && (
@@ -96,7 +123,13 @@ export const Dashboard = () => {
             <div className="stat-item">
               <span className="stat-icon">🏃</span>
               <div className="stat-details">
-                <span className="stat-name" title="Defense and dungeon efficiency - reduces empty rooms, increases treasure chance">Stamina ℹ️</span>
+                <button 
+                  className="stat-name stat-name-btn" 
+                  title="Defense and dungeon efficiency - reduces empty rooms, increases treasure chance"
+                  onClick={() => setActiveStatTooltip(activeStatTooltip === 'stamina' ? null : 'stamina')}
+                >
+                  Stamina ℹ️
+                </button>
                 <span className="stat-value">
                   {player.stats.stamina + equipmentBonus.stamina}
                   {equipmentBonus.stamina > 0 && (
@@ -106,6 +139,17 @@ export const Dashboard = () => {
               </div>
             </div>
           </div>
+
+          {/* Mobile Stat Tooltip Popup */}
+          {activeStatTooltip && STAT_TOOLTIPS[activeStatTooltip] && (
+            <div className="stat-tooltip-popup" onClick={() => setActiveStatTooltip(null)}>
+              <div className="stat-tooltip-content">
+                <strong>{STAT_TOOLTIPS[activeStatTooltip].title}</strong>
+                <p>{STAT_TOOLTIPS[activeStatTooltip].description}</p>
+                <span className="tap-dismiss">Tap to dismiss</span>
+              </div>
+            </div>
+          )}
 
           <div className="xp-section">
             <div className="xp-bar">

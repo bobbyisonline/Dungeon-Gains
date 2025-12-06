@@ -87,6 +87,28 @@
   gap: 0.25rem;
 }
 
+/* Clickable stat button for mobile tooltips */
+.stat-name-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.stat-name-btn:focus {
+  outline: none;
+}
+
+/* Stat Tooltip Popup (mobile) */
+.stat-tooltip-popup {
+  display: none;
+}
+
 .stat-value {
   color: #ffd700;
   font-size: 1.5rem;
@@ -649,6 +671,57 @@
     font-size: 0.75rem;
   }
   
+  /* Stat Tooltip Popup - Mobile Only */
+  .stat-tooltip-popup {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 12px;
+  }
+  
+  .stat-tooltip-content {
+    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+    border: 2px solid #667eea;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    max-width: 280px;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+  }
+  
+  .stat-tooltip-content strong {
+    display: block;
+    font-size: 1.1rem;
+    color: #ffd700;
+    margin-bottom: 0.5rem;
+  }
+  
+  .stat-tooltip-content p {
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.4;
+  }
+  
+  .tap-dismiss {
+    font-size: 0.75rem;
+    color: #718096;
+    font-style: italic;
+  }
+  
+  .stats-card {
+    position: relative;
+  }
+
   /* ===== HEALTH & POTIONS - Condensed Bar Section ===== */
   .health-card {
     order: -2;
@@ -818,7 +891,7 @@
   
   /* ===== SECTION 3: DUNGEON ACTIVITY - PROGRESS CARD ===== */
   .dungeon-card {
-    order: 1;
+    order: 5;
     text-align: center;
     padding: 1.25rem;
     border: 2px solid #4a5568;
