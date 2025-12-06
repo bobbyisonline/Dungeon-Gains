@@ -18,15 +18,15 @@
 }
 
 .item-loot-modal {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  border: 3px solid #ffd700;
+  background: linear-gradient(135deg, #4a2f1f 0%, #3e221a 100%);
+  border: 3px solid var(--rs-gold);
   border-radius: 16px;
   padding: 2rem;
   max-width: 500px;
   width: 90%;
   text-align: center;
   position: relative;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(217, 177, 89, 0.3);
   animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
@@ -59,7 +59,7 @@
 }
 
 .loot-title {
-  color: #ffd700;
+  color: var(--rs-gold);
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -67,8 +67,8 @@
 }
 
 @keyframes titleGlow {
-  0%, 100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.3); }
-  50% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.6); }
+  0%, 100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px rgba(217, 177, 89, 0.3); }
+  50% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(217, 177, 89, 0.6); }
 }
 
 .loot-item-display {

@@ -13,7 +13,7 @@
   right: 1rem;
   background: none;
   border: none;
-  color: #cbd5e0;
+  color: #d4c4a8;
   font-size: 2rem;
   cursor: pointer;
   line-height: 1;
@@ -22,7 +22,7 @@
 }
 
 .modal-close-btn:hover {
-  color: #ffd700;
+  color: var(--rs-gold);
 }
 
 .feedback-modal h2 {
@@ -31,7 +31,7 @@
 }
 
 .feedback-subtitle {
-  color: #cbd5e0;
+  color: #d4c4a8;
   margin-bottom: 2rem;
   font-size: 1.1rem;
 }
@@ -49,7 +49,7 @@
 }
 
 .feedback-form label {
-  color: #ffd700;
+  color: var(--rs-gold);
   font-weight: 600;
   font-size: 1.1rem;
   font-family: 'VT323', monospace;

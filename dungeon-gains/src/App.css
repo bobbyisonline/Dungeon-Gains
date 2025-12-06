@@ -22,15 +22,15 @@
 }
 
 .main-nav {
-  background: linear-gradient(180deg, var(--rs-brown) 0%, var(--rs-brown-dark) 100%);
+  background: linear-gradient(180deg, #4a2f1f 0%, #3e221a 100%);
   border: 3px solid var(--rs-border);
   border-left: none;
   border-right: none;
-  border-top: 3px solid #a1887f;
+  border-top: 3px solid var(--rs-gold);
   box-shadow: 
-    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.1),
     inset 0 -2px 0 rgba(0, 0, 0, 0.5),
-    0 4px 8px rgba(0, 0, 0, 0.6);
+    0 4px 12px rgba(0, 0, 0, 0.6);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -47,7 +47,8 @@
   font-size: 1.25rem;
   text-shadow: 
     2px 2px 0 var(--rs-black),
-    3px 3px 0 rgba(0, 0, 0, 0.5);
+    3px 3px 0 rgba(0, 0, 0, 0.5),
+    0 0 10px var(--rs-gold-glow);
   letter-spacing: 2px;
 }
 
@@ -64,11 +65,11 @@
 }
 
 .nav-links button {
-  background: linear-gradient(180deg, #6d4c41 0%, var(--rs-brown) 100%);
+  background: linear-gradient(180deg, #5a3d2e 0%, #4a2f1f 100%);
   border: 3px solid var(--rs-border);
-  border-top: 3px solid #a1887f;
+  border-top: 3px solid var(--rs-border-light);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
     inset 0 -1px 0 rgba(0, 0, 0, 0.5),
     2px 2px 0 rgba(0, 0, 0, 0.4);
   padding: 0.625rem 1.25rem;
@@ -76,26 +77,33 @@
   color: var(--rs-gold);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.1s;
+  transition: all 0.15s ease;
   font-size: 1.1rem;
   font-family: 'VT323', monospace;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
 }
 
 .nav-links button:hover {
-  background: linear-gradient(180deg, #8d6e63 0%, #6d4c41 100%);
+  background: linear-gradient(180deg, #6a4d3e 0%, #5a3d2e 100%);
+  color: var(--rs-gold-bright);
   transform: translate(1px, 1px);
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
     inset 0 -1px 0 rgba(0, 0, 0, 0.5),
-    1px 1px 0 rgba(0, 0, 0, 0.4);
+    1px 1px 0 rgba(0, 0, 0, 0.4),
+    0 0 8px var(--rs-gold-glow);
 }
 
 .nav-links button.active {
-  background: linear-gradient(180deg, var(--rs-gold) 0%, #f9a825 100%);
-  border-color: #ffb74d;
-  color: var(--rs-brown-dark);
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background: linear-gradient(180deg, var(--rs-gold) 0%, #c9a149 100%);
+  border-color: var(--rs-gold-bright);
+  color: #2c1810;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    2px 2px 0 rgba(0, 0, 0, 0.4),
+    0 0 12px var(--rs-gold-glow);
 }
 
 .nav-links button.feedback-btn {

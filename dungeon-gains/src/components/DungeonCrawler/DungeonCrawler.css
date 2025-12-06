@@ -10,23 +10,23 @@
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #4a5568;
+  border-bottom: 2px solid #bc985c;
 }
 
 .dungeon-header h2 {
-  color: #ffd700;
+  color: var(--rs-gold);
   font-size: 2rem;
   margin: 0;
 }
 
 .progress {
-  color: #a0aec0;
+  color: #d4c4a8;
   font-size: 1.125rem;
 }
 
 .player-status {
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid #4a5568;
+  background: linear-gradient(180deg, #4a2f1f 0%, #3e221a 100%);
+  border: 2px solid #bc985c;
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
@@ -37,7 +37,7 @@
 }
 
 .player-info h3 {
-  color: #e2e8f0;
+  color: #d4c4a8;
   margin-bottom: 0.5rem;
 }
 
@@ -47,7 +47,7 @@
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 0.5rem;
-  border: 1px solid #4a5568;
+  border: 1px solid #bc985c;
 }
 
 .health-fill {
@@ -67,13 +67,13 @@
 .player-stats {
   display: flex;
   gap: 1.5rem;
-  color: #cbd5e0;
+  color: #d4c4a8;
   font-weight: 600;
 }
 
 .room-container {
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid #4a5568;
+  background: linear-gradient(180deg, #4a2f1f 0%, #3e221a 100%);
+  border: 2px solid #bc985c;
   border-radius: 12px;
   padding: 2rem;
   min-height: 400px;
@@ -264,8 +264,8 @@
 }
 
 .battle-log {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid #4a5568;
+  background: rgba(62, 34, 26, 0.5);
+  border: 1px solid #bc985c;
   border-radius: 8px;
   padding: 1rem;
   max-height: 200px;
@@ -273,9 +273,9 @@
 }
 
 .log-entry {
-  color: #e2e8f0;
+  color: #d4c4a8;
   padding: 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(188, 152, 92, 0.3);
   animation: fadeIn 0.3s;
 }
 
@@ -305,23 +305,23 @@
 }
 
 .treasure-room h3 {
-  color: #ffd700;
+  color: var(--rs-gold);
   font-size: 2rem;
   margin-bottom: 2rem;
 }
 
 .empty-room p {
-  color: #718096;
+  color: #d4c4a8;
   font-size: 1.25rem;
 }
 
 .btn-primary {
   width: 100%;
   padding: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
+  background: linear-gradient(135deg, var(--rs-gold) 0%, #c9a149 100%);
+  border: 3px solid var(--rs-gold-bright);
   border-radius: 8px;
-  color: white;
+  color: #2c1810;
   font-size: 1.125rem;
   font-weight: 700;
   cursor: pointer;
@@ -331,7 +331,7 @@
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.5);
+  box-shadow: 0 4px 16px rgba(217, 177, 89, 0.5);
 }
 
 .dungeon-results {
@@ -383,13 +383,13 @@
   display: flex;
   justify-content: space-between;
   padding: 0.75rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(74, 47, 31, 0.5);
   margin-bottom: 0.5rem;
   border-left: 3px solid var(--rs-gold);
 }
 
 .stat-row span {
-  color: #e0e0e0;
+  color: #d4c4a8;
   font-family: 'VT323', monospace;
   font-size: 1.2rem;
 }
