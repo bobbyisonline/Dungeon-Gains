@@ -34,7 +34,7 @@
   }
   
   .chart-container {
-    height: 250px;
+    height: 400px;
     padding: 0.5rem 0;
   }
   
@@ -50,7 +50,7 @@
 
 @media (max-width: 480px) {
   .chart-container {
-    height: 220px;
+    height: 350px;
   }
   
   .progress-chart-card .empty-state {

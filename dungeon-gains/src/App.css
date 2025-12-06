@@ -126,14 +126,26 @@
 
 @media (max-width: 768px) {
   .main-nav {
-    flex-direction: column;
-    gap: 0.75rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
     padding: 0.75rem 1rem;
   }
   
+  .nav-brand {
+    flex: 1;
+  }
+  
   .nav-brand h1 {
-    font-size: 0.875rem;
+    font-size: 1.1rem;
     letter-spacing: 1px;
+  }
+  
+  .nav-auth {
+    flex: 0 0 auto;
+    justify-content: flex-end;
   }
   
   .nav-links {
@@ -141,6 +153,7 @@
     justify-content: center;
     gap: 0.5rem;
     width: 100%;
+    order: 3;
   }
   
   .nav-links button {
@@ -148,11 +161,6 @@
     padding: 0.625rem 0.875rem;
     min-height: 44px; /* Touch-friendly */
     flex: 0 1 auto;
-  }
-  
-  .nav-auth {
-    width: 100%;
-    justify-content: center;
   }
 }
 
@@ -162,7 +170,7 @@
   }
   
   .nav-brand h1 {
-    font-size: 0.75rem;
+    font-size: 1rem;
   }
   
   .nav-links button {
