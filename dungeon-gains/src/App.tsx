@@ -154,11 +154,11 @@ function App() {
                 and watch your character grow stronger as you do!
               </p>
               <p style={{ marginBottom: '2rem', color: 'var(--rs-gold)' }}>
-                Please sign in to create your hero and start your journey.
+                Create your hero and begin your quest!
               </p>
               <SignInButton mode="modal">
                 <button className="rs-button" style={{ fontSize: '1.2rem', padding: '1rem 2rem', marginBottom: '1rem' }}>
-                  🗡️ Sign In to Start
+                  ⚔️ Start Your Adventure
                 </button>
               </SignInButton>
               
