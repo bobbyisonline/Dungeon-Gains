@@ -116,11 +116,19 @@ function GameContent() {
 
 function App() {
   const [guestMode, setGuestMode] = useState(false);
-  const [showWip, setShowWip] = useState(true);
+  const [showWip, setShowWip] = useState(() => {
+    // Only show WIP modal if user hasn't seen it before
+    return !localStorage.getItem('dungeon_gains_wip_seen');
+  });
+
+  const handleCloseWip = () => {
+    localStorage.setItem('dungeon_gains_wip_seen', 'true');
+    setShowWip(false);
+  };
 
   return (
     <div className="app-container">
-      <WipModal open={showWip} onClose={() => setShowWip(false)} />
+      <WipModal open={showWip} onClose={handleCloseWip} />
       <nav className="main-nav">
         <div className="nav-brand">
           <h1>⚔️ Dungeon Gains</h1>
