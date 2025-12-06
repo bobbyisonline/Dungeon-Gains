@@ -124,5 +124,6 @@ export const createNewPlayer = (
     workoutLogs: [],
     personalRecords: initialPRs,
     healthPotions: 3, // Start with 3 potions to help new players
+    firstDungeonCompleted: false, // Tutorial protection for first dungeon
   };
 };

@@ -124,6 +124,9 @@ export const DungeonCrawler = () => {
     // Enemy attacks back - player defense reduces damage
     const playerDefense = calculatePlayerDefense(player);
     
+    // Tutorial protection: first dungeon enemies deal minimal damage
+    const isTutorialRun = !player.firstDungeonCompleted;
+    
     // Enemy damage calculation with variance (like player attacks)
     // Base damage after defense reduction
     const baseDamage = currentEnemy.attack - playerDefense;
@@ -132,8 +135,11 @@ export const DungeonCrawler = () => {
     const variance = Math.random() * 0.4 + 0.8; // 80-120%
     
     // Calculate final damage - defense can reduce to 0 if high enough!
-    // No minimum 1 damage - defense should matter!
-    const enemyDmg = Math.max(0, Math.floor(baseDamage * variance));
+    // Tutorial mode: cap damage at 1 to ensure player survives
+    let enemyDmg = Math.max(0, Math.floor(baseDamage * variance));
+    if (isTutorialRun && enemyDmg > 1) {
+      enemyDmg = 1; // Tutorial protection - enemies deal max 1 damage
+    }
     
     const newPlayerHealth = Math.max(0, playerHealth - enemyDmg);
     

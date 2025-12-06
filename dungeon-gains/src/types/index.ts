@@ -91,6 +91,7 @@ export interface PlayerCharacter {
   personalRecords: Record<string, PersonalRecord>;
   lastHealthRestoreTime?: string; // ISO timestamp for 24-hour health restoration
   healthPotions?: number; // Number of health potions (50% restore)
+  firstDungeonCompleted?: boolean; // Tutorial protection - first dungeon is easier
 }
 
 export interface GameState {

@@ -3,6 +3,7 @@ import { useGame } from '../../context/GameContext';
 import { ItemIcon } from '../ItemSprite';
 import { LevelUpModal } from '../LevelUpModal/LevelUpModal';
 import { ProgressChart } from '../ProgressChart/ProgressChart';
+import { Toast } from '../Toast/Toast';
 import '../../styles/runescape.css';
 import './Dashboard.css';
 
@@ -22,6 +23,27 @@ export const Dashboard = () => {
   const [compareItem, setCompareItem] = useState<any>(null);
   const [inventorySortBy, setInventorySortBy] = useState<'name' | 'rarity' | 'type'>('name');
   const [activeStatTooltip, setActiveStatTooltip] = useState<string | null>(null);
+  const [showWelcomeToast, setShowWelcomeToast] = useState(() => {
+    // Show welcome toast only if user hasn't seen it
+    return !localStorage.getItem('dungeon_gains_welcome_toast_seen');
+  });
+  const [tutorialClosed, setTutorialClosed] = useState(() => {
+    // Check if tutorial has been closed
+    return !!localStorage.getItem('dungeon_gains_tutorial_seen');
+  });
+
+  // Listen for tutorial being closed (check periodically since it's managed in App.tsx)
+  useEffect(() => {
+    if (!tutorialClosed) {
+      const checkTutorial = setInterval(() => {
+        if (localStorage.getItem('dungeon_gains_tutorial_seen')) {
+          setTutorialClosed(true);
+          clearInterval(checkTutorial);
+        }
+      }, 500);
+      return () => clearInterval(checkTutorial);
+    }
+  }, [tutorialClosed]);
 
   // Check for level-up modal
   useEffect(() => {
@@ -31,8 +53,25 @@ export const Dashboard = () => {
   }, [gameState?.levelUpInfo]);
 
   if (!gameState) return null;
-
+  
   const { player, availableDungeons } = gameState;
+  
+  // Determine if we should show the welcome toast (only after tutorial is closed)
+  const shouldShowWelcomeToast = showWelcomeToast && 
+    tutorialClosed &&
+    !player.firstDungeonCompleted && 
+    availableDungeons > 0;
+
+  const handleWelcomeToastClose = () => {
+    localStorage.setItem('dungeon_gains_welcome_toast_seen', 'true');
+    setShowWelcomeToast(false);
+  };
+
+  const handleWelcomeToastAction = () => {
+    localStorage.setItem('dungeon_gains_welcome_toast_seen', 'true');
+    setShowWelcomeToast(false);
+    startDungeon();
+  };
   const xpForNextLevel = Math.floor(150 * Math.pow(player.stats.level, 1.5));
   const xpProgress = (player.stats.experience / xpForNextLevel) * 100;
 
@@ -657,6 +696,18 @@ export const Dashboard = () => {
           }}
         />
       )}
+
+      {/* Welcome Toast for new players */}
+      <Toast
+        show={shouldShowWelcomeToast}
+        icon="🎁"
+        title="Welcome Gift: Free Dungeon Pass!"
+        message="Test your skills in your first dungeon crawl and earn loot!"
+        buttonText="Enter Dungeon"
+        onButtonClick={handleWelcomeToastAction}
+        onClose={handleWelcomeToastClose}
+        duration={15000}
+      />
     </div>
   );
 };

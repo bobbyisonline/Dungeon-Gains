@@ -104,7 +104,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
     setGameState({
       player,
       currentDungeon: null,
-      availableDungeons: 0,
+      availableDungeons: 1, // Start with 1 free dungeon run for onboarding
     });
   };
 
@@ -230,6 +230,11 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
         oldStats,
         newStats: { ...updatedPlayer.stats }
       };
+    }
+
+    // Mark first dungeon as completed (disables tutorial protection)
+    if (!updatedPlayer.firstDungeonCompleted) {
+      updatedPlayer.firstDungeonCompleted = true;
     }
 
     setGameState({
