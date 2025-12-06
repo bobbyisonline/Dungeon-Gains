@@ -12,23 +12,20 @@ const EXERCISE_PRESETS = [
   { id: 'ohp', name: 'Overhead Press', category: 'overhead' as const, statType: 'endurance' as const },
   { id: 'deadlift', name: 'Deadlift', category: 'squat' as const, statType: 'stamina' as const },
 ];
-
 export const WorkoutLogger = () => {
-  const { logWorkout, gameState } = useGame();
+  const { logWorkout, gameState, startDungeon } = useGame();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [selectedPreset, setSelectedPreset] = useState(EXERCISE_PRESETS[0]);
   const [weight, setWeight] = useState(135);
   const [sets, setSets] = useState(3);
   const [reps, setReps] = useState(10);
   const [time, setTime] = useState(8.5);
-  
   // API Exercise Browser
   const [showBrowser, setShowBrowser] = useState(false);
   const [apiExercises, setApiExercises] = useState<APIExercise[]>([]);
   const [selectedMuscle, setSelectedMuscle] = useState('biceps');
   const [loading, setLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  
   // Exercise editing
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [showWorkoutLimit, setShowWorkoutLimit] = useState(false);
@@ -70,7 +67,6 @@ export const WorkoutLogger = () => {
   const addApiExercise = (apiEx: APIExercise) => {
     const category = mapMuscleToCategory(apiEx.muscle);
     const statType = mapMuscleToStat(apiEx.muscle);
-    
     const newExercise: Exercise = {
       id: `api_${Date.now()}`,
       name: apiEx.name,
@@ -81,7 +77,6 @@ export const WorkoutLogger = () => {
       sets: 3,
       reps: 10,
     };
-
     setExercises([...exercises, newExercise]);
     setShowBrowser(false);
   };
@@ -99,7 +94,6 @@ export const WorkoutLogger = () => {
 
   const completeWorkout = () => {
     if (exercises.length === 0) return;
-
     const workout: WorkoutLog = {
       id: `workout_${Date.now()}`,
       date: new Date().toISOString(),
@@ -107,7 +101,6 @@ export const WorkoutLogger = () => {
       completed: true,
       dungeonCompleted: false,
     };
-
     logWorkout(workout);
     setExercises([]);
     alert('🎉 Workout logged! You unlocked a dungeon run!');
@@ -280,7 +273,26 @@ export const WorkoutLogger = () => {
 
           {gameState && (
             <div className="available-dungeons">
-              <p>🗝️ Available Dungeon Runs: <strong>{gameState.availableDungeons}</strong></p>
+              <button
+                className="btn-primary dungeon-run-btn"
+                style={{
+                  minWidth: '220px',
+                  fontWeight: 600,
+                  fontSize: '1.1rem',
+                  margin: '0.5rem 0',
+                  opacity: gameState.availableDungeons > 0 ? 1 : 0.6,
+                  cursor: gameState.availableDungeons > 0 ? 'pointer' : 'not-allowed',
+                }}
+                disabled={gameState.availableDungeons <= 0}
+                title={gameState.availableDungeons > 0 ? 'Start a Dungeon Run' : 'Log a workout to unlock a run!'}
+                onClick={() => {
+                  if (gameState.availableDungeons > 0) {
+                    startDungeon();
+                  }
+                }}
+              >
+                🗝️ Available Dungeon Runs: <strong>{gameState.availableDungeons}</strong>
+              </button>
             </div>
           )}
         </div>
@@ -346,7 +358,6 @@ export const WorkoutLogger = () => {
                           onClick={() => addApiExercise(ex)} 
                           className="rs-button rs-button-primary btn-add-exercise-compact"
                         >
-                          +
                         </button>
                       </div>
                     ))
@@ -359,4 +370,4 @@ export const WorkoutLogger = () => {
       </div>
     </>
   );
-};
+}
