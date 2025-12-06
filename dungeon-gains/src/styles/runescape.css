@@ -1,28 +1,28 @@
 /* Shared Runescape-style UI components */
 
 .rs-panel {
-  background: linear-gradient(180deg, #4a2f1f 0%, #3e221a 100%);
+  background: linear-gradient(180deg, var(--rs-bg-panel) 0%, var(--rs-bg-dark) 100%);
   border: 4px solid var(--rs-border);
-  border-top: 4px solid var(--rs-gold);
+  border-top: 4px solid var(--rs-gold-dim);
   border-left: 4px solid var(--rs-border-light);
-  border-right: 4px solid #3e2a21;
-  border-bottom: 4px solid #3e2a21;
+  border-right: 4px solid var(--rs-bg-deep);
+  border-bottom: 4px solid var(--rs-bg-deep);
   box-shadow: 
-    inset 0 2px 0 rgba(255, 255, 255, 0.1),
+    inset 0 2px 0 rgba(255, 255, 255, 0.08),
     inset 0 -2px 0 rgba(0, 0, 0, 0.4),
     4px 4px 0 rgba(0, 0, 0, 0.3),
     0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .rs-button {
-  background: linear-gradient(180deg, #5a3d2e 0%, #4a2f1f 100%);
+  background: linear-gradient(180deg, var(--rs-bg-panel-light) 0%, var(--rs-bg-panel) 100%);
   border: 3px solid var(--rs-border);
   border-top: 3px solid var(--rs-border-light);
   border-left: 3px solid var(--rs-border-light);
-  border-right: 3px solid #3e2a21;
-  border-bottom: 3px solid #3e2a21;
+  border-right: 3px solid var(--rs-bg-deep);
+  border-bottom: 3px solid var(--rs-bg-deep);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(0, 0, 0, 0.5),
     2px 2px 0 rgba(0, 0, 0, 0.4),
     0 0 8px var(--rs-gold-glow);
@@ -37,11 +37,11 @@
 }
 
 .rs-button:hover {
-  background: linear-gradient(180deg, #6a4d3e 0%, #5a3d2e 100%);
+  background: linear-gradient(180deg, #2f5a40 0%, var(--rs-bg-panel-light) 100%);
   color: var(--rs-gold-bright);
   transform: translate(1px, 1px);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
     inset 0 -1px 0 rgba(0, 0, 0, 0.5),
     1px 1px 0 rgba(0, 0, 0, 0.4),
     0 0 12px var(--rs-gold-glow);
@@ -56,9 +56,9 @@
 }
 
 .rs-button:disabled {
-  background: linear-gradient(180deg, #3e2a21 0%, #2c1810 100%);
-  border-color: #4a3528;
-  color: #6b5a4d;
+  background: linear-gradient(180deg, var(--rs-bg-dark) 0%, var(--rs-bg-deep) 100%);
+  border-color: var(--rs-border-light);
+  color: var(--rs-text-dim);
   cursor: not-allowed;
   opacity: 0.6;
   transform: none;
@@ -68,8 +68,8 @@
 }
 
 .rs-button:disabled:hover {
-  background: linear-gradient(180deg, #3e2a21 0%, #2c1810 100%);
-  color: #6b5a4d;
+  background: linear-gradient(180deg, var(--rs-bg-dark) 0%, var(--rs-bg-deep) 100%);
+  color: var(--rs-text-dim);
   transform: none;
   box-shadow: 
     inset 0 1px 0 rgba(0, 0, 0, 0.5),
@@ -123,10 +123,10 @@
 }
 
 .rs-input {
-  background: linear-gradient(180deg, #2c1810 0%, #1a0f0a 100%);
-  border: 3px solid #3e2a21;
-  border-top: 3px solid #2c1810;
-  border-left: 3px solid #2c1810;
+  background: linear-gradient(180deg, var(--rs-bg-deep) 0%, #0a130e 100%);
+  border: 3px solid var(--rs-bg-panel);
+  border-top: 3px solid var(--rs-bg-dark);
+  border-left: 3px solid var(--rs-bg-dark);
   border-right: 3px solid var(--rs-border);
   border-bottom: 3px solid var(--rs-border);
   box-shadow: 
@@ -149,16 +149,16 @@
 
 select.rs-input {
   color-scheme: dark;
-  accent-color: #3e2723;
+  accent-color: var(--rs-bg-panel);
 }
 
 select.rs-input option {
-  background-color: #2c1810 !important;
+  background-color: var(--rs-bg-dark) !important;
   color: var(--rs-gold) !important;
 }
 
 select.rs-input option:checked {
-  background: linear-gradient(180deg, #4e342e 0%, #3e2723 100%) !important;
+  background: linear-gradient(180deg, var(--rs-bg-panel-light) 0%, var(--rs-bg-panel) 100%) !important;
 }
 
 .rs-text-gold {

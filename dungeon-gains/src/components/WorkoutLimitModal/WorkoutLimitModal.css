@@ -12,14 +12,14 @@
 }
 
 .workout-limit-modal {
-  background: linear-gradient(135deg, #4a2f1f 0%, #3e221a 100%);
+  background: linear-gradient(135deg, #1f3529 0%, #12251a 100%);
   border: 3px solid var(--rs-gold);
   border-radius: 16px;
   padding: 2rem;
   max-width: 400px;
   width: 90%;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 20px rgba(217, 177, 89, 0.3);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 20px rgba(212, 184, 106, 0.3);
   color: var(--rs-gold);
 }
 
@@ -30,25 +30,25 @@
 }
 
 .workout-limit-modal p {
-  color: #d4c4a8;
+  color: #c8d4cc;
   font-size: 1.1rem;
   margin-bottom: 2rem;
 }
 
 .workout-limit-close-btn {
   padding: 0.75rem 2rem;
-  background: linear-gradient(135deg, var(--rs-gold) 0%, #c9a149 100%);
+  background: linear-gradient(135deg, var(--rs-gold) 0%, #c9a85c 100%);
   border: 3px solid var(--rs-gold-bright);
   border-radius: 8px;
-  color: #2c1810;
+  color: #0f1e15;
   font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 0 8px rgba(217, 177, 89, 0.4);
+  box-shadow: 0 0 8px rgba(212, 184, 106, 0.4);
 }
 
 .workout-limit-close-btn:hover {
   background: linear-gradient(135deg, var(--rs-gold-bright) 0%, var(--rs-gold) 100%);
-  box-shadow: 0 0 16px rgba(217, 177, 89, 0.6);
+  box-shadow: 0 0 16px rgba(212, 184, 106, 0.6);
 }

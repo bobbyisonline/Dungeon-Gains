@@ -21,7 +21,7 @@
 
 /* Calendar Section */
 .calendar-section {
-  background: linear-gradient(135deg, #2c1810 0%, #1a0f08 100%);
+  background: linear-gradient(135deg, #1f3529 0%, #12251a 100%);
   border: 3px solid var(--rs-border);
   padding: 1.5rem;
   border-radius: 8px;
@@ -71,8 +71,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #3e2723 0%, #2c1810 100%);
-  border: 2px solid #5d4037;
+  background: linear-gradient(135deg, #264735 0%, #1f3529 100%);
+  border: 2px solid #62766b;
   border-radius: 4px;
   cursor: default;
   position: relative;
@@ -98,7 +98,7 @@
 
 .calendar-day.selected {
   border-color: var(--rs-gold);
-  box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 12px rgba(212, 184, 106, 0.5);
   background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
 }
 
@@ -120,7 +120,7 @@
 
 /* Workout Details Section */
 .workout-details-section {
-  background: linear-gradient(135deg, #2c1810 0%, #1a0f08 100%);
+  background: linear-gradient(135deg, #1f3529 0%, #12251a 100%);
   border: 3px solid var(--rs-border);
   padding: 1.5rem;
   border-radius: 8px;
@@ -172,8 +172,8 @@
 }
 
 .workout-summary {
-  background: rgba(0, 0, 0, 0.3);
-  border: 2px solid #5d4037;
+  background: rgba(15, 30, 21, 0.5);
+  border: 2px solid #62766b;
   border-radius: 6px;
   padding: 1.5rem;
   margin-bottom: 1rem;
@@ -233,7 +233,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid #5d4037;
+  border-top: 1px solid #62766b;
 }
 
 .stat-item {

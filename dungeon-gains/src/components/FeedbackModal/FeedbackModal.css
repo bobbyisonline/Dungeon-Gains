@@ -13,7 +13,7 @@
   right: 1rem;
   background: none;
   border: none;
-  color: #d4c4a8;
+  color: #c8d4cc;
   font-size: 2rem;
   cursor: pointer;
   line-height: 1;
@@ -31,7 +31,7 @@
 }
 
 .feedback-subtitle {
-  color: #d4c4a8;
+  color: #c8d4cc;
   margin-bottom: 2rem;
   font-size: 1.1rem;
 }
@@ -88,7 +88,7 @@
 }
 
 .feedback-success p {
-  color: #e2e8f0;
+  color: #c8d4cc;
   font-size: 1.2rem;
 }
 

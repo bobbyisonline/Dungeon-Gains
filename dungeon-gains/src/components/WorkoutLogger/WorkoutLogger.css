@@ -18,15 +18,15 @@
 
 .add-exercise-section,
 .exercises-list {
-  background: linear-gradient(180deg, #4a2f1f 0%, #3e221a 100%);
-  border: 2px solid #bc985c;
+  background: linear-gradient(180deg, var(--rs-bg-panel) 0%, var(--rs-bg-dark) 100%);
+  border: 2px solid var(--rs-border);
   border-radius: 12px;
   padding: 1.5rem;
 }
 
 .add-exercise-section h3,
 .exercises-list h3 {
-  color: #d4c4a8;
+  color: var(--rs-text);
   margin-bottom: 1rem;
   font-size: 1.25rem;
 }
@@ -43,7 +43,7 @@
 
 .form-group label {
   display: block;
-  color: #d4c4a8;
+  color: var(--rs-text);
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -53,8 +53,8 @@
 .form-group select {
   width: 100%;
   padding: 0.625rem;
-  background: rgba(62, 34, 26, 0.8);
-  border: 1px solid #bc985c;
+  background: rgba(31, 53, 41, 0.8);
+  border: 1px solid var(--rs-border);
   border-radius: 6px;
   color: #fff;
   font-size: 0.9rem;
@@ -64,24 +64,24 @@
 .form-group select:focus {
   outline: none;
   border-color: var(--rs-gold);
-  box-shadow: 0 0 8px rgba(217, 177, 89, 0.4);
+  box-shadow: 0 0 8px var(--rs-gold-glow);
 }
 
 .btn-secondary {
   width: 100%;
   padding: 0.75rem;
-  background: linear-gradient(180deg, #4a2f1f 0%, #3e221a 100%);
-  border: 2px solid #bc985c;
+  background: linear-gradient(180deg, var(--rs-bg-panel) 0%, var(--rs-bg-dark) 100%);
+  border: 2px solid var(--rs-border);
   border-radius: 8px;
-  color: #d4c4a8;
+  color: var(--rs-text);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .btn-secondary:hover {
-  background: linear-gradient(180deg, #5a3f2f 0%, #4e322a 100%);
-  border-color: #caa56d;
+  background: linear-gradient(180deg, var(--rs-bg-panel-light) 0%, var(--rs-bg-panel) 100%);
+  border-color: var(--rs-gold-dim);
   transform: translateY(-1px);
 }
 
@@ -94,18 +94,18 @@
 }
 
 .empty-state {
-  color: #d4c4a8;
+  color: var(--rs-text-dim);
   text-align: center;
   padding: 2rem;
   font-style: italic;
 }
 
 .exercise-item {
-  background: rgba(74, 47, 31, 0.5);
+  background: rgba(31, 53, 41, 0.5);
   padding: 0.75rem;
   border-radius: 6px;
   margin-bottom: 0.5rem;
-  border: 1px solid #bc985c;
+  border: 1px solid var(--rs-border);
 }
 
 .exercise-item > :not(.exercise-edit) {
@@ -125,7 +125,7 @@
 }
 
 .exercise-info span {
-  color: #d4c4a8;
+  color: var(--rs-text);
   font-size: 0.875rem;
 }
 
@@ -177,7 +177,7 @@
 }
 
 .edit-field label {
-  color: #d4c4a8;
+  color: var(--rs-text);
   font-size: 0.75rem;
   text-transform: uppercase;
   font-weight: 600;
@@ -185,8 +185,8 @@
 
 .edit-field input {
   padding: 0.5rem;
-  background: rgba(62, 34, 26, 0.8);
-  border: 1px solid #bc985c;
+  background: rgba(31, 53, 41, 0.8);
+  border: 1px solid var(--rs-border);
   border-radius: 4px;
   color: #fff;
   font-size: 0.9rem;
@@ -195,7 +195,7 @@
 .edit-field input:focus {
   outline: none;
   border-color: var(--rs-gold);
-  box-shadow: 0 0 6px rgba(217, 177, 89, 0.4);
+  box-shadow: 0 0 6px var(--rs-gold-glow);
 }
 
 .edit-actions {

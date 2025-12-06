@@ -1,21 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
 :root {
-  /* Runescape-inspired color palette - Premium Edition */
-  --rs-brown-dark: #3e2a21;
-  --rs-brown: #4a2f1f;
-  --rs-brown-light: #5a3d2e;
-  --rs-gold: #d9b159;
-  --rs-gold-bright: #f0cd76;
-  --rs-gold-glow: rgba(249, 215, 145, 0.4);
+  /* Hunter Green & Gold - Forest Dungeon Theme */
+  --rs-bg-deep: #0f1e15;
+  --rs-bg-dark: #12251a;
+  --rs-bg-panel: #1f3529;
+  --rs-bg-panel-light: #264735;
+  --rs-gold: #d4b86a;
+  --rs-gold-bright: #e8cc7a;
+  --rs-gold-dim: #c9a85c;
+  --rs-gold-glow: rgba(212, 184, 106, 0.4);
   --rs-red: #c62828;
   --rs-green: #2e7d32;
   --rs-blue: #1565c0;
   --rs-grey: #9e9e9e;
-  --rs-black: #1a1a1a;
-  --rs-border: #caa56d;
-  --rs-border-light: #bc985c;
-  --rs-text: #e8dcc8;
+  --rs-black: #0a0f0c;
+  --rs-border: #62766b;
+  --rs-border-light: #4a5d52;
+  --rs-text: #c8d4cc;
+  --rs-text-dim: #8a9b90;
+  
+  /* Rarity colors */
+  --rarity-common: #62766b;
+  --rarity-uncommon: #4caf50;
+  --rarity-rare: #72a7ff;
+  --rarity-epic: #c570ff;
+  --rarity-legendary: #ffcf57;
 
   font-family: 'VT323', 'Press Start 2P', monospace;
   line-height: 1.5;
@@ -23,7 +33,7 @@
 
   color-scheme: dark;
   color: var(--rs-text);
-  background-color: var(--rs-brown-dark);
+  background-color: var(--rs-bg-deep);
 
   font-synthesis: none;
   text-rendering: optimizeSpeed;

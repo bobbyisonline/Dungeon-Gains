@@ -18,7 +18,7 @@
 }
 
 .item-loot-modal {
-  background: linear-gradient(135deg, #4a2f1f 0%, #3e221a 100%);
+  background: linear-gradient(135deg, #1f3529 0%, #12251a 100%);
   border: 3px solid var(--rs-gold);
   border-radius: 16px;
   padding: 2rem;
@@ -26,7 +26,7 @@
   width: 90%;
   text-align: center;
   position: relative;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(217, 177, 89, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 184, 106, 0.3);
   animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
@@ -67,8 +67,8 @@
 }
 
 @keyframes titleGlow {
-  0%, 100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px rgba(217, 177, 89, 0.3); }
-  50% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(217, 177, 89, 0.6); }
+  0%, 100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px rgba(212, 184, 106, 0.3); }
+  50% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 184, 106, 0.6); }
 }
 
 .loot-item-display {
@@ -84,7 +84,7 @@
 }
 
 .loot-sprite {
-  filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+  filter: drop-shadow(0 0 20px rgba(212, 184, 106, 0.5));
 }
 
 .loot-item-name {
@@ -112,22 +112,22 @@
 }
 
 .loot-description {
-  color: #cbd5e0;
+  color: #c8d4cc;
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
   font-style: italic;
 }
 
 .loot-stats {
-  background: rgba(0, 0, 0, 0.3);
-  border: 2px solid #4a5568;
+  background: rgba(15, 30, 21, 0.5);
+  border: 2px solid #62766b;
   border-radius: 8px;
   padding: 1rem;
   margin-bottom: 1.5rem;
 }
 
 .loot-stats h4 {
-  color: #ffd700;
+  color: #d4b86a;
   font-size: 1.2rem;
   margin-bottom: 0.75rem;
 }
@@ -139,8 +139,8 @@
 }
 
 .stat-bonus-item {
-  background: rgba(76, 175, 80, 0.1);
-  border: 2px solid #4caf50;
+  background: rgba(31, 53, 41, 0.5);
+  border: 2px solid #62766b;
   border-radius: 6px;
   padding: 0.5rem;
   display: flex;
@@ -149,12 +149,12 @@
 }
 
 .bonus-stat {
-  color: #e2e8f0;
+  color: #c8d4cc;
   font-weight: 600;
 }
 
 .bonus-value {
-  color: #4caf50;
+  color: #d4b86a;
   font-weight: 700;
   font-size: 1.1rem;
 }

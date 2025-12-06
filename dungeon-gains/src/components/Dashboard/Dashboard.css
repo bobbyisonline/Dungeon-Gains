@@ -21,10 +21,10 @@
 }
 
 .level-badge {
-  background: linear-gradient(135deg, var(--rs-gold) 0%, #c9a149 100%);
+  background: linear-gradient(135deg, var(--rs-gold) 0%, var(--rs-gold-dim) 100%);
   padding: 0.5rem 1.5rem;
   border-radius: 20px;
-  color: #2c1810;
+  color: var(--rs-bg-deep);
   font-weight: 700;
   font-size: 1.125rem;
   border: 2px solid var(--rs-gold-bright);
@@ -40,16 +40,16 @@
 }
 
 .card {
-  background: linear-gradient(180deg, #4a2f1f 0%, #3e221a 100%);
+  background: linear-gradient(180deg, var(--rs-bg-panel) 0%, var(--rs-bg-dark) 100%);
   border: 3px solid var(--rs-border);
   border-top: 3px solid var(--rs-border-light);
   border-left: 3px solid var(--rs-border-light);
-  border-right: 3px solid #3e2a21;
-  border-bottom: 3px solid #3e2a21;
+  border-right: 3px solid var(--rs-bg-deep);
+  border-bottom: 3px solid var(--rs-bg-deep);
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
     4px 4px 0 rgba(0, 0, 0, 0.3),
     0 0 20px rgba(0, 0, 0, 0.4);
 }
@@ -75,7 +75,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  background: linear-gradient(180deg, rgba(74, 47, 31, 0.6) 0%, rgba(62, 34, 26, 0.8) 100%);
+  background: linear-gradient(180deg, rgba(31, 53, 41, 0.6) 0%, rgba(18, 37, 26, 0.8) 100%);
   padding: 1rem;
   border-radius: 6px;
   border: 1px solid var(--rs-border);
@@ -145,7 +145,7 @@
 
 .xp-bar {
   height: 20px;
-  background: linear-gradient(180deg, #2c1810 0%, #1a0f0a 100%);
+  background: linear-gradient(180deg, var(--rs-bg-deep) 0%, #0a130e 100%);
   border-radius: 10px;
   overflow: hidden;
   border: 2px solid var(--rs-border);
@@ -175,7 +175,7 @@
 }
 
 .equipment-slot {
-  background: linear-gradient(180deg, rgba(74, 47, 31, 0.6) 0%, rgba(62, 34, 26, 0.8) 100%);
+  background: linear-gradient(180deg, rgba(31, 53, 41, 0.6) 0%, rgba(18, 37, 26, 0.8) 100%);
   padding: 1rem;
   border-radius: 6px;
   border: 2px solid var(--rs-border);
@@ -208,7 +208,7 @@
 }
 
 .empty-slot {
-  color: #6b5a4d;
+  color: var(--rs-text-dim);
   font-style: italic;
 }
 
@@ -225,7 +225,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem;
-  background: linear-gradient(180deg, rgba(74, 47, 31, 0.6) 0%, rgba(62, 34, 26, 0.8) 100%);
+  background: linear-gradient(180deg, rgba(31, 53, 41, 0.6) 0%, rgba(18, 37, 26, 0.8) 100%);
   border-radius: 6px;
   color: var(--rs-text);
   border: 1px solid var(--rs-border);
@@ -240,10 +240,10 @@
 .btn-dungeon {
   width: 100%;
   padding: 1rem;
-  background: linear-gradient(135deg, var(--rs-gold) 0%, #c9a149 100%);
+  background: linear-gradient(135deg, var(--rs-gold) 0%, var(--rs-gold-dim) 100%);
   border: 3px solid var(--rs-gold-bright);
   border-radius: 6px;
-  color: #2c1810;
+  color: var(--rs-bg-deep);
   font-size: 1.125rem;
   font-weight: 700;
   cursor: pointer;
@@ -252,15 +252,15 @@
 
 .btn-dungeon:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.5);
+  box-shadow: 0 4px 16px var(--rs-gold-glow);
 }
 
 .locked-message {
   text-align: center;
-  color: #d4c4a8;
+  color: var(--rs-text);
   padding: 1rem;
-  background: rgba(74, 47, 31, 0.5);
-  border: 1px solid rgba(188, 152, 92, 0.3);
+  background: rgba(31, 53, 41, 0.5);
+  border: 1px solid rgba(98, 118, 107, 0.3);
   border-radius: 8px;
   font-style: italic;
 }
@@ -276,13 +276,13 @@
   display: flex;
   justify-content: space-between;
   padding: 0.75rem;
-  background: rgba(74, 47, 31, 0.5);
+  background: rgba(31, 53, 41, 0.5);
   border-radius: 6px;
   border-left: 3px solid var(--rs-gold);
 }
 
 .activity-date {
-  color: #d4c4a8;
+  color: var(--rs-text);
   font-size: 0.875rem;
 }
 
@@ -292,7 +292,7 @@
 }
 
 .empty-state {
-  color: #d4c4a8;
+  color: var(--rs-text-dim);
   text-align: center;
   padding: 2rem;
   font-style: italic;
@@ -307,22 +307,22 @@
 }
 
 .btn-unequip {
-  background: linear-gradient(180deg, #d9b159 0%, #c9a149 100%);
-  border: 2px solid #bc985c;
-  color: #2c1810;
+  background: linear-gradient(180deg, var(--rs-gold) 0%, var(--rs-gold-dim) 100%);
+  border: 2px solid var(--rs-gold-bright);
+  color: var(--rs-bg-deep);
   padding: 0.25rem 0.5rem;
   cursor: pointer;
   font-size: 1rem;
   border-radius: 4px;
-  box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.3), 0 0 6px rgba(217, 177, 89, 0.3);
+  box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.3), 0 0 6px var(--rs-gold-glow);
   margin-left: auto;
   transition: all 0.1s;
 }
 
 .btn-unequip:hover {
-  background: linear-gradient(180deg, #f0cd76 0%, #d9b159 100%);
+  background: linear-gradient(180deg, var(--rs-gold-bright) 0%, var(--rs-gold) 100%);
   transform: translateY(1px);
-  box-shadow: 0 0 12px rgba(217, 177, 89, 0.5);
+  box-shadow: 0 0 12px var(--rs-gold-glow);
 }
 
 /* Inventory Modal */
@@ -353,7 +353,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  border-bottom: 2px solid #bc985c;
+  border-bottom: 2px solid var(--rs-border);
   padding-bottom: 1rem;
 }
 
@@ -363,28 +363,28 @@
 }
 
 .btn-close {
-  background: linear-gradient(180deg, #d9b159 0%, #c9a149 100%);
-  border: 2px solid #bc985c;
-  color: #2c1810;
+  background: linear-gradient(180deg, var(--rs-gold) 0%, var(--rs-gold-dim) 100%);
+  border: 2px solid var(--rs-gold-bright);
+  color: var(--rs-bg-deep);
   font-size: 2rem;
   width: 40px;
   height: 40px;
   cursor: pointer;
   border-radius: 4px;
-  box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.3), 0 0 6px rgba(217, 177, 89, 0.3);
+  box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.3), 0 0 6px var(--rs-gold-glow);
   line-height: 1;
   transition: all 0.1s;
 }
 
 .btn-close:hover {
-  background: linear-gradient(180deg, #f0cd76 0%, #d9b159 100%);
+  background: linear-gradient(180deg, var(--rs-gold-bright) 0%, var(--rs-gold) 100%);
   transform: translateY(1px);
-  box-shadow: 0 0 12px rgba(217, 177, 89, 0.5);
+  box-shadow: 0 0 12px var(--rs-gold-glow);
 }
 
 .empty-inventory {
   text-align: center;
-  color: #d4c4a8;
+  color: var(--rs-text-dim);
   padding: 3rem;
   font-size: 1.2rem;
 }
@@ -395,16 +395,16 @@
   gap: 0.5rem;
   margin-bottom: 1rem;
   padding: 1rem;
-  background: rgba(62, 34, 26, 0.5);
+  background: rgba(31, 53, 41, 0.5);
   border-radius: 8px;
-  border: 2px solid #bc985c;
+  border: 2px solid var(--rs-border);
 }
 
 .sort-btn {
   padding: 0.5rem 1rem;
-  background: linear-gradient(180deg, #4a2f1f 0%, #3e221a 100%);
-  border: 2px solid #bc985c;
-  color: #d4c4a8;
+  background: linear-gradient(180deg, var(--rs-bg-panel) 0%, var(--rs-bg-dark) 100%);
+  border: 2px solid var(--rs-border);
+  color: var(--rs-text);
   font-weight: 600;
   border-radius: 6px;
   cursor: pointer;
@@ -413,15 +413,15 @@
 }
 
 .sort-btn:hover {
-  background: linear-gradient(180deg, #5a3f2f 0%, #4e322a 100%);
-  border-color: #caa56d;
+  background: linear-gradient(180deg, var(--rs-bg-panel-light) 0%, var(--rs-bg-panel) 100%);
+  border-color: var(--rs-gold-dim);
 }
 
 .sort-btn.active {
-  background: linear-gradient(180deg, #d9b159 0%, #c9a149 100%);
-  color: #2c1810;
+  background: linear-gradient(180deg, var(--rs-gold) 0%, var(--rs-gold-dim) 100%);
+  color: var(--rs-bg-deep);
   border-color: var(--rs-gold-bright);
-  box-shadow: 0 0 10px rgba(217, 177, 89, 0.5);
+  box-shadow: 0 0 10px var(--rs-gold-glow);
 }
 
 .inventory-grid {
@@ -431,32 +431,32 @@
 }
 
 .inventory-item {
-  background: linear-gradient(180deg, #4a2f1f 0%, #3e221a 100%);
+  background: linear-gradient(180deg, var(--rs-bg-panel) 0%, var(--rs-bg-dark) 100%);
   border: 3px solid;
   border-radius: 8px;
   padding: 1rem;
-  box-shadow: inset -3px -3px 0 rgba(0, 0, 0, 0.3), inset 3px 3px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: inset -3px -3px 0 rgba(0, 0, 0, 0.3), inset 3px 3px 0 rgba(255, 255, 255, 0.08);
 }
 
 .inventory-item.rarity-common {
-  border-color: #9e9e9e;
+  border-color: var(--rarity-common);
 }
 
 .inventory-item.rarity-uncommon {
-  border-color: #4caf50;
+  border-color: var(--rarity-uncommon);
 }
 
 .inventory-item.rarity-rare {
-  border-color: #2196f3;
+  border-color: var(--rarity-rare);
 }
 
 .inventory-item.rarity-epic {
-  border-color: #9c27b0;
+  border-color: var(--rarity-epic);
 }
 
 .inventory-item.rarity-legendary {
-  border-color: #ff9800;
-  box-shadow: inset -3px -3px 0 rgba(0, 0, 0, 0.3), inset 3px 3px 0 rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 152, 0, 0.5);
+  border-color: var(--rarity-legendary);
+  box-shadow: inset -3px -3px 0 rgba(0, 0, 0, 0.3), inset 3px 3px 0 rgba(255, 255, 255, 0.08), 0 0 20px rgba(255, 207, 87, 0.5);
 }
 
 .item-header {
@@ -500,34 +500,34 @@
 }
 
 .item-rarity.rarity-common {
-  color: #9e9e9e;
+  color: var(--rarity-common);
 }
 
 .item-rarity.rarity-uncommon {
-  color: #4caf50;
+  color: var(--rarity-uncommon);
 }
 
 .item-rarity.rarity-rare {
-  color: #2196f3;
+  color: var(--rarity-rare);
 }
 
 .item-rarity.rarity-epic {
-  color: #9c27b0;
+  color: var(--rarity-epic);
 }
 
 .item-rarity.rarity-legendary {
-  color: #ff9800;
-  text-shadow: 0 0 10px rgba(255, 152, 0, 0.8);
+  color: var(--rarity-legendary);
+  text-shadow: 0 0 10px rgba(255, 207, 87, 0.8);
 }
 
 .item-type {
-  color: #d4c4a8;
+  color: var(--rs-text);
   font-size: 0.85rem;
   text-transform: capitalize;
 }
 
 .item-description {
-  color: #d4c4a8;
+  color: var(--rs-text);
   font-size: 0.95rem;
   margin: 0.5rem 0;
   line-height: 1.4;
@@ -541,8 +541,8 @@
 }
 
 .stat-bonus {
-  background: rgba(62, 34, 26, 0.8);
-  border: 2px solid #bc985c;
+  background: rgba(31, 53, 41, 0.8);
+  border: 2px solid var(--rs-border);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-size: 0.9rem;
@@ -566,7 +566,7 @@
   width: 100%;
   height: 30px;
   background: rgba(0, 0, 0, 0.3);
-  border: 2px solid #bc985c;
+  border: 2px solid var(--rs-border);
   border-radius: 15px;
   overflow: hidden;
   position: relative;
@@ -584,12 +584,12 @@
   margin-top: 0.5rem;
   font-size: 1.1rem;
   font-weight: 600;
-  color: #d4c4a8;
+  color: var(--rs-text);
 }
 
 .potions-section {
   padding-top: 1rem;
-  border-top: 2px solid #bc985c;
+  border-top: 2px solid var(--rs-border);
 }
 
 @media (max-width: 768px) {
@@ -603,9 +603,9 @@
     gap: 0.5rem;
     text-align: center;
     padding: 1rem;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+    background: linear-gradient(135deg, rgba(31, 53, 41, 0.8) 0%, rgba(18, 37, 26, 0.8) 100%);
     border-radius: 12px;
-    border: 2px solid rgba(102, 126, 234, 0.4);
+    border: 2px solid var(--rs-gold-dim);
     margin-bottom: 1rem;
   }
   
@@ -617,7 +617,7 @@
   .level-badge {
     padding: 0.75rem 2rem;
     font-size: 1.25rem;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 15px var(--rs-gold-glow);
   }
   
   .dashboard-grid {
