@@ -1,0 +1,87 @@
+/* Demo Dashboard Styles */
+
+.demo-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, rgba(212, 184, 106, 0.15), rgba(31, 53, 41, 0.9));
+  border: 2px solid var(--rs-gold);
+  border-radius: 8px;
+  color: var(--rs-gold);
+  font-weight: 600;
+}
+
+.demo-banner span {
+  font-size: 1rem;
+}
+
+.demo-cta-btn {
+  font-size: 0.95rem !important;
+  padding: 0.5rem 1rem !important;
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(212, 184, 106, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(212, 184, 106, 0.8), 0 0 30px rgba(212, 184, 106, 0.4);
+  }
+}
+
+/* Demo Navigation - disabled buttons */
+.main-nav.nav-links button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--rs-dark-bg);
+}
+
+/* Demo Progress Chart Placeholder */
+.demo-chart-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  min-height: 150px;
+}
+
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 100px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.chart-bar {
+  width: 2rem;
+  background: linear-gradient(to top, var(--rs-gold), rgba(212, 184, 106, 0.6));
+  border-radius: 4px 4px 0 0;
+  opacity: 0.7;
+}
+
+.chart-label {
+  color: var(--rs-text-light);
+  font-size: 1rem;
+  text-align: center;
+  opacity: 0.8;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .demo-banner {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .demo-cta-btn {
+    width: 100%;
+  }
+}

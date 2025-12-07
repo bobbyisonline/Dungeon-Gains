@@ -1,0 +1,193 @@
+/* Custom Shepherd.js theme for Dungeon Gains */
+
+/* Override default shepherd styles */
+.shepherd-element {
+  z-index: 10001 !important;
+}
+
+.shepherd-modal-overlay-container {
+  z-index: 10000 !important;
+}
+
+.shepherd-theme-custom {
+  background: linear-gradient(135deg, #1f3529 0%, #12251a 100%) !important;
+  border: 3px solid var(--rs-gold, #d4b86a) !important;
+  border-radius: 12px !important;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(212, 184, 106, 0.3) !important;
+  max-width: 400px !important;
+  font-family: 'VT323', monospace !important;
+}
+
+.shepherd-theme-custom .shepherd-content {
+  padding: 0 !important;
+}
+
+.shepherd-theme-custom .shepherd-header {
+  background: linear-gradient(180deg, rgba(212, 184, 106, 0.15) 0%, transparent 100%) !important;
+  border-bottom: 2px solid rgba(212, 184, 106, 0.3) !important;
+  padding: 1rem 1.25rem !important;
+  border-radius: 9px 9px 0 0 !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+}
+
+.shepherd-theme-custom .shepherd-title {
+  color: var(--rs-gold, #d4b86a) !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  font-family: 'Press Start 2P', monospace !important;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5) !important;
+  margin: 0 !important;
+  flex: 1 !important;
+  line-height: 1.6 !important;
+  word-break: break-word !important;
+}
+
+.shepherd-theme-custom .shepherd-cancel-icon {
+  color: #c8d4cc !important;
+  font-size: 1.5rem !important;
+}
+
+.shepherd-theme-custom .shepherd-cancel-icon:hover {
+  color: var(--rs-gold, #d4b86a) !important;
+}
+
+.shepherd-theme-custom .shepherd-text {
+  color: #c8d4cc !important;
+  font-size: 1.1rem !important;
+  line-height: 1.6 !important;
+  padding: 1.25rem !important;
+}
+
+.shepherd-theme-custom .shepherd-text p {
+  margin: 0 0 0.75rem 0 !important;
+}
+
+.shepherd-theme-custom .shepherd-text p:last-child {
+  margin-bottom: 0 !important;
+}
+
+.shepherd-theme-custom .shepherd-text ul {
+  margin: 0.5rem 0 !important;
+  padding-left: 1.25rem !important;
+}
+
+.shepherd-theme-custom .shepherd-text li {
+  margin-bottom: 0.5rem !important;
+}
+
+.shepherd-theme-custom .shepherd-text strong {
+  color: var(--rs-gold, #d4b86a) !important;
+}
+
+.shepherd-theme-custom .shepherd-text em {
+  color: #a8b4ac !important;
+}
+
+.shepherd-theme-custom .shepherd-footer {
+  padding: 0 1.25rem 1.25rem 1.25rem !important;
+  border-top: none !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 0.75rem !important;
+}
+
+.shepherd-theme-custom .shepherd-button {
+  font-family: 'VT323', monospace !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  padding: 0.625rem 1.25rem !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5) !important;
+}
+
+.shepherd-button-primary {
+  background: linear-gradient(135deg, var(--rs-gold, #d4b86a) 0%, #c9a85c 100%) !important;
+  border: 2px solid var(--rs-gold-bright, #e8d48b) !important;
+  color: #0f1e15 !important;
+  text-shadow: none !important;
+}
+
+.shepherd-button-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 15px rgba(212, 184, 106, 0.5) !important;
+}
+
+.shepherd-button-secondary {
+  background: transparent !important;
+  border: 2px solid #62766b !important;
+  color: #c8d4cc !important;
+}
+
+.shepherd-button-secondary:hover {
+  border-color: var(--rs-gold, #d4b86a) !important;
+  color: var(--rs-gold, #d4b86a) !important;
+}
+
+.shepherd-button-large {
+  padding: 0.875rem 2rem !important;
+  font-size: 1.2rem !important;
+  width: 100% !important;
+}
+
+/* Arrow styling */
+.shepherd-theme-custom .shepherd-arrow:before {
+  background: #1f3529 !important;
+  border: 3px solid var(--rs-gold, #d4b86a) !important;
+}
+
+/* Modal overlay */
+.shepherd-modal-overlay-container .shepherd-modal-mask-rect {
+  fill: rgba(0, 0, 0, 0.75) !important;
+}
+
+/* Highlighted element styling */
+.shepherd-target-click-disabled {
+  pointer-events: none !important;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .shepherd-theme-custom {
+    max-width: calc(100vw - 2rem) !important;
+    margin: 0 1rem !important;
+  }
+  
+  .shepherd-theme-custom .shepherd-header {
+    padding: 0.75rem 1rem !important;
+  }
+  
+  .shepherd-theme-custom .shepherd-title {
+    font-size: 0.7rem !important;
+  }
+  
+  .shepherd-theme-custom .shepherd-text {
+    font-size: 1rem !important;
+    padding: 0.75rem 1rem !important;
+  }
+  
+  .shepherd-theme-custom .shepherd-text ul {
+    padding-left: 1rem !important;
+    margin: 0.25rem 0 !important;
+  }
+  
+  .shepherd-theme-custom .shepherd-text li {
+    margin-bottom: 0.25rem !important;
+    font-size: 0.95rem !important;
+  }
+  
+  .shepherd-theme-custom .shepherd-footer {
+    padding: 0.5rem 1rem 1rem 1rem !important;
+    gap: 0.5rem !important;
+  }
+  
+  .shepherd-theme-custom .shepherd-button {
+    padding: 0.5rem 1rem !important;
+    font-size: 1rem !important;
+  }
+}

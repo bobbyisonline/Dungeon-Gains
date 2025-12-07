@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useUser, SignInButton } from '@clerk/clerk-react';
 import { useGame } from '../../context/GameContext';
 import { ItemIcon } from '../ItemSprite';
 import { LevelUpModal } from '../LevelUpModal/LevelUpModal';
@@ -17,33 +18,20 @@ const STAT_TOOLTIPS: Record<string, { title: string; description: string }> = {
 
 export const Dashboard = () => {
   const { gameState, startDungeon, equipItem, unequipItem, dropItem, useHealthPotion, clearLevelUpInfo } = useGame();
+  const { user } = useUser();
   const [showInventory, setShowInventory] = useState(false);
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [selectedEquippedItem, setSelectedEquippedItem] = useState<any>(null);
   const [compareItem, setCompareItem] = useState<any>(null);
   const [inventorySortBy, setInventorySortBy] = useState<'name' | 'rarity' | 'type'>('name');
   const [activeStatTooltip, setActiveStatTooltip] = useState<string | null>(null);
+  const [showCloudTip, setShowCloudTip] = useState(() => {
+    return !localStorage.getItem('dungeon_gains_cloud_tip_dismissed');
+  });
   const [showWelcomeToast, setShowWelcomeToast] = useState(() => {
     // Show welcome toast only if user hasn't seen it
     return !localStorage.getItem('dungeon_gains_welcome_toast_seen');
   });
-  const [tutorialClosed, setTutorialClosed] = useState(() => {
-    // Check if tutorial has been closed
-    return !!localStorage.getItem('dungeon_gains_tutorial_seen');
-  });
-
-  // Listen for tutorial being closed (check periodically since it's managed in App.tsx)
-  useEffect(() => {
-    if (!tutorialClosed) {
-      const checkTutorial = setInterval(() => {
-        if (localStorage.getItem('dungeon_gains_tutorial_seen')) {
-          setTutorialClosed(true);
-          clearInterval(checkTutorial);
-        }
-      }, 500);
-      return () => clearInterval(checkTutorial);
-    }
-  }, [tutorialClosed]);
 
   // Check for level-up modal
   useEffect(() => {
@@ -56,9 +44,8 @@ export const Dashboard = () => {
   
   const { player, availableDungeons } = gameState;
   
-  // Determine if we should show the welcome toast (only after tutorial is closed)
+  // Determine if we should show the welcome toast
   const shouldShowWelcomeToast = showWelcomeToast && 
-    tutorialClosed &&
     !player.firstDungeonCompleted && 
     availableDungeons > 0;
 
@@ -93,8 +80,24 @@ export const Dashboard = () => {
     }
   });
 
+  const handleDismissCloudTip = () => {
+    localStorage.setItem('dungeon_gains_cloud_tip_dismissed', 'true');
+    setShowCloudTip(false);
+  };
+
   return (
     <div className="dashboard">
+      {/* Cloud Sync Tip for Guest Users */}
+      {!user && showCloudTip && (
+        <div className="cloud-sync-tip">
+          <div className="cloud-tip-content">
+            <span className="cloud-tip-icon">☁️</span>
+            <p>Playing as guest? <SignInButton mode="modal"><button className="cloud-tip-link">Sign in</button></SignInButton> to save your hero to the cloud!</p>
+          </div>
+          <button className="cloud-tip-dismiss" onClick={handleDismissCloudTip} title="Dismiss">×</button>
+        </div>
+      )}
+
       <div className="dashboard-header">
         <h1>⚔️ {player.name}'s Adventure ⚔️</h1>
         <div className="level-badge">Level {player.stats.level}</div>

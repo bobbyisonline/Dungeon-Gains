@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 import { Analytics } from '@vercel/analytics/react';
 import { GameProvider, useGame } from './context/GameContext';
@@ -8,8 +8,8 @@ import { WorkoutLogger } from './components/WorkoutLogger/WorkoutLogger';
 import { DungeonCrawler } from './components/DungeonCrawler/DungeonCrawler';
 import { WorkoutHistory } from './components/WorkoutHistory/WorkoutHistory';
 import { FeedbackModal } from './components/FeedbackModal/FeedbackModal';
-import { WipModal } from './components/WipModal/WipModal';
-import { TutorialModal } from './components/TutorialModal/TutorialModal';
+import { DemoDashboard } from './components/DemoDashboard/DemoDashboard';
+import { useOnboardingTour } from './components/OnboardingTour/OnboardingTour';
 import './styles/sprites.css';
 import './App.css';
 
@@ -19,26 +19,6 @@ function GameContent() {
   const { gameState, isLoadingGame } = useGame();
   const [currentView, setCurrentView] = useState<View>('dashboard');
   const [showFeedback, setShowFeedback] = useState(false);
-  const [showTutorial, setShowTutorial] = useState(false);
-
-  // Show tutorial only after character creation, on dashboard, and not in dungeon
-  useEffect(() => {
-    if (
-      gameState &&
-      !gameState.currentDungeon &&
-      currentView === 'dashboard'
-    ) {
-      const hasSeenTutorial = localStorage.getItem('dungeon_gains_tutorial_seen');
-      if (!hasSeenTutorial) {
-        setShowTutorial(true);
-      }
-    }
-  }, [gameState, currentView]);
-
-  const handleTutorialClose = () => {
-    setShowTutorial(false);
-    localStorage.setItem('dungeon_gains_tutorial_seen', 'true');
-  };
 
   if (isLoadingGame) {
     return (
@@ -73,7 +53,6 @@ function GameContent() {
 
   return (
     <>
-      <TutorialModal open={showTutorial} onClose={handleTutorialClose} />
       {!gameState.currentDungeon && (
         <nav className="main-nav" style={{ borderTop: 'none' }}>
           <div className="nav-links">
@@ -115,28 +94,34 @@ function GameContent() {
 }
 
 function App() {
-  const [guestMode, setGuestMode] = useState(false);
-  const [showWip, setShowWip] = useState(() => {
-    // Only show WIP modal if user hasn't seen it before
-    return !localStorage.getItem('dungeon_gains_wip_seen');
+  const [demoMode, setDemoMode] = useState(() => {
+    // Start in demo mode if user hasn't completed the onboarding tour
+    return !localStorage.getItem('dungeon_gains_onboarding_completed');
   });
 
-  const handleCloseWip = () => {
-    localStorage.setItem('dungeon_gains_wip_seen', 'true');
-    setShowWip(false);
+  const handleTourComplete = () => {
+    localStorage.setItem('dungeon_gains_onboarding_completed', 'true');
+    setDemoMode(false);
   };
+
+  // Initialize the onboarding tour
+  const { startTour } = useOnboardingTour({ onComplete: handleTourComplete });
 
   return (
     <div className="app-container">
-      <WipModal open={showWip} onClose={handleCloseWip} />
       <nav className="main-nav">
         <div className="nav-brand">
           <h1>⚔️ Dungeon Gains</h1>
         </div>
         <div className="nav-auth">
           <SignedOut>
-            {!guestMode && <SignInButton mode="modal" />}
-            {guestMode && <button onClick={() => setGuestMode(false)} className="rs-button" style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}>🔐 Sign In</button>}
+            {demoMode ? (
+              <button onClick={handleTourComplete} className="rs-button" style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}>
+                🎮 Start Playing
+              </button>
+            ) : (
+              <SignInButton mode="modal" />
+            )}
           </SignedOut>
           <SignedIn>
             <UserButton />
@@ -145,40 +130,8 @@ function App() {
       </nav>
       
       <SignedOut>
-        {!guestMode ? (
-          <main className="main-content">
-            <div className="rs-panel" style={{ maxWidth: '600px', margin: '2rem auto', textAlign: 'center' }}>
-              <h2>🎮 Welcome to Dungeon Gains!</h2>
-              <p style={{ marginBottom: '2rem', fontSize: '1.2rem' }}>
-                Transform your workouts into epic RPG adventures. Track your lifts, battle monsters, 
-                and watch your character grow stronger as you do!
-              </p>
-              <p style={{ marginBottom: '2rem', color: 'var(--rs-gold)' }}>
-                Create your hero and begin your quest!
-              </p>
-              <SignInButton mode="modal">
-                <button className="rs-button" style={{ fontSize: '1.2rem', padding: '1rem 2rem', marginBottom: '1rem' }}>
-                  ⚔️ Start Your Adventure
-                </button>
-              </SignInButton>
-              
-              <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'rgba(102, 126, 234, 0.1)', border: '2px solid rgba(102, 126, 234, 0.3)', borderRadius: '8px' }}>
-                <p style={{ color: '#cbd5e0', marginBottom: '1rem', fontSize: '1rem' }}>
-                  🎯 Just testing? Want to try it out first?
-                </p>
-                <button 
-                  onClick={() => setGuestMode(true)} 
-                  className="rs-button"
-                  style={{ fontSize: '1rem', padding: '0.75rem 1.5rem', background: 'rgba(102, 126, 234, 0.2)', border: '2px solid #667eea' }}
-                >
-                  👤 Play as Guest
-                </button>
-                <p style={{ color: '#9ca3af', marginTop: '0.75rem', fontSize: '0.9rem' }}>
-                  Progress saved locally only. Sign in anytime to sync to cloud!
-                </p>
-              </div>
-            </div>
-          </main>
+        {demoMode ? (
+          <DemoDashboard onStartTour={startTour} />
         ) : (
           <GameProvider>
             <GameContent />
