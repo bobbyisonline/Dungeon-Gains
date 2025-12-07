@@ -64,7 +64,8 @@
   gap: 0.5rem;
 }
 
-.nav-links button {
+.nav-links button,
+.nav-links a {
   background: linear-gradient(180deg, var(--rs-bg-panel-light) 0%, var(--rs-bg-panel) 100%);
   border: 3px solid var(--rs-border);
   border-top: 3px solid var(--rs-border-light);
@@ -81,9 +82,11 @@
   font-size: 1.1rem;
   font-family: 'VT323', monospace;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+  text-decoration: none;
 }
 
-.nav-links button:hover {
+.nav-links button:hover,
+.nav-links a:hover {
   background: linear-gradient(180deg, #2f5a40 0%, var(--rs-bg-panel-light) 100%);
   color: var(--rs-gold-bright);
   transform: translate(1px, 1px);
@@ -94,7 +97,8 @@
     0 0 8px var(--rs-gold-glow);
 }
 
-.nav-links button.active {
+.nav-links button.active,
+.nav-links a.active {
   background: linear-gradient(180deg, var(--rs-gold) 0%, var(--rs-gold-dim) 100%);
   border-color: var(--rs-gold-bright);
   color: var(--rs-bg-deep);
