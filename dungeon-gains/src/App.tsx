@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Routes, Route, NavLink, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 import { Analytics } from '@vercel/analytics/react';
 import { GameProvider, useGame } from './context/GameContext';
@@ -8,17 +9,27 @@ import { WorkoutLogger } from './components/WorkoutLogger/WorkoutLogger';
 import { DungeonCrawler } from './components/DungeonCrawler/DungeonCrawler';
 import { WorkoutHistory } from './components/WorkoutHistory/WorkoutHistory';
 import { FeedbackModal } from './components/FeedbackModal/FeedbackModal';
-import { DemoDashboard } from './components/DemoDashboard/DemoDashboard';
 import { useOnboardingTour } from './components/OnboardingTour/OnboardingTour';
 import './styles/sprites.css';
 import './App.css';
-
-type View = 'dashboard' | 'workout' | 'history';
+import { DemoDashboard } from './components/DemoDashboard/DemoDashboard';
 
 function GameContent() {
   const { gameState, isLoadingGame } = useGame();
-  const [currentView, setCurrentView] = useState<View>('dashboard');
   const [showFeedback, setShowFeedback] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Effect to handle dungeon state and navigation
+  useEffect(() => {
+    if (!gameState) return;
+    
+    if (gameState.currentDungeon && location.pathname !== '/dungeon') {
+      navigate('/dungeon');
+    } else if (!gameState.currentDungeon && location.pathname === '/dungeon') {
+      navigate('/');
+    }
+  }, [gameState?.currentDungeon, navigate, location.pathname]);
 
   if (isLoadingGame) {
     return (
@@ -35,45 +46,33 @@ function GameContent() {
     return <CharacterCreation />;
   }
 
-  const renderView = () => {
-    if (gameState.currentDungeon) {
-      return <DungeonCrawler />;
-    }
-
-    switch (currentView) {
-      case 'workout':
-        return <WorkoutLogger />;
-      case 'history':
-        return <WorkoutHistory />;
-      case 'dashboard':
-      default:
-        return <Dashboard />;
-    }
-  };
+  // Hide nav during dungeon
+  const inDungeon = location.pathname === '/dungeon';
 
   return (
     <>
-      {!gameState.currentDungeon && (
+      {!inDungeon && (
         <nav className="main-nav" style={{ borderTop: 'none' }}>
           <div className="nav-links">
-            <button 
-              className={currentView === 'dashboard' ? 'active' : ''}
-              onClick={() => setCurrentView('dashboard')}
+            <NavLink 
+              to="/"
+              className={({ isActive }) => isActive ? 'active' : ''}
+              end
             >
               🏠 Dashboard
-            </button>
-            <button 
-              className={currentView === 'workout' ? 'active' : ''}
-              onClick={() => setCurrentView('workout')}
+            </NavLink>
+            <NavLink 
+              to="/workout"
+              className={({ isActive }) => isActive ? 'active' : ''}
             >
               💪 Log Workout
-            </button>
-            <button 
-              className={currentView === 'history' ? 'active' : ''}
-              onClick={() => setCurrentView('history')}
+            </NavLink>
+            <NavLink 
+              to="/history"
+              className={({ isActive }) => isActive ? 'active' : ''}
             >
               📅 History
-            </button>
+            </NavLink>
             <button 
               onClick={() => setShowFeedback(true)}
               className="feedback-btn"
@@ -85,7 +84,13 @@ function GameContent() {
       )}
       
       <main className="main-content">
-        {renderView()}
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/workout" element={<WorkoutLogger />} />
+          <Route path="/history" element={<WorkoutHistory />} />
+          <Route path="/dungeon" element={gameState.currentDungeon ? <DungeonCrawler /> : <Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </main>
 
       {showFeedback && <FeedbackModal onClose={() => setShowFeedback(false)} />}
