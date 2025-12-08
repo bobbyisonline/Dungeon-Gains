@@ -137,28 +137,35 @@
 }
 
 @media (max-width: 768px) {
-  /* Compact top header */
+  /* Compact top header - centered title */
   .main-nav {
-    padding: 0 0.75rem;
-    height: 48px;
-    min-height: 48px;
+    padding: 0.5rem 0.75rem;
+    min-height: unset;
+    height: auto;
     border-top-width: 2px;
     border-bottom-width: 2px;
     gap: 0;
+    justify-content: center;
   }
   
   .nav-brand {
-    flex: 1;
+    flex: unset;
+    text-align: center;
   }
   
   .nav-brand h1 {
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    text-shadow: 1px 1px 0 var(--rs-black);
+    font-size: 1.1rem;
+    letter-spacing: 1.5px;
+    text-shadow: 
+      2px 2px 0 var(--rs-black),
+      0 0 8px var(--rs-gold-glow);
   }
   
   .nav-auth {
-    flex: 0 0 auto;
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
   }
   
   /* Bottom tab bar navigation */
@@ -167,7 +174,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 60px;
+    height: 70px;
     width: 100%;
     background: linear-gradient(180deg, var(--rs-bg-panel) 0%, var(--rs-bg-dark) 100%);
     border-top: 2px solid var(--rs-gold-dim);
@@ -178,7 +185,7 @@
     display: flex;
     justify-content: space-around;
     align-items: stretch;
-    padding: 0;
+    padding: 0.25rem 0;
     margin: 0;
     z-index: 1000;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
@@ -192,15 +199,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.2rem;
-    padding: 0.4rem 0.25rem;
+    gap: 0.25rem;
+    padding: 0.5rem 0.25rem;
     min-height: unset;
     height: 100%;
     border: none;
     border-radius: 0;
     background: transparent;
     color: var(--rs-text-dim);
-    font-size: 0.65rem;
+    font-size: 0.95rem;
     font-family: 'VT323', monospace;
     text-shadow: none;
     box-shadow: none;
@@ -238,33 +245,31 @@
   
   /* Add padding to main content for bottom nav */
   .main-content {
-    padding-bottom: 68px;
+    padding-bottom: 78px;
   }
 }
 
 @media (max-width: 480px) {
   .main-nav {
-    padding: 0 0.5rem;
-    height: 44px;
-    min-height: 44px;
+    padding: 0.4rem 0.5rem;
   }
   
   .nav-brand h1 {
-    font-size: 0.75rem;
-    letter-spacing: 0.5px;
+    font-size: 1rem;
+    letter-spacing: 1px;
   }
   
   .nav-links {
-    height: 56px;
+    height: 64px;
   }
   
   .nav-links a,
   .nav-links button {
-    font-size: 0.6rem;
-    padding: 0.3rem 0.2rem;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.2rem;
   }
   
   .main-content {
-    padding-bottom: 64px;
+    padding-bottom: 72px;
   }
 }
