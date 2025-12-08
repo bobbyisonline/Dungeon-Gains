@@ -207,7 +207,7 @@
     border-radius: 0;
     background: transparent;
     color: var(--rs-text-dim);
-    font-size: 0.95rem;
+    font-size: 1.15rem;
     font-family: 'VT323', monospace;
     text-shadow: none;
     box-shadow: none;
@@ -265,7 +265,7 @@
   
   .nav-links a,
   .nav-links button {
-    font-size: 0.85rem;
+    font-size: 1.05rem;
     padding: 0.4rem 0.2rem;
   }
   
