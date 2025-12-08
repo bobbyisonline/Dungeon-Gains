@@ -375,7 +375,11 @@ export const Dashboard = () => {
             </div>
           </div>
           
-          {availableDungeons > 0 ? (
+          {player.health <= 0 ? (
+            <div className="locked-message">
+              ☠️ You need to rest! Log a workout to restore health.
+            </div>
+          ) : availableDungeons > 0 ? (
             <button onClick={startDungeon} className="btn-dungeon">
               🗝️ Enter Dungeon
             </button>

@@ -169,6 +169,9 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
 
   const startDungeon = () => {
     if (!gameState || gameState.availableDungeons <= 0) return;
+    
+    // Prevent dungeon entry if player has no health
+    if (gameState.player.health <= 0) return;
 
     // Scale difficulty based on player level (difficulty = 1-9), capped at level 25
     // At level 25, difficulty = 9 (keeps final content challenging but beatable)

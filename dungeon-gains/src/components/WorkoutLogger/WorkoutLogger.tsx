@@ -280,13 +280,13 @@ export const WorkoutLogger = () => {
                   fontWeight: 600,
                   fontSize: '1.1rem',
                   margin: '0.5rem 0',
-                  opacity: gameState.availableDungeons > 0 ? 1 : 0.6,
-                  cursor: gameState.availableDungeons > 0 ? 'pointer' : 'not-allowed',
+                  opacity: (gameState.availableDungeons > 0 && gameState.player.health > 0) ? 1 : 0.6,
+                  cursor: (gameState.availableDungeons > 0 && gameState.player.health > 0) ? 'pointer' : 'not-allowed',
                 }}
-                disabled={gameState.availableDungeons <= 0}
-                title={gameState.availableDungeons > 0 ? 'Start a Dungeon Run' : 'Log a workout to unlock a run!'}
+                disabled={gameState.availableDungeons <= 0 || gameState.player.health <= 0}
+                title={gameState.player.health <= 0 ? 'You need health to enter the dungeon!' : (gameState.availableDungeons > 0 ? 'Start a Dungeon Run' : 'Log a workout to unlock a run!')}
                 onClick={() => {
-                  if (gameState.availableDungeons > 0) {
+                  if (gameState.availableDungeons > 0 && gameState.player.health > 0) {
                     startDungeon();
                   }
                 }}

@@ -771,7 +771,7 @@
   }
   
   .stat-value {
-    font-size: 1.4rem;
+    font-size: 2.2rem;
     line-height: 1.2;
     order: 1; /* Move number above the label */
   }
@@ -972,7 +972,9 @@
   }
   
   .equipped-item .item-icon {
-    font-size: 2rem;
+    transform: scale(1.5);
+    transform-origin: center;
+    margin: 0.5rem;
   }
   
   .equipped-item .item-details {
@@ -993,9 +995,10 @@
   }
   
   .equipped-item .btn-unequip {
-    font-size: 0.8rem;
-    padding: 0.2rem 0.4rem;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.35rem;
     margin-left: 0;
+    min-width: unset;
   }
   
   .empty-slot {
@@ -1207,7 +1210,7 @@
   }
   
   .stat-value {
-    font-size: 1.25rem;
+    font-size: 2rem;
   }
   
   .health-bar-container {
