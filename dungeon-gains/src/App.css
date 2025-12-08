@@ -131,12 +131,32 @@
   background: linear-gradient(180deg, #ef5350 0%, #d32f2f 100%) !important;
 }
 
+/* Secondary game navigation (below main header) */
+.game-nav {
+  background: linear-gradient(180deg, var(--rs-bg-panel) 0%, var(--rs-bg-dark) 100%);
+  border-bottom: 2px solid var(--rs-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  padding: 0.5rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.game-nav .nav-links {
+  justify-content: center;
+}
+
 .main-content {
   flex: 1;
   overflow-y: auto;
 }
 
 @media (max-width: 768px) {
+  /* Hide the game-nav wrapper on mobile - nav-links go to bottom */
+  .game-nav {
+    display: contents; /* Makes wrapper invisible but keeps children */
+  }
+  
   /* Compact top header - centered title */
   .main-nav {
     padding: 0.5rem 0.75rem;

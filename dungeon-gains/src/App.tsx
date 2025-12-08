@@ -52,33 +52,35 @@ function GameContent() {
   return (
     <>
       {!inDungeon && (
-        <div className="nav-links">
-          <NavLink 
-            to="/"
-            className={({ isActive }) => isActive ? 'active' : ''}
-            end
-          >
-            🏠 Dashboard
-          </NavLink>
-          <NavLink 
-            to="/workout"
-            className={({ isActive }) => isActive ? 'active' : ''}
-          >
-            💪 Log
-          </NavLink>
-          <NavLink 
-            to="/history"
-            className={({ isActive }) => isActive ? 'active' : ''}
-          >
-            📅 History
-          </NavLink>
-          <button 
-            onClick={() => setShowFeedback(true)}
-            className="feedback-btn"
-          >
-            📝 Feedback
-          </button>
-        </div>
+        <nav className="game-nav">
+          <div className="nav-links">
+            <NavLink 
+              to="/"
+              className={({ isActive }) => isActive ? 'active' : ''}
+              end
+            >
+              🏠 Dashboard
+            </NavLink>
+            <NavLink 
+              to="/workout"
+              className={({ isActive }) => isActive ? 'active' : ''}
+            >
+              💪 Log Workout
+            </NavLink>
+            <NavLink 
+              to="/history"
+              className={({ isActive }) => isActive ? 'active' : ''}
+            >
+              📅 History
+            </NavLink>
+            <button 
+              onClick={() => setShowFeedback(true)}
+              className="feedback-btn"
+            >
+              📝 Feedback
+            </button>
+          </div>
+        </nav>
       )}
       
       <main className="main-content">
