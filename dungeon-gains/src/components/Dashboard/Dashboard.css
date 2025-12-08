@@ -733,8 +733,8 @@
   
   .stats-list {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.35rem;
     margin-bottom: 0.5rem;
   }
   
@@ -743,14 +743,15 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0.6rem 0.5rem;
-    gap: 0.2rem;
-    background: rgba(31, 53, 41, 0.4);
-    border-radius: 8px;
+    padding: 0.5rem 0.25rem;
+    gap: 0.15rem;
+    background: rgba(31, 53, 41, 0.5);
+    border-radius: 6px;
+    border-left: none;
   }
   
   .stat-icon {
-    font-size: 1.25rem;
+    display: none;
   }
   
   .stat-details {
@@ -761,10 +762,12 @@
   }
   
   .stat-name {
-    font-size: 0.6rem;
-    color: #a0aec0;
+    font-size: 0.55rem;
+    color: var(--rs-text-dim);
     white-space: nowrap;
     order: 2; /* Move label below the number */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
   
   .stat-name::after {
@@ -772,8 +775,9 @@
   }
   
   .stat-value {
-    font-size: 2.2rem !important;
-    line-height: 1.2;
+    font-size: 1.75rem !important;
+    font-weight: 700;
+    line-height: 1;
     order: 1; /* Move number above the label */
   }
   
