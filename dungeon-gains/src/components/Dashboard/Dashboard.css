@@ -733,8 +733,8 @@
   
   .stats-list {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.25rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
     margin-bottom: 0.5rem;
   }
   
@@ -743,9 +743,10 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0.4rem 0.25rem;
-    gap: 0.1rem;
-    background: transparent;
+    padding: 0.6rem 0.5rem;
+    gap: 0.2rem;
+    background: rgba(31, 53, 41, 0.4);
+    border-radius: 8px;
   }
   
   .stat-icon {
@@ -771,7 +772,7 @@
   }
   
   .stat-value {
-    font-size: 2.2rem;
+    font-size: 2.2rem !important;
     line-height: 1.2;
     order: 1; /* Move number above the label */
   }
@@ -1210,7 +1211,7 @@
   }
   
   .stat-value {
-    font-size: 2rem;
+    font-size: 2rem !important;
   }
   
   .health-bar-container {
