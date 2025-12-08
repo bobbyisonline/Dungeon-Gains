@@ -116,7 +116,7 @@ function App() {
     <div className="app-container">
       <nav className="main-nav">
         <div className="nav-brand">
-          <h1>⚔️ Dungeon Gains</h1>
+          <img src="/header-image.png" alt="Dungeon Gains" className="header-logo" />
         </div>
         <div className="nav-auth">
           <SignedOut>
