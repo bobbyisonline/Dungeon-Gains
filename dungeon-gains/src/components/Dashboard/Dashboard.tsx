@@ -301,7 +301,7 @@ export const Dashboard = () => {
           <h2>❤️ Health & Potions</h2>
           <div className="health-section">
             <div className="health-bar-container">
-              <div className="health-bar">
+              <div className={`health-bar ${player.health <= 0 ? 'critical' : ''}`}>
                 <div 
                   className="health-fill" 
                   style={{ width: `${(player.health / player.maxHealth) * 100}%` }}
@@ -317,11 +317,11 @@ export const Dashboard = () => {
               </div>
               <button 
                 onClick={useHealthPotion} 
-                className="rs-button"
+                className="rs-button potion-btn"
                 disabled={!player.healthPotions || player.healthPotions <= 0 || player.health >= player.maxHealth}
                 style={{ marginTop: '0.5rem', width: '100%' }}
               >
-                Use Potion (Restore 50% HP)
+                🧪 Use Potion (+50% HP)
               </button>
               <p style={{ fontSize: '1.15rem', marginTop: '0.75rem', color: '#10b981', fontWeight: 700 }}>
                 💡 Earn potions by setting PRs!
@@ -376,8 +376,8 @@ export const Dashboard = () => {
           </div>
           
           {player.health <= 0 ? (
-            <div className="locked-message">
-              ☠️ You need to rest! Log a workout to restore health.
+            <div className="locked-message critical">
+              ☠️ No Health! Use a potion or wait for daily reset at midnight.
             </div>
           ) : availableDungeons > 0 ? (
             <button onClick={startDungeon} className="btn-dungeon">
