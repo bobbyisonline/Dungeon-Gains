@@ -762,12 +762,12 @@
   }
   
   .stat-name {
-    font-size: 0.7rem;
+    font-size: 0.55rem;
     color: var(--rs-text-dim);
     white-space: nowrap;
     order: 2; /* Move label below the number */
     text-transform: uppercase;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.5px;
   }
   
   .stat-name::after {
@@ -782,9 +782,7 @@
   }
   
   .stat-bonus-text {
-    font-size: 0.85rem;
-    display: block;
-    margin-top: 0.1rem;
+    font-size: 0.6rem;
   }
   
   .xp-section {
